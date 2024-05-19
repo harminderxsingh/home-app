@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 13,
     borderRadius: 12,
     marginBottom: 14,
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 16,
     lineHeight: 24,
     color: '#595959',
