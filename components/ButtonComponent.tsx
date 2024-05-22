@@ -30,6 +30,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
+    width:"100%",
     display: "flex",
     justifyContent: "center",
     backgroundColor: "#4F749A",

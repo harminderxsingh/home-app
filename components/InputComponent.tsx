@@ -13,6 +13,7 @@ const InputComponent: React.FC<InputProps> = ({ placeholder, inputStyle }) => {
 
 const styles = StyleSheet.create({
   input: {
+    width:"100%",
     backgroundColor: '#fff',
     borderWidth: 0,
     padding: 13,

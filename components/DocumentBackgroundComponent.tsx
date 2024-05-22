@@ -1,0 +1,57 @@
+import { LinearGradient } from "expo-linear-gradient";
+import React, { ReactNode } from "react";
+import {
+  ImageBackground,
+  StyleSheet,
+  ImageBackgroundProps,
+  View,
+  Text,
+} from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+interface DocumentBackgroundComponentProps extends ImageBackgroundProps {
+  children: ReactNode;
+}
+
+const DocumentBackgroundComponent: React.FC<
+  DocumentBackgroundComponentProps
+> = ({ children, ...props }) => {
+  return (
+    <SafeAreaProvider>
+      <ImageBackground
+        source={require("../assets/images/bg/3.png")}
+        style={styles.backgroundImage}
+        {...props}
+      >
+         <LinearGradient
+          colors={[
+            "rgba(90, 117, 144, 1)",
+            "transparent",
+            "transparent",
+            "rgba(0, 126, 198, 0)",
+          ]}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
+          style={styles.gradient}
+        >
+          {children}
+        </LinearGradient>
+      </ImageBackground>
+    </SafeAreaProvider>
+  );
+};
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  gradient: {
+    flex: 1,
+  },
+});
+
+export default DocumentBackgroundComponent;

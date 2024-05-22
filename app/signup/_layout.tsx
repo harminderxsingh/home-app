@@ -18,7 +18,11 @@ export default function Signup() {
       <CardComponent>
         <Text style={styles.title}>Sign up</Text>
         <ButtonComponent title="Log in with Facebook" onPress={() => {}} />
-        <Text style={styles.orText}>or</Text>
+        <View style={styles.orTextContainer}>
+          <View style={[styles.line,styles.mRight]} />
+          <Text style={styles.orText}>or</Text>
+          <View style={[styles.line,styles.mLeft]} />
+        </View>
         <InputComponent placeholder="Full name" />
         <InputComponent placeholder="House number" />
         <InputComponent placeholder="Password" />
@@ -31,6 +35,26 @@ export default function Signup() {
 }
 
 const styles = StyleSheet.create({
+  orTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent:"center",
+    marginVertical: 10,
+  },
+  line: {
+    marginTop: 3,
+    height: 1,
+    width: 100,
+    backgroundColor: "#888",
+  },
+  mLeft: {
+    marginLeft: 5,
+
+  },
+  mRight: {
+    marginRight: 5,
+
+  },
   title: {
     textAlign: "center",
     fontSize: 24,
@@ -40,7 +64,7 @@ const styles = StyleSheet.create({
   orText: {
     textAlign: "center",
     marginVertical: 10,
-    color: "#888",
+    color: "#000",
   },
   text: {
     color: "#595959",
