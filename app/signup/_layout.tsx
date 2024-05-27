@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState ,useRef} from "react";
 import {
   StyleSheet,
   View,
@@ -11,23 +11,71 @@ import InputComponent from "@/components/InputComponent";
 import CardComponent from "@/components/CardComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
 import { Link } from "expo-router";
+import DropdownComponent from "@/components/DropDownComponent";
+import { Picker } from '@react-native-picker/picker';
+
+import PhoneInput from "react-native-phone-number-input";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+
 
 export default function Signup() {
+  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [value, setValue] = useState("");
+  const [formattedValue, setFormattedValue] = useState("");
+  const [valid, setValid] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const phoneInput = useRef<PhoneInput>(null);
   return (
     <GradientBackgroundComponent>
       <CardComponent>
         <Text style={styles.title}>Sign up</Text>
-        <ButtonComponent title="Log in with Facebook" onPress={() => {}} />
+        <ButtonComponent title="Log in with Facebook" onPress={() => { }} />
         <View style={styles.orTextContainer}>
-          <View style={[styles.line,styles.mRight]} />
+          <View style={[styles.line, styles.mRight]} />
           <Text style={styles.orText}>or</Text>
-          <View style={[styles.line,styles.mLeft]} />
+          <View style={[styles.line, styles.mLeft]} />
         </View>
         <InputComponent placeholder="Full name" />
+        {/* <DropdownComponent /> */}
+        <Picker
+          style={styles.input}
+          selectedValue={selectedLanguage}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedLanguage(itemValue)
+          }>
+          <Picker.Item label="Community name" value="Community name" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
+
         <InputComponent placeholder="House number" />
-        <InputComponent placeholder="Password" />
-        <ButtonComponent title="Sign up" onPress={() => {}} />
-          <Text style={styles.text}>Already have an account?{"\n"}
+        <InputComponent placeholder="Phone number" />
+        {/* <PhoneInput
+            ref={phoneInput}
+            defaultValue={value}
+            defaultCode="DM"
+            layout="first"
+            onChangeText={(text) => {
+              setValue(text);
+            }}
+            onChangeFormattedText={(text) => {
+              setFormattedValue(text);
+            }}
+            withDarkTheme
+            withShadow
+            autoFocus
+          />
+          <TouchableOpacity
+            onPress={() => {
+              const checkValid = phoneInput.current?.isValidNumber(value);
+              setShowMessage(true);
+              setValid(checkValid ? checkValid : false);
+            }}
+          ></TouchableOpacity> */}
+        <InputComponent placeholder="PIN code" />
+
+        <ButtonComponent title="Sign up" onPress={() => { }} />
+        <Text style={styles.text}>Already have an account?{"\n"}
           <TouchableOpacity><Link style={styles.link} href="/login">Login</Link></TouchableOpacity></Text>
       </CardComponent>
     </GradientBackgroundComponent>
@@ -35,10 +83,22 @@ export default function Signup() {
 }
 
 const styles = StyleSheet.create({
+  input: {
+    width: "100%",
+    backgroundColor: '#fff',
+    borderWidth: 0,
+    padding: 13,
+    borderRadius: 12,
+    marginBottom: 14,
+    fontWeight: '400',
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#595959',
+  },
   orTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent:"center",
+    justifyContent: "center",
     marginVertical: 10,
   },
   line: {

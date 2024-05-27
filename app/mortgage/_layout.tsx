@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 import { Image, StyleSheet } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
+import * as Progress from 'react-native-progress';
 
 export default function MortgageData() {
     const [showNewComponent, setShowNewComponent] = useState(false);
@@ -62,7 +63,7 @@ export default function MortgageData() {
                                 <Text style={[{ color: "#595959", paddingTop: 5 }]}>May 2024</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", }}>
                                     <View>
-                                        <Text style={[styles.textCenter,{color: "#595959"}]}>40000</Text>
+                                        <Text style={[styles.textCenter,{color: "#595959"}]}>40000₱</Text>
                                     </View>
                                 </View>
                             </View>
@@ -75,6 +76,8 @@ export default function MortgageData() {
 
                                         <View >
                                             ProgressBar
+                                            {/* <Progress.Bar progress={0.3} width={200} /> */}
+
                                         </View>
 
                                     </View>

@@ -21,12 +21,12 @@ export default function HomeData() {
                             <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#DCCBAF" }]} >
                                 Solar energy data
                             </Link>
-                            <TouchableOpacity style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
+                            <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
                                 Utility electricity data
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[styles.btn, { backgroundColor: "#96C8D3" }]}>
+                            </Link>
+                            <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#96C8D3" }]}>
                                 Water data
-                            </TouchableOpacity>
+                            </Link>
                             <Link href='/mortgage' style={[styles.btn, { backgroundColor: "#F4B081" }]}>
                                 mortgage data
                             </Link>

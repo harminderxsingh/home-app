@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import { StyleSheet } from "react-native";
 import Header from "../header/_layout";
 import { Link } from "expo-router";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return (
@@ -23,9 +24,26 @@ export default function RootLayout() {
         <View style={[styles.upperGap10]}>
           <View style={styles.notification}>
             <Text style={[styles.font16, styles.fontWight600, styles.textGray]}>Alert</Text>
-            <Text style={[styles.font11, styles.bgDarkGray, styles.textWhite, styles.upperGap10]}>TYPHOON CARINAL: Reaching Larsen in 7 hours *</Text>
-            <Text style={[styles.font14, styles.textGray, styles.upperGap14]}>* Your solar panel are due for cleaning next week.</Text>
-            <Text style={[styles.font14, styles.textGray, styles.upperGap14]}>* Your monthly bill is due  in 5 days.</Text>
+            <View style={[styles.bgDarkGray, { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+              <Text style={[styles.font11, styles.textWhite, { paddingStart: 8 }]}>TYPHOON CARINAL: Reaching Larsen in 7 hours </Text>
+              <TouchableOpacity style={{ backgroundColor: "#C6C6C6", padding: 5, marginEnd: 3, borderRadius: 50, height: 20, width: 20, flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  source={require('@/assets/images/rightArrw.svg')}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
+              <Image
+                style={{ marginRight: 5 }}
+                source={require('@/assets/images/greenDot.svg')}
+              />
+              Your solar panel are due for cleaning next week.</Text>
+            <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
+              <Image
+                style={{ marginRight: 5 }}
+                source={require('@/assets/images/greenDot.svg')}
+              />
+              Your monthly bill is due  in 5 days.</Text>
             <View  >
               <Text style={[styles.font14, styles.textGray, styles.upperGap14, styles.textEnd]}>More alerts...</Text>
             </View>
@@ -40,19 +58,20 @@ export default function RootLayout() {
               </Link>
             </View>
             <View style={[styles.between, styles.upperGap10]}>
-              <Link href='/updates'>
+              <Link href='/updates' style={{height:"100%"}}>
                 <View style={[styles.w100]}>
                   <View>
                     <Text style={[styles.font14, styles.upperEnd, styles.textWhite, styles.fontWight600, { paddingRight: 0, padding: 5, height: 25, width: 25 }]} >7</Text>
                   </View>
                 </View>
-                <Text style={[styles.font14, styles.box2, styles.textGray, { width: 110 }]}>
+                <Text style={[styles.font14, styles.box2, styles.textGray]}>
                   Billion
                   Bricks
                   Update
                 </Text>
               </Link>
             </View>
+            
           </View>
           <View style={[styles.item, styles.upperGap10]}>
             <View style={[styles.box, { backgroundColor: "#96C8D3" }]}>
@@ -130,11 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 600,
     height: 132,
-    backgroundColor: '#F4B081',
-    width: '100%',
-    justifyContent: 'flex-end',
     borderRadius: 10,
-    color: "#404040",
 
   },
   container: {
@@ -169,6 +184,9 @@ const styles = StyleSheet.create({
   },
   font14: {
     fontSize: 14,
+  },
+  font13: {
+    fontSize: 13,
   },
   font16: {
     fontSize: 14,
