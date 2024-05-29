@@ -17,11 +17,11 @@ export default function Header() {
         <>
             <View style={[styles.outerGap, styles.flexWithBetween]}>
                 <Link href="/dashboard">
-                    <SvgLogo width={40} height={40} />
+                    <SvgLogo width={30} height={30} />
                 </Link>
                 <View>
                     <TouchableOpacity style={styles.button} onPress={handleButtonClick}>
-                        <SvgBurger width={40} height={40} />
+                        <SvgBurger width={15} height={15} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -33,7 +33,7 @@ export default function Header() {
 const styles = StyleSheet.create({
     button: {
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        padding: 10,
+        padding: 7,
         borderRadius: 10,
         shadowColor: '#171717',
         shadowOffset: { width: 0, height: 4 },
@@ -52,8 +52,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     outerGap: {
-        margin: 20,
-    },
+        marginVertical: 40,
+        marginHorizontal:20 
+       },
     logo: {
         width: 40,
         height: 40,

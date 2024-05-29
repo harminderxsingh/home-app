@@ -1,35 +1,38 @@
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import Header from "../header/_layout";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+
+import SvgSetting from '@/assets/images/setting.svg';
+import SvgArrow from '@/assets/images/rightArrw.svg';
+import SvgGreenDot from '@/assets/images/greenDot.svg'
 import {
   GestureHandlerRootView,
-  TouchableOpacity,
 } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return (
     <GradientBackgroundComponent>
       <GestureHandlerRootView style={{ flex: 1 }}>
+
         <Header />
         <View style={styles.outerGap}>
-          <Text style={{ color: "#fff" }}>Dashboard</Text>
           <Text style={[styles.font24, styles.fontWight600, styles.textWhite]}>
             Welcome home Anna
           </Text>
-          <Text style={[styles.font14, styles.fontWight600, styles.textWhite]}>
+          <Text style={[styles.font14, styles.fontWight600, styles.textWhite,{marginBottom:10}]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
           <View
             style={[
               styles.notification,
               styles.upperGap14,
-              { flexDirection: "row" },
+              { flexDirection: "row", alignItems: "center" },
             ]}
           >
             <View>
-              <Image source={require("@/assets/images/setting.svg")} />
+              <SvgSetting height={18} width={20} />
             </View>
             <Text style={[styles.font14, styles.textGray]}>
               {" "}
@@ -70,22 +73,24 @@ export default function RootLayout() {
                     alignItems: "center",
                   }}
                 >
-                  <Image source={require("@/assets/images/rightArrw.svg")} />
+                  <SvgArrow />
                 </TouchableOpacity>
               </View>
               <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
-                <Image
-                  style={{ marginRight: 5 }}
-                  source={require("@/assets/images/greenDot.svg")}
-                />
-                Your solar panel are due for cleaning next week.
+                <View style={styles.rightGap}>
+                  <SvgGreenDot />
+                </View>
+                <Text >
+                  Your solar panel are due for cleaning next week.
+                </Text>
               </Text>
               <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
-                <Image
-                  style={{ marginRight: 5 }}
-                  source={require("@/assets/images/greenDot.svg")}
-                />
-                Your monthly bill is due in 5 days.
+                <View style={styles.rightGap}>
+                  <SvgGreenDot />
+                </View>
+                <Text >
+                  Your monthly bill is due in 5 days.
+                </Text>
               </Text>
               <View>
                 <Text
@@ -103,46 +108,60 @@ export default function RootLayout() {
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
-              <View style={[styles.box, { backgroundColor: "#D9D9D9" }]}>
-                <Link
-                  href="/homedata"
-                  style={[
+              <View style={[styles.box, { backgroundColor: "#D9D9D9" }]} >
+                <TouchableOpacity
+                  onPress={() => { router.push('/homedata') }}
+                // href="/homedata"
+
+                >
+                  <Text style={[
                     styles.textGray,
                     styles.font21,
                     styles.fontWight600,
                     { width: 60 },
+                  ]}>
+                    Home Data
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#F4B081" }]}>
+                <View style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
+                  <Text
+                    style={[
+                      styles.font14,
+                      styles.upperEnd,
+                      styles.textWhite,
+                      styles.fontWight600,
+                      {
+                        marginTop: 9,
+                        marginRight: 8,
+                        height: 25,
+                        width: 25,
+                        paddingTop: 2,
+                        paddingRight: 7,
+                        fontSize: 17,
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center"
+                      },
+                    ]}
+                  >
+                    7
+                  </Text>
+                </View>
+                <Link
+                  href="/updates"
+                  style={[
+                    styles.textGray,
+                    styles.font21,
+                    styles.fontWight600,
+                    { width: 80 },
                   ]}
                 >
-                  Home Data
+                  Billion Bricks Update
                 </Link>
               </View>
-              <View style={[styles.between, styles.upperGap10]}>
-                <Link href="/updates" style={{ height: "100%" }}>
-                  <View style={[styles.w100]}>
-                    <View>
-                      <Text
-                        style={[
-                          styles.font14,
-                          styles.upperEnd,
-                          styles.textWhite,
-                          styles.fontWight600,
-                          {
-                            paddingRight: 0,
-                            padding: 5,
-                            height: 25,
-                            width: 25,
-                          },
-                        ]}
-                      >
-                        7
-                      </Text>
-                    </View>
-                  </View>
-                  <Text style={[styles.font14, styles.box2, styles.textGray]}>
-                    Billion Bricks Update
-                  </Text>
-                </Link>
-              </View>
+
             </View>
             <View style={[styles.item, styles.upperGap10]}>
               <View style={[styles.box, { backgroundColor: "#96C8D3" }]}>
@@ -184,6 +203,9 @@ export default function RootLayout() {
   );
 }
 const styles = StyleSheet.create({
+  rightGap: {
+    paddingRight: 5,
+  },
   w100: {
     width: "100%",
     flexDirection: "row",
@@ -199,20 +221,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
   },
-  between: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    fontSize: 21,
-    fontWeight: 600,
-    height: 132,
-    backgroundColor: "#F4B081",
-    width: "100%",
-    paddingBottom: 12,
-    paddingLeft: 9,
-    borderRadius: 10,
-    color: "#404040",
-  },
+
   grid: {
     flex: 1,
     gap: 10,
@@ -221,6 +230,18 @@ const styles = StyleSheet.create({
   },
   item: {
     width: "48%",
+  },
+  boxFixed: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    fontSize: 21,
+    fontWeight: 600,
+    height: 132,
+    paddingBottom: 12,
+    paddingLeft: 9,
+    borderRadius: 10,
+    color: "#404040",
+
   },
   box: {
     fontSize: 21,
@@ -244,7 +265,8 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   outerGap: {
-    margin: 20,
+    marginHorizontal: 20,
+    marginBottom: 50,
     position: "absolute",
     bottom: 10,
   },

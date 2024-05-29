@@ -48,6 +48,31 @@ export default function Options() {
                                 <Text>Log out</Text>
                             </TouchableOpacity>
                         </View>
+                        <View>
+                            <TouchableOpacity style={styles.hidden}>
+                                <Text></Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={styles.hidden}>
+                                <Text></Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={styles.hidden}>
+                                <Text></Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={styles.hidden}>
+                                <Text></Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={styles.hidden}>
+                                <Text></Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View>
                         <View>
@@ -66,6 +91,10 @@ export default function Options() {
     );
 }
 const styles = StyleSheet.create({
+    hidden:{
+       opacity:5,
+       paddingVertical: 12,
+    },
     flexCenter: {
         flexDirection: "row",
         justifyContent: "center",
