@@ -29,8 +29,10 @@ export default function HomeDocument() {
 
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={[styles.outerGap, styles.flexWithBetween]}>
-                        <Link href="/homedata" style={styles.link}>
-                            <SvgLeftArrow />
+                        <Link href="/homedata" >
+                            <View style={styles.link}>
+                                <SvgLeftArrow />
+                            </View>
                         </Link>
                         <View>
                             <TouchableOpacity style={styles.button} onPress={handleButtonClick} >

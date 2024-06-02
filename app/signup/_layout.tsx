@@ -1,4 +1,4 @@
-import React, { useState ,useRef} from "react";
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -13,7 +13,7 @@ import GradientBackgroundComponent from "@/components/GradientBackgroundComponen
 import { Link } from "expo-router";
 import DropdownComponent from "@/components/DropDownComponent";
 import { Picker } from '@react-native-picker/picker';
-
+import SvgUserIcon from '@/assets/images/userIcon.svg';
 import PhoneInput from "react-native-phone-number-input";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -29,6 +29,9 @@ export default function Signup() {
     <GradientBackgroundComponent>
       <CardComponent>
         <Text style={styles.title}>Sign up</Text>
+        <View style={{flexDirection:"row",justifyContent:'center',marginBottom:20}}>
+          <SvgUserIcon />
+        </View>
         <ButtonComponent title="Log in with Facebook" onPress={() => { }} />
         <View style={styles.orTextContainer}>
           <View style={[styles.line, styles.mRight]} />

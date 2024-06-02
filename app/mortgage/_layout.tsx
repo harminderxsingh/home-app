@@ -22,8 +22,10 @@ export default function MortgageData() {
             <View style={{ backgroundColor: "#F0F0F0" }}>
 
                 <View style={[styles.outerGap, styles.flexWithBetween]}>
-                    <Link href="/homedata" style={styles.link}>
-                        <SvgLeftArrow />
+                    <Link href="/homedata" >
+                        <View style={styles.link}>
+                            <SvgLeftArrow />
+                        </View>
                     </Link>
                     <View>
                         <TouchableOpacity style={styles.button} onPress={handleButtonClick} >
