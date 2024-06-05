@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 
     fontWeight600: {
         textAlign: "center",
-        // fontWeight: 600,
+        fontWeight: "600",
     },
     goButton: {
         backgroundColor: '#DB416A',
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#fff",
         fontSize: 16,
-        // fontWeight:500,
+        fontWeight:"500",
 
         width: "100%",
         borderRadius: 12,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 8,
         fontSize: 20,
-        // fontWeight: 600,
+        fontWeight: "600",
         flexDirection: "row",
         alignItems: 'flex-start',
         color: "#292828",
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 14,
         color: "#595959",
-        // fontWeight: 600,
+        fontWeight: "600",
         paddingBottom: 15,
     },
     count: {
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         color: "rgba(89, 89, 89, 0.5)",
         opacity: 50,
-        // fontWeight: 600,
+        fontWeight: "600",
     },
     colorWhite: {
         color: '#fff',

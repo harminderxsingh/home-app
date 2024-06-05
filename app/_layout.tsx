@@ -14,6 +14,11 @@ export default function RootLayout() {
       <Stack.Screen name="updates" />
       <Stack.Screen name="ads" />
       <Stack.Screen name="mortgage" />
+      <Stack.Screen name="otp" />
+      <Stack.Screen name="contact" />
+
+      
+
 
 
     </Stack>

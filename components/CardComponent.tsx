@@ -12,6 +12,7 @@ const CardComponent: React.FC<CardProps> = ({ children }) => {
 const styles = StyleSheet.create({
   card: {
     height:"auto",
+    minHeight:735,
     backgroundColor: "#F0F0F0",
     padding: 34,
     borderRadius: 16,

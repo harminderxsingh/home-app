@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     outerGap: {
-        marginVertical: 40,
+        marginVertical: 50,
         marginHorizontal:20 
        },
     logo: {

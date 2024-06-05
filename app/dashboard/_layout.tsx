@@ -42,13 +42,13 @@ export default function RootLayout() {
           <View style={[styles.upperGap10]}>
             <View style={styles.notification}>
               <Text
-                style={[styles.font16, styles.fontWight600, styles.textGray]}
+                style={[styles.font16, styles.fontWight600, styles.textGray,{marginBottom:10}]}
               >
-                Alert
+                Notifications
               </Text>
               <View
                 style={[
-                  styles.bgDarkGray,
+                  styles.bgPink,
                   {
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -63,7 +63,7 @@ export default function RootLayout() {
                 </Text>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: "#C6C6C6",
+                    // backgroundColor: "#C6C6C6",
                     padding: 5,
                     marginEnd: 3,
                     borderRadius: 50,
@@ -76,20 +76,20 @@ export default function RootLayout() {
                   <SvgArrow />
                 </TouchableOpacity>
               </View>
-              <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
+              <Link href="/contact" style={[styles.font13, styles.textGray, styles.upperGap14]}>
                 <View style={styles.rightGap}>
                   <SvgGreenDot />
                 </View>
                 <Text >
-                  Your solar panel are due for cleaning next week.
+                  Solar panel maintenance time in 12 days. {">"}
                 </Text>
-              </Text>
+              </Link>
               <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
                 <View style={styles.rightGap}>
                   <SvgGreenDot />
                 </View>
                 <Text >
-                  Your monthly bill is due in 5 days.
+                Septic tank maintenance time in 30 days. {">"}
                 </Text>
               </Text>
               <View>
@@ -312,8 +312,8 @@ const styles = StyleSheet.create({
   textEnd: {
     textAlign: "right",
   },
-  bgDarkGray: {
-    backgroundColor: "#828282",
+  bgPink: {
+    backgroundColor: "#DC8977",
     borderRadius: 70,
     paddingStart: 15,
     paddingTop: 2,
