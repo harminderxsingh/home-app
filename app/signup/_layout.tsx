@@ -14,6 +14,7 @@ import { Link, router } from "expo-router";
 import DropdownComponent from "@/components/DropDownComponent";
 import { Picker } from '@react-native-picker/picker';
 import SvgUserIcon from '@/assets/images/userIcon.svg';
+import { authService } from '@/services/AuthService';
 import PhoneInput from "react-native-phone-number-input";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import Header from "../header/_layout";
@@ -26,7 +27,14 @@ export default function Signup() {
   const [formattedValue, setFormattedValue] = useState("");
   const [valid, setValid] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [formVaValues, setFormVaValues] = useState<any>({});
   const phoneInput = useRef<PhoneInput>(null);
+  const handleSignUp = async () => {
+    try {
+      await authService.signUp(formVaValues);
+    } catch (error) {
+    }
+  };
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
 
