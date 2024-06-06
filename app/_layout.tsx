@@ -16,6 +16,8 @@ export default function RootLayout() {
       <Stack.Screen name="mortgage" />
       <Stack.Screen name="otp" />
       <Stack.Screen name="contact" />
+      <Stack.Screen name="notificationsetting" />
+
 
       
 

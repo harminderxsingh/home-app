@@ -24,7 +24,7 @@ export default function RootLayout() {
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite,{marginBottom:10}]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
-          <View
+          <TouchableOpacity
             style={[
               styles.notification,
               styles.upperGap14,
@@ -38,7 +38,7 @@ export default function RootLayout() {
               {" "}
               Today is 2BC with a high chance of rain
             </Text>
-          </View>
+          </TouchableOpacity>
           <View style={[styles.upperGap10]}>
             <View style={styles.notification}>
               <Text
@@ -76,6 +76,14 @@ export default function RootLayout() {
                   <SvgArrow />
                 </TouchableOpacity>
               </View>
+              <Link href="/notificationsetting" style={[styles.font13, styles.textGray, styles.upperGap14]}>
+                <View style={styles.rightGap}>
+                  <SvgGreenDot />
+                </View>
+                <Text >
+                Set Solar and septic tank alerts {">"}
+                </Text>
+              </Link>
               <Link href="/contact" style={[styles.font13, styles.textGray, styles.upperGap14]}>
                 <View style={styles.rightGap}>
                   <SvgGreenDot />
@@ -108,7 +116,7 @@ export default function RootLayout() {
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
-              <View style={[styles.box, { backgroundColor: "#D9D9D9" }]} >
+              <View style={[styles.box, { backgroundColor: "#E8E0D4" }]} >
                 <TouchableOpacity
                   onPress={() => { router.push('/homedata') }}
                 // href="/homedata"
@@ -124,7 +132,7 @@ export default function RootLayout() {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#F4B081" }]}>
+              <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#96C8D3" }]}>
                 <View style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
                   <Text
                     style={[
@@ -164,7 +172,7 @@ export default function RootLayout() {
 
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              <View style={[styles.box, { backgroundColor: "#96C8D3" }]}>
+              <View style={[styles.box, { backgroundColor: "#D6C09D" }]}>
                 <Link
                   href="/homedocument"
                   style={[
