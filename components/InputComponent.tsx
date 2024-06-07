@@ -3,17 +3,19 @@ import React from 'react';
 import { TextInput, StyleSheet, TextStyle } from 'react-native';
 
 interface InputProps {
+  name?: string;
   placeholder: string;
   inputStyle?: TextStyle;
+  onInput?: (input: { value: string, name?: string }) => void
 }
 
-const InputComponent: React.FC<InputProps> = ({ placeholder, inputStyle }) => {
-  return <TextInput style={[styles.input, inputStyle]} placeholder={placeholder} />;
+const InputComponent: React.FC<InputProps> = ({ name, placeholder, inputStyle, onInput }) => {
+  return <TextInput style={[styles.input, inputStyle]} onChangeText={res => onInput && onInput({ name, value: res })} placeholder={placeholder} />;
 };
 
 const styles = StyleSheet.create({
   input: {
-    width:"100%",
+    width: "100%",
     backgroundColor: '#fff',
     borderWidth: 0,
     padding: 13,

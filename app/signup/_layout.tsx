@@ -27,14 +27,17 @@ export default function Signup() {
   const [formattedValue, setFormattedValue] = useState("");
   const [valid, setValid] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const [formVaValues, setFormVaValues] = useState<any>({});
+  const [formValues, setFormValues] = useState<any>({});
   const phoneInput = useRef<PhoneInput>(null);
   const handleSignUp = async () => {
     try {
-      await authService.signUp(formVaValues);
+      await authService.signUp(formValues);
     } catch (error) {
     }
   };
+  const handleInput = (data: any) => {
+    setFormValues({ ...formValues, [data.name]: data.value })
+  }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
 
@@ -52,21 +55,22 @@ export default function Signup() {
             <Text style={styles.orText}>or</Text>
             <View style={[styles.line, styles.mLeft]} />
           </View> */}
-          <InputComponent placeholder="Full name" />
+          <InputComponent name="fullName" placeholder="Full name" onInput={handleInput} />
           {/* <DropdownComponent /> */}
-          <Picker
-            style={styles.input}
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedLanguage(itemValue)
-            }>
-            <Picker.Item label="Community name" value="Community name" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
+          <View style={styles.pickerContainer}>
+            <Picker
+              style={styles.input}
+              selectedValue={formValues}
+              onValueChange={(itemValue) =>
+                handleInput({ name: 'community', value: itemValue })
+              }>
+              <Picker.Item label="Community name" value="Community name" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+          </View>
 
-
-          <InputComponent placeholder="House number" />
-          <InputComponent placeholder="Customer number / ID ??" />
+          <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} />
+          <InputComponent name="customerNumber" placeholder="Customer number / ID ??" onInput={handleInput} />
           {/* <PhoneInput
             ref={phoneInput}
             defaultValue={value}
@@ -89,9 +93,9 @@ export default function Signup() {
               setValid(checkValid ? checkValid : false);
             }}
           ></TouchableOpacity> */}
-          <InputComponent placeholder="Phone number" />
+          <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} />
           <View style={{ marginVertical: 20 }}>
-            <ButtonComponent title="Continue" onPress={() => {router.push('otp')}} />
+            <ButtonComponent title="Continue" onPress={handleSignUp} />
           </View>
           <Text style={styles.text}>Already have an account?{"\n"}
             <TouchableOpacity><Link style={styles.link} href="/login">Login</Link></TouchableOpacity>
@@ -103,13 +107,17 @@ export default function Signup() {
 }
 
 const styles = StyleSheet.create({
+  pickerContainer: {
+    borderWidth: 0,
+    borderRadius: 12,
+    overflow: 'hidden',
+    marginBottom: 14,
+  },
   input: {
     width: "100%",
     backgroundColor: '#fff',
     borderWidth: 0,
     padding: 13,
-    borderRadius: 12,
-    marginBottom: 14,
     fontWeight: '400',
     fontSize: 16,
     lineHeight: 24,
