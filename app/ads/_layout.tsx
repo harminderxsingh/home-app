@@ -16,12 +16,14 @@ export default function Ads() {
     return (
         <GestureHandlerRootView style={{ height: "auto" }}>
 
-            <View style={{ flexDirection: "column", justifyContent: "space-between", backgroundColor: "#E8E0D4", }}>
+            <View style={{height:"100%", flexDirection: "column", justifyContent: "space-between", backgroundColor: "#E8E0D4", }}>
                 <View>
 
                     <View style={[styles.outerGap, styles.flexWithBetween]}>
-                        <Link href="/homedocument" style={styles.link}>
-                            <SvgLeftArrow />
+                        <Link href="/homedocument" >
+                            <View style={styles.link}>
+                                <SvgLeftArrow />
+                            </View>
                         </Link>
                         <View>
                             <TouchableOpacity style={styles.button} onPress={handleButtonClick} >
@@ -33,7 +35,7 @@ export default function Ads() {
                     <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                         <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
                             <Text style={[styles.title, styles.font24,]} >Ad page sample</Text>
-                            <Text style={[styles.font18, { color: "rgba(121, 101, 101, 0.8)", marginTop: 29, marginBottom: 79 }]}>Template for our promotions...</Text>
+                            <Text style={[styles.font18, { color: "rgba(121, 101, 101, 0.8)",textAlign:"center", marginTop: 29, marginBottom: 79 }]}>Template for our promotions...</Text>
                             <Text style={[styles.normal, { fontSize: 15, textAlign: "center", paddingHorizontal: 35 }]}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
                             <View >
 
@@ -72,7 +74,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     outerGap: {
-        margin: 20,
+        marginTop: 50,
+        marginHorizontal: 20
     },
     logo: {
         width: 40,
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#fff",
         fontSize: 16,
-        fontWeight:"500",
+        fontWeight: "500",
 
         width: "100%",
         borderRadius: 12,
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     title: {
-        textAlign: "left",
+        textAlign: "center",
         fontSize: 24,
         color: "#595959",
     },

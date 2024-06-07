@@ -20,6 +20,8 @@ export default function RootLayout() {
         <Stack.Screen name="contact" />
         <Stack.Screen name="notificationsetting" />
         <Stack.Screen name="loantracker" />
+        <Stack.Screen name="chat" />
+
 
       </Stack>
     </AuthProvider>

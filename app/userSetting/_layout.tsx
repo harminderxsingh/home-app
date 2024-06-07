@@ -10,7 +10,6 @@ export default function UserSetting() {
 
     return (
         <GestureHandlerRootView style={{ height: "auto" }}>
-
             <View style={{ padding: 25, zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F0F0F0" }}>
                 <ScrollView  >
                     <Text style={styles.title}>User settings</Text>

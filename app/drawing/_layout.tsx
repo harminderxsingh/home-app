@@ -10,10 +10,10 @@ import SvgCamera from '@/assets/images/camera.svg';
 import SvgImageOutline from '@/assets/images/imgOutline.svg';
 import SvgUploadArrow from '@/assets/images/uploadArrow.svg';
 import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
-import SvgVideo from '@/assets/images/video.svg';
-import SvgImage from '@/assets/images/image.svg';
-import SvgPdf from '@/assets/images/pdf.svg';
-import SvgAdd from '@/assets/images/add.svg';
+import SvgVideo from '@/assets/images/icons/b-video.svg';
+import SvgImage from '@/assets/images/icons/b-image.svg';
+import SvgPdf from '@/assets/images/icons/b-pdf.svg';
+import SvgAdd from '@/assets/images/icons/b-doc.svg';
 
 
 export default function Drawing() {
@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     outerGap: {
-        margin: 20,
+        marginTop: 50,
+        marginHorizontal:20
     },
     logo: {
         width: 40,

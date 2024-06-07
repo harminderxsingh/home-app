@@ -12,6 +12,7 @@ import SvgFolderOrange from '@/assets/images/folderOrange.svg';
 import SvgFolderSkin from '@/assets/images/folderSkin.svg';
 import SvgFolderLight from '@/assets/images/folderLight.svg';
 import SvgFolderGreen from '@/assets/images/folderGreen.svg';
+import SvgFolderTrash from '@/assets/images/trash.svg';
 
 
 export default function HomeDocument() {
@@ -52,8 +53,7 @@ export default function HomeDocument() {
                                     </View>
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
-                                            Floorplans
-                                            and drawing
+                                        Floor plans 
                                         </Text>
                                         <Text style={styles.count}>
                                             12 Items
@@ -68,7 +68,7 @@ export default function HomeDocument() {
                                     </View>
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
-                                            Manual and Tutorials
+                                         Tutorials
                                         </Text>
                                         <Text style={styles.count}>
                                             12 Items
@@ -116,7 +116,23 @@ export default function HomeDocument() {
 
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
-                                            Extras
+                                        Miscellaneous
+                                        </Text>
+                                        <Text style={styles.count}>
+                                            12 Items
+                                        </Text>
+                                    </View>
+                                </View>
+                            </Link>
+                            <Link href='/ddcHome' style={[styles.btn,]}>
+                                <View style={styles.flexrow}>
+                                    <View >
+                                        <SvgFolderTrash />
+                                    </View>
+
+                                    <View style={{ paddingLeft: 20 }}>
+                                        <Text style={styles.heading}>
+                                        Deleted documents
                                         </Text>
                                         <Text style={styles.count}>
                                             12 Items

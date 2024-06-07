@@ -21,7 +21,7 @@ export default function RootLayout() {
           <Text style={[styles.font24, styles.fontWight600, styles.textWhite]}>
             Welcome home Anna
           </Text>
-          <Text style={[styles.font14, styles.fontWight600, styles.textWhite,{marginBottom:10}]}>
+          <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
           <TouchableOpacity
@@ -42,7 +42,7 @@ export default function RootLayout() {
           <View style={[styles.upperGap10]}>
             <View style={styles.notification}>
               <Text
-                style={[styles.font16, styles.fontWight600, styles.textGray,{marginBottom:10}]}
+                style={[styles.font16, styles.fontWight600, styles.textGray, { marginBottom: 10 }]}
               >
                 Notifications
               </Text>
@@ -81,7 +81,7 @@ export default function RootLayout() {
                   <SvgGreenDot />
                 </View>
                 <Text >
-                Set Solar and septic tank alerts {">"}
+                  Set Solar and septic tank alerts {">"}
                 </Text>
               </Link>
               <Link href="/contact" style={[styles.font13, styles.textGray, styles.upperGap14]}>
@@ -97,7 +97,7 @@ export default function RootLayout() {
                   <SvgGreenDot />
                 </View>
                 <Text >
-                Septic tank maintenance time in 30 days. {">"}
+                  Septic tank maintenance time in 30 days. {">"}
                 </Text>
               </Text>
               <View>
@@ -132,7 +132,7 @@ export default function RootLayout() {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#96C8D3" }]}>
+              <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#D6C09D" }]}>
                 <View style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
                   <Text
                     style={[
@@ -172,7 +172,7 @@ export default function RootLayout() {
 
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              <View style={[styles.box, { backgroundColor: "#D6C09D" }]}>
+              <View style={[styles.box, { backgroundColor: "#96C8D3" }]}>
                 <Link
                   href="/homedocument"
                   style={[
@@ -192,7 +192,8 @@ export default function RootLayout() {
                   { backgroundColor: "#EEEEEE" },
                 ]}
               >
-                <Text
+                <Link
+                href='/chat'
                   style={[
                     styles.textGray,
                     styles.font21,
@@ -200,8 +201,9 @@ export default function RootLayout() {
                     { width: 110 },
                   ]}
                 >
-                  Support and Service
-                </Text>
+                  Home
+                  Assistance
+                </Link>
               </View>
             </View>
           </View>

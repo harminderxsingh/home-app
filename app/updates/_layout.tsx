@@ -22,9 +22,12 @@ export default function Updates() {
                 <View >
 
                     <View style={[styles.outerGap, styles.flexWithBetween]}>
-                        <Link href="/homedocument" style={styles.link}>
-                            <SvgLeftArrow />
+                        <Link href="/homedocument" >
+                            <View style={styles.link}>
+                                <SvgLeftArrow />
+                            </View>
                         </Link>
+
                         <View>
                             <TouchableOpacity style={styles.button} onPress={handleButtonClick} >
                                 <SvgBlackBurger />
@@ -120,7 +123,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     outerGap: {
-        margin: 20,
+        marginTop: 50,
+        marginHorizontal:20
     },
     logo: {
         width: 40,
