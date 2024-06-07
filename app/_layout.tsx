@@ -19,6 +19,8 @@ export default function RootLayout() {
         <Stack.Screen name="otp" />
         <Stack.Screen name="contact" />
         <Stack.Screen name="notificationsetting" />
+        <Stack.Screen name="loantracker" />
+
       </Stack>
     </AuthProvider>
   );

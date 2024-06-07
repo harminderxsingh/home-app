@@ -15,20 +15,20 @@ export default function HomeData() {
                 <Header />
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                        <Text style={[styles.title, styles.font24, styles.colorWhite, styles.fontWeight600]} >Home data</Text>
-                        <Text style={[styles.font14, styles.colorWhite, styles.fontWeight600]}>Watch Live data in our partners website</Text>
+                        <Text style={[styles.title, styles.font24, styles.colorWhite, styles.fontWeight600]} >Home portal</Text>
+                        <Text style={[styles.font14, styles.colorWhite, styles.fontWeight600]}>Get to know your home by the numbers</Text>
                         <View style={{ marginTop: 40, }}>
-                            <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#DCCBAF" }]} >
-                                Solar energy data
+                            <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#E8E0D4" }]} >
+                            Solar Performance
                             </Link>
                             <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
-                                Utility electricity data
+                            Electricity bill
                             </Link>
                             <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#96C8D3" }]}>
-                                Water data
+                            Water bill
                             </Link>
-                            <Link href='/mortgage' style={[styles.btn, { backgroundColor: "#F4B081" }]}>
-                                mortgage data
+                            <Link href='/mortgage' style={[styles.btn, { backgroundColor: "#D6C09D" }]}>
+                            Loan tracker
                             </Link>
                         </View>
                     </View>

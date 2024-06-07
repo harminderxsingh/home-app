@@ -1,5 +1,5 @@
 
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { View, Text } from "react-native";
 import { Image, StyleSheet } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
@@ -8,6 +8,7 @@ import * as Progress from 'react-native-progress';
 import SvgSunWithEarth from '@/assets/images/sunWithEarth.svg';
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
+import SvgPenIcon from '@/assets/images/pen.svg';
 
 export default function MortgageData() {
     const [showNewComponent, setShowNewComponent] = useState(false);
@@ -36,11 +37,22 @@ export default function MortgageData() {
                 </View>
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
-                        <Text style={[styles.title, styles.font24, styles.fontWeight600]} >Mortgage data</Text>
+                        <View style={{ flexDirection: "row",justifyContent:"space-between",alignItems:"center"}}>
+
+                            <Text style={[styles.title, styles.font24]} >Loan tracker</Text>
+
+                            <TouchableOpacity onPress={() => { router.push('loantracker') }} style={{ flexDirection: "row",justifyContent:"space-between",alignItems:"center"}}>
+                                <View >
+                                <SvgPenIcon height={16} width={16} />
+                                </View>
+                                <Text style={{ fontSize: 12,color:"#595959",marginStart:5}} >Edit info</Text>
+                            </TouchableOpacity>
+                        </View>
+
                         <View style={{ marginTop: 40, }}>
                             <View style={{ backgroundColor: "#466488", borderRadius: 12, paddingTop: 17, paddingLeft: 21 }}>
                                 <View >
-                                    <Text style={[styles.textWhite, styles.font16, { fontWeight: 500 }]}>Mortgage due date countdown</Text>
+                                    <Text style={[styles.textWhite, styles.font16, { fontWeight: 500 }]}>Loan free countdown</Text>
                                     <Text style={[styles.textWhite, { paddingTop: 5 }]}>April 2024</Text>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
                                         <View style={{ paddingBottom: 17 }}>
@@ -155,7 +167,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     outerGap: {
-        margin: 20,
+        marginTop: 50,
+        marginHorizontal:20
+
     },
     link: {
         width: 30,

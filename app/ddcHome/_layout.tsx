@@ -19,18 +19,15 @@ export default function DdcHome() {
         <GestureHandlerRootView style={{ flex: 1 }}>
             <View style={{ zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F3F3F3" }}>
 
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 20, paddingHorizontal: 15, }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingTop: 50,paddingBottom:20, paddingHorizontal: 15, }}>
                     <Link href="/homedata" >
                         <View style={styles.link}>
                             <SvgLeftArrow />
                         </View>
                     </Link>
                     <Text style={styles.title}>DDC Home</Text>
-                    <Link href="/homedata" style={[styles.link, { opacity: 0 }]}>
-                        <Image
-
-                            source={require('@/assets/images/leftArrow.svg')}
-                        />
+                    <Link href="/homedata" style={{fontSize:19,color:"#595959"}}>
+                        <Text>X</Text>
                     </Link>
                 </View>
 
