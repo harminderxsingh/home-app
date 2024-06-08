@@ -39,7 +39,8 @@
       },
       "eas": {
         "projectId": "98c4ddb1-bff4-41e8-887c-9ce4d2ff152a"
-      }
+      },
+      "baseUrl": "https://test.devbacker.com"
     }
   }
 }

@@ -1,43 +1,53 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
 } from "react-native";
-import { Icon } from "react-native-elements";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import CardComponent from "@/components/CardComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
 import { Link, router } from "expo-router";
-import DropdownComponent from "@/components/DropDownComponent";
 import { Picker } from '@react-native-picker/picker';
 import SvgUserIcon from '@/assets/images/userIcon.svg';
 import { authService } from '@/services/AuthService';
-import PhoneInput from "react-native-phone-number-input";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import Header from "../header/_layout";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { communityService } from "@/services/CommunityService";
 
 
 export default function Signup() {
-  const [selectedLanguage, setSelectedLanguage] = useState();
-  const [value, setValue] = useState("");
-  const [formattedValue, setFormattedValue] = useState("");
-  const [valid, setValid] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
+
+  const [communities, setCommunities] = useState<any[]>([]);
   const [formValues, setFormValues] = useState<any>({});
-  const phoneInput = useRef<PhoneInput>(null);
+
+  useEffect(() => {
+    communityService.get().then(res => {
+      setCommunities(res)
+    })
+  }, [])
+
   const handleSignUp = async () => {
     try {
       await authService.signUp(formValues);
+      router.push({
+        pathname: 'otp',
+        params: {
+          data: JSON.stringify(formValues),
+
+        },
+      });
     } catch (error) {
+      console.error(error)
     }
   };
+
   const handleInput = (data: any) => {
     setFormValues({ ...formValues, [data.name]: data.value })
   }
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
 
@@ -60,16 +70,19 @@ export default function Signup() {
           <View style={styles.pickerContainer}>
             <Picker
               style={styles.input}
-              selectedValue={formValues}
+              selectedValue={formValues.communityId}
               onValueChange={(itemValue) =>
-                handleInput({ name: 'community', value: itemValue })
+                handleInput({ name: 'communityId', value: itemValue })
               }>
-              <Picker.Item label="Community name" value="Community name" />
-              <Picker.Item label="JavaScript" value="js" />
+              {
+                communities.map(c =>
+                  <Picker.Item key={c.id} label={c.name} value={c.id} />
+                )
+              }
             </Picker>
           </View>
 
-          <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} />
+          <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
           <InputComponent name="customerNumber" placeholder="Customer number / ID ??" onInput={handleInput} />
           {/* <PhoneInput
             ref={phoneInput}
@@ -93,7 +106,7 @@ export default function Signup() {
               setValid(checkValid ? checkValid : false);
             }}
           ></TouchableOpacity> */}
-          <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} />
+          <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
           <View style={{ marginVertical: 20 }}>
             <ButtonComponent title="Continue" onPress={handleSignUp} />
           </View>

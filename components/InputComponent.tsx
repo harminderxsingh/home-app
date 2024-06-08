@@ -1,16 +1,21 @@
-// InputComponent.tsx
 import React from 'react';
-import { TextInput, StyleSheet, TextStyle } from 'react-native';
+import { TextInput, StyleSheet, TextStyle, TextInputProps } from 'react-native';
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   name?: string;
   placeholder: string;
   inputStyle?: TextStyle;
-  onInput?: (input: { value: string, name?: string }) => void
+  onInput?: (input: { value: string, name?: string }) => void;
 }
 
-const InputComponent: React.FC<InputProps> = ({ name, placeholder, inputStyle, onInput }) => {
-  return <TextInput style={[styles.input, inputStyle]} onChangeText={res => onInput && onInput({ name, value: res })} placeholder={placeholder} />;
+const InputComponent: React.FC<InputProps> = ({ name, inputStyle, onInput, ...rest }) => {
+  return (
+    <TextInput
+      style={[styles.input, inputStyle]}
+      onChangeText={(res) => onInput && onInput({ name, value: res })}
+      {...rest}
+    />
+  );
 };
 
 const styles = StyleSheet.create({
