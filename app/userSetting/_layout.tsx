@@ -5,8 +5,13 @@ import { View, Text } from "react-native";
 import { StyleSheet, ScrollView } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
 import SvgUserIcon from '@/assets/images/userIcon.svg';
+import { useContext, useState } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function UserSetting() {
+
+    const { user } = useContext(AuthContext);
+    const [formValues, setFormValues] = useState(user)
 
     return (
         <GestureHandlerRootView style={{ height: "auto" }}>
@@ -20,14 +25,14 @@ export default function UserSetting() {
                     </View>
                     <View>
                         <Text style={styles.label}>Full name</Text>
-                        <InputComponent placeholder="Anna Alamos" />
+                        <InputComponent value={formValues.fullName} placeholder="Anna Alamos" />
                     </View>
                     <View>
                         <View style={styles.flexBetween}>
                             <Text style={styles.label}>Phone number</Text>
                             <Link href="/signup" style={styles.link} >Edit Phone number</Link>
                         </View>
-                        <InputComponent placeholder="9352385 585" />
+                        <InputComponent value={formValues.phone} placeholder="9352385 585" />
                     </View>
                     <View>
                         <View style={styles.flexBetween}>
@@ -42,30 +47,30 @@ export default function UserSetting() {
                     </View>
                     <View>
                         <Text style={styles.label}>Occupation</Text>
-                        <InputComponent placeholder="" />
+                        <InputComponent value={formValues.occupation} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label}>Age</Text>
-                        <InputComponent placeholder="" />
+                        <InputComponent value={formValues.age} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label}>What are your hobbies and interests?</Text>
-                        <InputComponent placeholder="" />
+                        <InputComponent value={formValues.interests} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label} >What is your household size
                             (number of adults and children)?</Text>
-                        <InputComponent placeholder="" />
+                        <InputComponent value={formValues.householdSize} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label} >Do you have any pets?</Text>
-                        <InputComponent placeholder="" />
+                        <InputComponent value={formValues.pets} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label} >Do you have any specific accessibility
                             needs or requirements?
                         </Text>
-                        <InputComponent placeholder="" />
+                        <InputComponent value={formValues.accessibility} placeholder="" />
                     </View>
                     <TouchableOpacity>
                         <ButtonComponent title="Update" onPress={() => { router.push('dashboard') }} />

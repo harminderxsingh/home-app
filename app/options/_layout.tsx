@@ -3,10 +3,12 @@ import { View, Text } from "react-native";
 import { Image, StyleSheet } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import UserSetting from "../userSetting/_layout";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "expo-router";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Options() {
+    const { logout } = useContext(AuthContext);
     const [showNewComponent, setShowNewComponent] = useState(false);
 
     const handleButtonClick = () => {
@@ -44,7 +46,7 @@ export default function Options() {
                             </TouchableOpacity>
                         </View>
                         <View>
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button} onPress={logout}>
                                 <Text>Log out</Text>
                             </TouchableOpacity>
                         </View>

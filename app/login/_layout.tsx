@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
@@ -11,11 +11,12 @@ import SvgUserIcon from '@/assets/images/userIcon.svg';
 import { authService } from "@/services/AuthService";
 import { Picker } from "@react-native-picker/picker";
 import { communityService } from "@/services/CommunityService";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Login() {
   const [formValues, setFormValues] = useState<any>({});
   const [communities, setCommunities] = useState<any[]>([]);
-
+  const { login } = useContext(AuthContext);
   useEffect(() => {
     communityService.get().then(res => {
       setCommunities(res)
@@ -28,7 +29,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await authService.signIn(formValues);
+      await login(formValues);
       router.push('dashboard')
     } catch (error) {
       console.error(error)

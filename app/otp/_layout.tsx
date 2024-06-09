@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
     StyleSheet,
     View,
@@ -16,13 +16,14 @@ import W2 from '@/assets/images/icons/b-2.svg';
 import W3 from '@/assets/images/icons/b-3.svg';
 import W4 from '@/assets/images/icons/b-4.svg';
 import W5 from '@/assets/images/icons/b-5.svg';
-import { authService } from "@/services/AuthService";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Otp() {
 
     const { data } = useLocalSearchParams();
 
     const [formValues, setFormValues] = useState<any>({});
+    const { login } = useContext(AuthContext);
 
     useEffect(() => {
         if (data && typeof data === 'string') {
@@ -36,12 +37,12 @@ export default function Otp() {
 
     const handleLogin = async () => {
         try {
-            await authService.signIn(formValues);
-            router.push('dashboard')
+          await login(formValues);
+          router.push('dashboard')
         } catch (error) {
-            console.error(error)
+          console.error(error)
         }
-    };
+      };
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>

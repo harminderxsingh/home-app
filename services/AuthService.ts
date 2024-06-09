@@ -1,7 +1,7 @@
 import axios from './Axios'
 
 interface User {
-    email: string;
+    user: any;
     token: string;
 }
 
