@@ -4,7 +4,7 @@ import { Image, StyleSheet } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import UserSetting from "../userSetting/_layout";
 import { useContext, useState } from "react";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Options() {
@@ -12,6 +12,7 @@ export default function Options() {
     const [showNewComponent, setShowNewComponent] = useState(false);
 
     const handleButtonClick = () => {
+        router.push('userSetting')
         setShowNewComponent(!showNewComponent);
     };
 
@@ -88,7 +89,7 @@ export default function Options() {
                     </View>
                 </View>
             </CardComponent>
-            {showNewComponent && <UserSetting />}
+            {/* {showNewComponent && <UserSetting />} */}
         </View>
     );
 }

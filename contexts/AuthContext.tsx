@@ -8,6 +8,7 @@ interface AuthContextProps {
   userToken: string | null;
   user: any | null;
   login: (data: any) => Promise<void>;
+  updateProfile: (data: any) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -19,6 +20,7 @@ export const AuthContext = createContext<AuthContextProps>({
   userToken: null,
   user: null,
   login: async () => { },
+  updateProfile: async () => { },
   logout: async () => { },
 });
 
@@ -35,6 +37,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUserToken(token);
     setUser(user || null)
     await SecureStore.setItemAsync('userToken', token);
+    await SecureStore.setItemAsync('user', JSON.stringify(user));
+  };
+
+  const updateProfile = async (data: any) => {
+    const { user } = await authService.updateProfile(data)
+    setUser(user || null)
     await SecureStore.setItemAsync('user', JSON.stringify(user));
   };
 
@@ -70,7 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userToken, user, login, logout }}>
+    <AuthContext.Provider value={{ userToken, user, login, updateProfile, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="notificationsetting" />
         <Stack.Screen name="loantracker" />
         <Stack.Screen name="chat" />
+        <Stack.Screen name="userSetting" />
 
 
       </Stack>

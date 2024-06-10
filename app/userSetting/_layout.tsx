@@ -10,29 +10,41 @@ import { AuthContext } from "@/contexts/AuthContext";
 
 export default function UserSetting() {
 
-    const { user } = useContext(AuthContext);
+    const { user, updateProfile } = useContext(AuthContext);
     const [formValues, setFormValues] = useState(user)
 
+    const handleInput = (data: any) => {
+        setFormValues({ ...formValues, [data.name]: data.value })
+    }
+
+    const handleUpdate = async () => {
+        try {
+            await updateProfile(formValues)
+            router.push('dashboard')
+        } catch (error) {
+
+        }
+    }
     return (
         <GestureHandlerRootView style={{ height: "auto" }}>
-            <View style={{ padding: 25, zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F0F0F0" }}>
-                <ScrollView  >
+            <ScrollView  >
+                <View style={{ padding: 25, zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F0F0F0" }}>
                     <Text style={styles.title}>User settings</Text>
-                    <View style={{flexDirection: "row", justifyContent: 'center',alignItems:"center"}}>
-                        <View style={{backgroundColor:"#D9D9D9",padding:30,borderRadius:50}}>
-                        <SvgUserIcon />
+                    <View style={{ flexDirection: "row", justifyContent: 'center', alignItems: "center" }}>
+                        <View style={{ backgroundColor: "#D9D9D9", padding: 30, borderRadius: 50 }}>
+                            <SvgUserIcon />
                         </View>
                     </View>
                     <View>
                         <Text style={styles.label}>Full name</Text>
-                        <InputComponent value={formValues.fullName} placeholder="Anna Alamos" />
+                        <InputComponent name="fullName" value={formValues.fullName} onInput={handleInput} placeholder="Anna Alamos" />
                     </View>
                     <View>
                         <View style={styles.flexBetween}>
                             <Text style={styles.label}>Phone number</Text>
                             <Link href="/signup" style={styles.link} >Edit Phone number</Link>
                         </View>
-                        <InputComponent value={formValues.phone} placeholder="9352385 585" />
+                        <InputComponent name="phone" value={formValues.phone} onInput={handleInput} placeholder="9352385 585" />
                     </View>
                     <View>
                         <View style={styles.flexBetween}>
@@ -47,36 +59,36 @@ export default function UserSetting() {
                     </View>
                     <View>
                         <Text style={styles.label}>Occupation</Text>
-                        <InputComponent value={formValues.occupation} placeholder="" />
+                        <InputComponent name="occupation" value={formValues.occupation} onInput={handleInput} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label}>Age</Text>
-                        <InputComponent value={formValues.age} placeholder="" />
+                        <InputComponent name="age" value={formValues.age} onInput={handleInput} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label}>What are your hobbies and interests?</Text>
-                        <InputComponent value={formValues.interests} placeholder="" />
+                        <InputComponent name="interests" value={formValues.interests} onInput={handleInput} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label} >What is your household size
                             (number of adults and children)?</Text>
-                        <InputComponent value={formValues.householdSize} placeholder="" />
+                        <InputComponent name="householdSize" value={formValues.householdSize} onInput={handleInput} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label} >Do you have any pets?</Text>
-                        <InputComponent value={formValues.pets} placeholder="" />
+                        <InputComponent name="pets" value={formValues.pets} onInput={handleInput} placeholder="" />
                     </View>
                     <View>
                         <Text style={styles.label} >Do you have any specific accessibility
                             needs or requirements?
                         </Text>
-                        <InputComponent value={formValues.accessibility} placeholder="" />
+                        <InputComponent name="accessibility" value={formValues.accessibility} onInput={handleInput} placeholder="" />
                     </View>
                     <TouchableOpacity>
-                        <ButtonComponent title="Update" onPress={() => { router.push('dashboard') }} />
+                        <ButtonComponent title="Update" onPress={handleUpdate} />
                     </TouchableOpacity>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </GestureHandlerRootView>
 
     );
@@ -98,7 +110,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
         fontSize: 24,
         marginBottom: 20,
-        marginTop:40,
+        marginTop: 40,
         color: "#595959",
     },
     link: {

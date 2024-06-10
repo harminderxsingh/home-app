@@ -17,4 +17,7 @@ export const authService = {
     signIn: async (data: string): Promise<User> => {
         return axios.post('/auth/login', data).then(res => res.data)
     },
+    updateProfile: async (data: string): Promise<User> => {
+        return axios.post('/auth/profile', data).then(res => res.data)
+    },
 };
