@@ -4,6 +4,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  ToastAndroid
 } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
@@ -29,6 +30,10 @@ export default function Signup() {
     })
   }, [])
 
+  const showToast = (msg:any) => {
+    ToastAndroid.show(msg, ToastAndroid.SHORT);
+  };
+
   const handleSignUp = async () => {
     try {
       await authService.signUp(formValues);
@@ -39,8 +44,14 @@ export default function Signup() {
 
         },
       });
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      // console.error("error.response front", error.response.data.message)
+      if (error.response.status==400) {
+        showToast(error.response.data.message);
+      }
+      if (error.response.status==500) {
+        showToast(error.response.data.message);
+      }
     }
   };
 

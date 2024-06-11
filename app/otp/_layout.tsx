@@ -4,6 +4,7 @@ import {
     View,
     Text,
     TouchableOpacity,
+    ToastAndroid
 } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
@@ -30,19 +31,25 @@ export default function Otp() {
             setFormValues({ ...formValues, ...JSON.parse(data) });
         }
     }, [data]);
-
+    const showToast = (msg: any) => {
+        ToastAndroid.show(msg, ToastAndroid.SHORT);
+    };
     const handleInput = (data: any) => {
         setFormValues({ ...formValues, [data.name]: data.value })
     }
 
     const handleLogin = async () => {
         try {
-          await login(formValues);
-          router.push('dashboard')
-        } catch (error) {
-          console.error(error)
+            await login(formValues);
+            router.push('dashboard')
+        } catch (error: any) {
+            if (error.response.status === 500) {
+                showToast(error.response.data.message);
+
+            }
+            // console.error("error.response.status", error.response.data.message)
         }
-      };
+    };
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
