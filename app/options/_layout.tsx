@@ -1,6 +1,6 @@
 import CardComponent from "@/components/CardComponent";
 import { View, Text } from "react-native";
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet,ToastAndroid } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import UserSetting from "../userSetting/_layout";
 import { useContext, useState } from "react";
@@ -10,7 +10,9 @@ import { AuthContext } from "@/contexts/AuthContext";
 export default function Options() {
     const { logout } = useContext(AuthContext);
     const [showNewComponent, setShowNewComponent] = useState(false);
-
+    const showToast = (msg: any = "Logout Successfully") => {
+        ToastAndroid.show(msg, ToastAndroid.SHORT);
+    };
     const handleButtonClick = () => {
         router.push('userSetting')
         setShowNewComponent(!showNewComponent);

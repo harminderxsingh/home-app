@@ -31,7 +31,7 @@ export default function Otp() {
             setFormValues({ ...formValues, ...JSON.parse(data) });
         }
     }, [data]);
-    const showToast = (msg: any) => {
+    const showToast = (msg: any = "Login Successfully") => {
         ToastAndroid.show(msg, ToastAndroid.SHORT);
     };
     const handleInput = (data: any) => {
@@ -41,9 +41,10 @@ export default function Otp() {
     const handleLogin = async () => {
         try {
             await login(formValues);
+            showToast();
             router.push('dashboard')
         } catch (error: any) {
-            if (error.response.status === 500) {
+            if (error.response.status === 500 || error.response.status === 400) {
                 showToast(error.response.data.message);
 
             }
