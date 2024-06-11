@@ -12,21 +12,23 @@ import SvgWatch from '@/assets/images/watch.svg';
 import SvgDb from '@/assets/images/db.svg';
 import SvgMeter from '@/assets/images/meter.svg';
 import SvgBrownSetting from '@/assets/images/brownSetting.svg';
+import { StatusBar } from "expo-status-bar";
 export default function DdcHome() {
     const [selectedSection, setSelectedSection] = useState('overview');
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar backgroundColor="#D1D1D1"></StatusBar>
             <View style={{ zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F3F3F3" }}>
 
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingTop: 50,paddingBottom:20, paddingHorizontal: 15, }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingTop: 50, paddingBottom: 20, paddingHorizontal: 15, }}>
                     <Link href="/homedata" >
                         <View style={styles.link}>
                             <SvgLeftArrow />
                         </View>
                     </Link>
                     <Text style={styles.title}>DDC Home</Text>
-                    <Link href="/homedata" style={{fontSize:19,color:"#595959"}}>
+                    <Link href="/homedata" style={{ fontSize: 19, color: "#595959" }}>
                         <Text>X</Text>
                     </Link>
                 </View>

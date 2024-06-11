@@ -14,6 +14,7 @@ import SvgVideo from '@/assets/images/icons/b-video.svg';
 import SvgImage from '@/assets/images/icons/b-image.svg';
 import SvgPdf from '@/assets/images/icons/b-pdf.svg';
 import SvgAdd from '@/assets/images/icons/b-doc.svg';
+import { StatusBar } from "expo-status-bar";
 
 
 export default function Drawing() {
@@ -25,6 +26,7 @@ export default function Drawing() {
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar backgroundColor="#D1D1D1"></StatusBar>
 
             <View style={{ flexDirection: "column", justifyContent: "space-between", backgroundColor: "rgba(240, 240, 240, 1)", height: "100%" }}>
                 <View>

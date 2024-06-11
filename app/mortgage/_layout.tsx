@@ -9,6 +9,7 @@ import SvgSunWithEarth from '@/assets/images/sunWithEarth.svg';
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
 import SvgPenIcon from '@/assets/images/pen.svg';
+import { StatusBar } from "expo-status-bar";
 
 export default function MortgageData() {
     const [showNewComponent, setShowNewComponent] = useState(false);
@@ -19,6 +20,7 @@ export default function MortgageData() {
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar backgroundColor="#D1D1D1"></StatusBar>
 
             <View style={{ backgroundColor: "#F0F0F0" }}>
 
@@ -37,15 +39,15 @@ export default function MortgageData() {
                 </View>
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
-                        <View style={{ flexDirection: "row",justifyContent:"space-between",alignItems:"center"}}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
 
                             <Text style={[styles.title, styles.font24]} >Loan tracker</Text>
 
-                            <TouchableOpacity onPress={() => { router.push('loantracker') }} style={{ flexDirection: "row",justifyContent:"space-between",alignItems:"center"}}>
+                            <TouchableOpacity onPress={() => { router.push('loantracker') }} style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                 <View >
-                                <SvgPenIcon height={16} width={16} />
+                                    <SvgPenIcon height={16} width={16} />
                                 </View>
-                                <Text style={{ fontSize: 12,color:"#595959",marginStart:5}} >Edit info</Text>
+                                <Text style={{ fontSize: 12, color: "#595959", marginStart: 5 }} >Edit info</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
     },
     outerGap: {
         marginTop: 50,
-        marginHorizontal:20
+        marginHorizontal: 20
 
     },
     link: {

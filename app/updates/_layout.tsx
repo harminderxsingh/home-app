@@ -6,6 +6,7 @@ import { useState } from "react";
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBlackBurger from '@/assets/images/blackBurgur.svg';
 import SvgPinkDot from '@/assets/images/pinkdot.svg';
+import { StatusBar } from "expo-status-bar";
 
 
 export default function Updates() {
@@ -17,6 +18,7 @@ export default function Updates() {
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar backgroundColor="#D1D1D1"></StatusBar>
 
             <View style={{ flexDirection: "column", justifyContent: "space-between", backgroundColor: "rgba(240, 240, 240, 1)", }}>
                 <View >

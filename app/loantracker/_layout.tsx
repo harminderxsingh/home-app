@@ -6,12 +6,13 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
+import { StatusBar } from "expo-status-bar";
 
 export default function LoanTrackerForm() {
 
     return (
         <GestureHandlerRootView style={{ height: "auto" }}>
-
+            <StatusBar backgroundColor="#D1D1D1"></StatusBar>
             <View style={{ padding: 25, zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F0F0F0" }}>
 
                 <ScrollView  >
@@ -28,24 +29,24 @@ export default function LoanTrackerForm() {
                         </View>
                     </View>
                     <Text style={styles.title}>Loan tracker</Text>
-                    <Text style={{color:"#5B6369"}}>
+                    <Text style={{ color: "#5B6369" }}>
                         Answer a few questions to help us set up your mortgage tracker. This will ensure you get the most accurate and personalized information.
                     </Text>
                     <View>
-                    <Text style={[styles.label,{fontWeight:600,marginTop:25,marginBottom:16}]}>General info</Text>
+                        <Text style={[styles.label, { fontWeight: 600, marginTop: 25, marginBottom: 16 }]}>General info</Text>
 
                         <Text style={styles.label}>Which project is your house at?</Text>
                         <InputComponent placeholder=" " />
                     </View>
                     <View>
-                        <Text style={[styles.label,{fontWeight:600,marginTop:0,marginBottom:16}]}>Mortgage countdown</Text>
+                        <Text style={[styles.label, { fontWeight: 600, marginTop: 0, marginBottom: 16 }]}>Mortgage countdown</Text>
                         <View style={styles.flexBetween}>
 
                             <Text style={styles.label}>House buying price</Text>
                         </View>
                         <InputComponent placeholder=" " />
                     </View>
-          
+
                     <View>
                         <Text style={styles.label}>Down payment amount </Text>
                         <InputComponent placeholder="" />
