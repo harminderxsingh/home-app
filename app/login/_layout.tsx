@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import CardComponent from "@/components/CardComponent";
@@ -26,13 +26,15 @@ export default function Login() {
   const handleInput = (data: any) => {
     setFormValues({ ...formValues, [data.name]: data.value })
   }
-
+  const showToast = (msg: any = "Login Successfully") => {
+    ToastAndroid.show(msg, ToastAndroid.SHORT);
+};
   const handleLogin = async () => {
     try {
       await login(formValues);
       router.push('dashboard')
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      showToast(error.response.data.message);
     }
   };
   return (

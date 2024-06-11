@@ -10,8 +10,13 @@ import SvgGreenDot from '@/assets/images/greenDot.svg'
 import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
+import axios from "axios";
 
 export default function RootLayout() {
+  const { user } = useContext(AuthContext);
+
   return (
     <GradientBackgroundComponent>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -19,7 +24,7 @@ export default function RootLayout() {
         <Header />
         <View style={styles.outerGap}>
           <Text style={[styles.font24, styles.fontWight600, styles.textWhite]}>
-            Welcome home Anna
+            Welcome home {user?.fullName}
           </Text>
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
             Uni t 22, Nara St. BillionBricks Tartac
@@ -193,7 +198,7 @@ export default function RootLayout() {
                 ]}
               >
                 <Link
-                href='/chat'
+                  href='/chat'
                   style={[
                     styles.textGray,
                     styles.font21,

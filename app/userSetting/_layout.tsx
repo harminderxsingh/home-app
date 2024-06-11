@@ -65,7 +65,7 @@ export default function UserSetting() {
                         </View>
                         <View>
                             <Text style={styles.label}>Age</Text>
-                            <InputComponent name="age" value={`${formValues.age}`} onInput={handleInput} placeholder="" keyboardType="numeric" />
+                            <InputComponent name="age" value={`${formValues.age ?? ''}`} onInput={handleInput} placeholder="" keyboardType="numeric" />
                         </View>
                         <View>
                             <Text style={styles.label}>What are your hobbies and interests?</Text>
@@ -74,7 +74,7 @@ export default function UserSetting() {
                         <View>
                             <Text style={styles.label} >What is your household size
                                 (number of adults and children)?</Text>
-                            <InputComponent name="householdSize" value={`${formValues.householdSize}`} onInput={handleInput} keyboardType="numeric" placeholder="" />
+                            <InputComponent name="householdSize" value={`${formValues.householdSize ?? ''}`} onInput={handleInput} keyboardType="numeric" placeholder="" />
                         </View>
                         <View>
                             <Text style={styles.label} >Do you have any pets?</Text>
