@@ -14,7 +14,7 @@ import { communityService } from "@/services/CommunityService";
 import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Login() {
-  const [formValues, setFormValues] = useState<any>({});
+  const [formValues, setFormValues] = useState<any>({communityId: ''});
   const [communities, setCommunities] = useState<any[]>([]);
   const { login } = useContext(AuthContext);
   useEffect(() => {
@@ -57,6 +57,7 @@ export default function Login() {
                   onValueChange={(itemValue) =>
                     handleInput({ name: 'communityId', value: itemValue })
                   }>
+                  <Picker.Item label="Select a community" value="" color={styles.disabledItem.color}  />
                   {
                     communities.map(c =>
                       <Picker.Item key={c.id} label={c.name} value={c.id} />
@@ -105,6 +106,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: '#595959',
+  },
+  disabledItem: {
+    color: 'gray',
   },
   title: {
     textAlign: "center",

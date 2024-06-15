@@ -31,4 +31,7 @@ export const authService = {
     updateProfile: async (data: string): Promise<User> => {
         return axios.put('/auth/profile', data).then(res => res.data)
     },
+    updateNotification: async (data: string): Promise<User> => {
+        return axios.put('/auth/notification', data).then(res => res.data)
+    },
 };

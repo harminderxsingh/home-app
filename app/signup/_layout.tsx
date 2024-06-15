@@ -85,6 +85,7 @@ export default function Signup() {
               onValueChange={(itemValue) =>
                 handleInput({ name: 'communityId', value: itemValue })
               }>
+              <Picker.Item label="Select a community" value="" color={styles.disabledItem.color}  />
               {
                 communities.map(c =>
                   <Picker.Item key={c.id} label={c.name} value={c.id} />
@@ -146,6 +147,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: '#595959',
+  },
+  disabledItem: {
+    color: 'gray',
   },
   orTextContainer: {
     flexDirection: "row",
