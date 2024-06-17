@@ -21,12 +21,16 @@ export default function LoanTrackerForm() {
 
     useEffect(() => {
         projectService.get().then(res => {
-            setProjects(res)
+            if (res) {
+                setProjects(res)
+            }
         }).catch(err => {
             console.log(err.response.data)
         })
         loanService.getLoan().then(res => {
-            setFormValues(res.loan)
+            if (res.loan) {
+                setFormValues(res.loan)
+            }
         }).catch(err => {
             console.log(err.response.data)
         })
