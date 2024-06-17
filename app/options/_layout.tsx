@@ -1,6 +1,6 @@
 import CardComponent from "@/components/CardComponent";
 import { View, Text } from "react-native";
-import { Image, StyleSheet,ToastAndroid } from 'react-native';
+import { Image, StyleSheet, ToastAndroid } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import UserSetting from "../userSetting/_layout";
 import { useContext, useState } from "react";
@@ -27,6 +27,15 @@ export default function Options() {
                         <View>
                             <TouchableOpacity style={styles.button} onPress={handleButtonClick}>
                                 <Text>User settings</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={styles.button}>
+                                <Text>
+                                    <Link href="/notificationsetting">
+                                        Notification settings
+                                    </Link>
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         <View>
@@ -96,9 +105,9 @@ export default function Options() {
     );
 }
 const styles = StyleSheet.create({
-    hidden:{
-       opacity:5,
-       paddingVertical: 12,
+    hidden: {
+        opacity: 5,
+        paddingVertical: 12,
     },
     flexCenter: {
         flexDirection: "row",
