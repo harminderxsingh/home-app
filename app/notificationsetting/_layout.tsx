@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
     StyleSheet,
     View,
     Text,
+    TouchableOpacity,
 
 } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
@@ -11,12 +12,32 @@ import GradientBackgroundComponent from "@/components/GradientBackgroundComponen
 import Header from "../header/_layout";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SvgAlert from '@/assets/images/bell.svg';
-import { CheckBox } from "react-native-elements";
+import Checkbox from 'expo-checkbox';
 import { router } from "expo-router";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
+import { AuthContext } from "@/contexts/AuthContext";
 
 
 
 export default function NotificationSetting() {
+    const { user } = useContext(AuthContext);
+    const [showDatePicker, setShowDatePicker] = useState('')
+    const [formValues, setFormValues] = useState(user)
+
+    const handleInput = (data: any) => {
+        setFormValues({ ...formValues, [data.name]: data.value })
+    }
+
+    const handleDateChange = (e: any, selectedDate: any) => {
+        const currentDate = selectedDate || formValues.dateLoanStarted;
+        handleInput({ name: showDatePicker, value: format(currentDate, 'yyyy-MM-dd') });
+        setShowDatePicker('');
+    };
+
+    const handleCheckNull = (key: string) => {
+        handleInput({ name: key, value: null });
+    }
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -28,29 +49,43 @@ export default function NotificationSetting() {
                         <View style={{ flexDirection: "row", justifyContent: "center", marginVertical: 30 }}>
                             <SvgAlert />
                         </View>
-                        <View >
+                        <View>
                             <Text style={styles.label}>Date of house purchase </Text>
-                            <InputComponent placeholder=" " />
+                            <TouchableOpacity onPress={() => setShowDatePicker('housePurchasedDate')}>
+                                <View pointerEvents="none">
+                                    <InputComponent placeholder="" value={formValues.housePurchasedDate} editable={false} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <View>
                             <Text style={styles.label}>Date of last solar panel cleaning </Text>
-                            <InputComponent placeholder=" " />
+                            <TouchableOpacity onPress={() => setShowDatePicker('solarPanelCleanedDate')}>
+                                <View pointerEvents="none">
+                                    <InputComponent placeholder="" value={formValues.solarPanelCleanedDate} editable={false} />
+                                </View>
+                            </TouchableOpacity>
                             <View style={styles.flex}>
-                                <CheckBox />
+                                <Checkbox value={formValues.solarPanelCleanedDate == null} onValueChange={() => handleCheckNull('solarPanelCleanedDate')} />
                                 <Text style={styles.label}>Never been cleaned</Text>
                             </View>
                         </View>
                         <View>
                             <Text style={styles.label}>Date of last septic tank cleaning </Text>
-                            <InputComponent placeholder=" " />
+                            <TouchableOpacity onPress={() => setShowDatePicker('septicTankCleanedDate')}>
+                                <View pointerEvents="none">
+                                    <InputComponent placeholder="" value={formValues.septicTankCleanedDate} editable={false} />
+                                </View>
+                            </TouchableOpacity>
                             <View style={styles.flex}>
-                                <CheckBox />
+                                <Checkbox value={formValues.septicTankCleanedDate == null} onValueChange={() => handleCheckNull('septicTankCleanedDate')} />
                                 <Text style={styles.label}>Never been cleaned</Text>
                             </View>
                         </View>
 
 
-
+                        {
+                            !!showDatePicker && <RNDateTimePicker value={new Date(formValues[showDatePicker] ?? Date.now())} onChange={handleDateChange} />
+                        }
 
 
                     </View>
@@ -59,7 +94,7 @@ export default function NotificationSetting() {
 
 
                     <View style={{ marginBottom: 80 }}>
-                        <ButtonComponent title="Done" onPress={() => {router.push("/dashboard") }} />
+                        <ButtonComponent title="Done" onPress={() => { router.push("/dashboard") }} />
                     </View>
                 </View>
 
