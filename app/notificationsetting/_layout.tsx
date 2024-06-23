@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -15,13 +15,13 @@ import SvgAlert from '@/assets/images/bell.svg';
 import Checkbox from 'expo-checkbox';
 import { router } from "expo-router";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import { format } from "date-fns";
+import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
 
 
 
 export default function NotificationSetting() {
-    const { user } = useContext(AuthContext);
+    const { user, updateNotification } = useContext(AuthContext);
     const [showDatePicker, setShowDatePicker] = useState('')
     const [formValues, setFormValues] = useState(user)
 
@@ -30,7 +30,7 @@ export default function NotificationSetting() {
     }
 
     const handleDateChange = (e: any, selectedDate: any) => {
-        const currentDate = selectedDate || formValues.dateLoanStarted;
+        const currentDate = selectedDate;
         handleInput({ name: showDatePicker, value: format(currentDate, 'yyyy-MM-dd') });
         setShowDatePicker('');
     };
@@ -39,6 +39,24 @@ export default function NotificationSetting() {
         handleInput({ name: key, value: null });
     }
 
+    const handleUpdate = async () => {
+        try {
+            await updateNotification(formValues)
+            router.push('dashboard')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        const fixDate = (val: string | null) => val ? formatDate(val, 'yyyy-MM-dd') : null;
+        setFormValues({
+            ...formValues,
+            housePurchasedDate: fixDate(user.housePurchasedDate),
+            solarPanelCleanedDate: fixDate(user.solarPanelCleanedDate),
+            septicTankCleanedDate: fixDate(user.septicTankCleanedDate),
+        })
+    }, [user])
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
@@ -94,7 +112,7 @@ export default function NotificationSetting() {
 
 
                     <View style={{ marginBottom: 80 }}>
-                        <ButtonComponent title="Done" onPress={() => { router.push("/dashboard") }} />
+                        <ButtonComponent title="Done" onPress={ handleUpdate } />
                     </View>
                 </View>
 
