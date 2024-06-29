@@ -1,29 +1,138 @@
 
-import { Link } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Text } from "react-native";
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as DocumentPicker from 'expo-document-picker';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import * as SecureStore from 'expo-secure-store';
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgAddIcon from '@/assets/images/addIcon.svg';
 import SvgCamera from '@/assets/images/camera.svg';
 import SvgImageOutline from '@/assets/images/imgOutline.svg';
 import SvgUploadArrow from '@/assets/images/uploadArrow.svg';
 import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
-import SvgVideo from '@/assets/images/icons/b-video.svg';
-import SvgImage from '@/assets/images/icons/b-image.svg';
-import SvgPdf from '@/assets/images/icons/b-pdf.svg';
 import SvgAdd from '@/assets/images/icons/b-doc.svg';
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+import { fileService } from "@/services/FileService";
+import { formatDate } from "date-fns";
 
+const { extra } = Constants.expoConfig || {};
+const gviewSupportedMimeTypes = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-powerpoint',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'text/plain',
+    'application/rtf',
+    'image/png',
+    'image/jpeg',
+    'image/gif',
+  ];
 
 export default function Drawing() {
+    const { folderId } = useLocalSearchParams<{ folderId: string }>();
     const [showNewComponent, setShowNewComponent] = useState(false);
+    const [folder, setFolder] = useState<any>({ files: [] });
+
+    useEffect(() => {
+        loadData()
+    }, [folderId])
+
+    const loadData = () => {
+        if (folderId) {
+            fileService.filesByFolders(folderId).then(res => {
+                setFolder(res)
+            })
+        }
+    }
 
     const handleButtonClick = () => {
         setShowNewComponent(!showNewComponent);
     };
 
+    const openFile = (file: any) => {
+        const url = `${extra?.baseUrl}${file.path}`;
+        console.log(url)
+        if (gviewSupportedMimeTypes.includes(file.mimetype)) {
+            router.push({
+                pathname: 'fileviewer',
+                params: {
+                    mimetype: file.mimetype,
+                    url,
+                },
+            });
+        }
+    }
+
+    const pickCamera = async () => {
+        const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert('Camera permission is required!');
+            return;
+        }
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            allowsMultipleSelection: false,
+        });
+        if (!result.canceled) {
+            uploadFile(result.assets[0]);
+        }
+    };
+
+    const pickDocument = async () => {
+        let result = await DocumentPicker.getDocumentAsync({ multiple: false });
+        console.log(result)
+        if (!result.canceled) {
+            uploadFile(result.assets[0]);
+        }
+    }
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            allowsMultipleSelection: false,
+        });
+        if (!result.canceled) {
+            uploadFile(result.assets[0]);
+        }
+    }
+    const uploadFile = async (file: any) => {
+
+        try {
+            setShowNewComponent(false)
+            const token = await SecureStore.getItemAsync('userToken');
+            const response = await FileSystem.uploadAsync(`${extra?.baseUrl}/file`, file.uri, {
+                httpMethod: 'POST',
+                uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+                fieldName: 'file',
+                parameters: {
+                    name: file.name ?? file.uri.split('/').pop(),
+                    folderId: folderId ?? '',
+                },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.status === 200) {
+            } else {
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            loadData()
+        }
+    };
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#D1D1D1"></StatusBar>
@@ -46,23 +155,26 @@ export default function Drawing() {
                     </View>
                     <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                         <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
-                            <Text style={[styles.title, styles.font24,]} >Contracts</Text>
-                            <Text style={[styles.font14, { color: "rgba(121, 101, 101, 0.8)" }]}>8 Scaned files</Text>
+                            <Text style={[styles.title, styles.font24,]} >{folder.folderName}</Text>
+                            <Text style={[styles.font14, { color: "rgba(121, 101, 101, 0.8)" }]}>{folder.files?.length} Scaned files</Text>
                             <View style={{ marginTop: 40, }}>
 
-                                <Link href='/drawing' style={[styles.btn,]} >
-                                    <SvgVideo />
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                            Floorplans
-                                            and drawing
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </Link>
-                                <Link href='/ddcHome' style={[styles.btn,]} >
+                                {
+                                    folder.files.map((file: any) =>
+                                        <TouchableOpacity key={file.id} onPress={() => openFile(file)} style={[styles.btn,]} >
+                                            <SvgAdd />
+                                            <View style={{ paddingLeft: 20 }}>
+                                                <Text style={styles.heading}>
+                                                    {file.originalName}
+                                                </Text>
+                                                <Text style={styles.count}>
+                                                    {formatDate(file.createdAt, 'MM/dd/yyyy')}
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                                }
+                                {/* <Link href='/ddcHome' style={[styles.btn,]} >
                                     <SvgImage />
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
@@ -94,7 +206,7 @@ export default function Drawing() {
                                             12 Items
                                         </Text>
                                     </View>
-                                </Link>
+                                </Link> */}
                             </View>
                         </View>
                     </View>
@@ -104,17 +216,17 @@ export default function Drawing() {
                         &&
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#fff", marginHorizontal: 80, paddingVertical: 14, borderRadius: 10, marginBottom: 7 }}>
                             <View >
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={pickCamera}>
                                     <SvgCamera />
                                 </TouchableOpacity>
                             </View>
                             <View >
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={pickImage}>
                                     <SvgImageOutline />
                                 </TouchableOpacity>
                             </View>
                             <View >
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={pickDocument}>
                                     <SvgUploadArrow />
                                 </TouchableOpacity>
                             </View>
@@ -149,7 +261,7 @@ const styles = StyleSheet.create({
     },
     outerGap: {
         marginTop: 50,
-        marginHorizontal:20
+        marginHorizontal: 20
     },
     logo: {
         width: 40,

@@ -8,6 +8,7 @@ interface AuthContextProps {
   userToken: string | null;
   user: any | null;
   login: (data: any) => Promise<void>;
+  signup: (data: any) => Promise<void>;
   updateProfile: (data: any) => Promise<void>;
   updateNotification: (data: any) => Promise<void>;
   logout: () => Promise<void>;
@@ -21,6 +22,7 @@ export const AuthContext = createContext<AuthContextProps>({
   userToken: null,
   user: null,
   login: async () => { },
+  signup: async () => { },
   updateProfile: async () => { },
   updateNotification: async () => { },
   logout: async () => { },
@@ -38,28 +40,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const { token, user } = await authService.signIn(data)
     setUserToken(token);
     setUser(user || null)
-    await SecureStore.setItemAsync('userToken', token);
-    await SecureStore.setItemAsync('user', JSON.stringify(user));
+    SecureStore.setItemAsync('userToken', token);
+    SecureStore.setItemAsync('user', JSON.stringify(user));
+  };
+
+  const signup = async (data: any) => {
+    const { token, user } = await authService.signUp(data)
+    setUserToken(token);
+    setUser(user || null)
+    SecureStore.setItemAsync('userToken', token);
+    SecureStore.setItemAsync('user', JSON.stringify(user));
   };
 
   const updateProfile = async (data: any) => {
     const { user } = await authService.updateProfile(data)
     setUser(user || null)
-    await SecureStore.setItemAsync('user', JSON.stringify(user));
+    SecureStore.setItemAsync('user', JSON.stringify(user));
   };
 
   const updateNotification = async (data: any) => {
     const { user } = await authService.updateNotification(data)
     setUser(user || null)
-    await SecureStore.setItemAsync('user', JSON.stringify(user));
+    SecureStore.setItemAsync('user', JSON.stringify(user));
   };
 
   const logout = async () => {
     setUserToken(null);
     setUser(null);
     router.push('login')
-    await SecureStore.deleteItemAsync('userToken');
-    await SecureStore.deleteItemAsync('user');
+    SecureStore.deleteItemAsync('userToken');
+    SecureStore.deleteItemAsync('user');
   };
 
   const checkToken = async () => {
@@ -86,7 +96,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userToken, user, login, updateProfile, updateNotification, logout }}>
+    <AuthContext.Provider value={{ userToken, user, login, signup, updateProfile, updateNotification, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -17,12 +17,14 @@ import { authService } from '@/services/AuthService';
 import Header from "../header/_layout";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { communityService } from "@/services/CommunityService";
+import { AuthContext } from "@/contexts/AuthContext";
 
 
 export default function Signup() {
 
   const [communities, setCommunities] = useState<any[]>([]);
   const [formValues, setFormValues] = useState<any>({});
+  const { signup } = useContext(AuthContext);
 
   useEffect(() => {
     communityService.get().then(res => {
@@ -36,14 +38,15 @@ export default function Signup() {
 
   const handleSignUp = async () => {
     try {
-      await authService.signUp(formValues);
-      router.push({
-        pathname: 'otp',
-        params: {
-          data: JSON.stringify(formValues),
+      await signup(formValues);
+      router.push('dashboard')
+      // router.push({
+      //   pathname: 'otp',
+      //   params: {
+      //     data: JSON.stringify(formValues),
 
-        },
-      });
+      //   },
+      // });
     } catch (error: any) {
       // console.error("error.response front", error.response.data.message)
       if (error.response.status==400) {

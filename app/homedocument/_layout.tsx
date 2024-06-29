@@ -1,26 +1,47 @@
 
-import { Link } from "expo-router";
+import { Link, router, useFocusEffect } from "expo-router";
 import { View, Text } from "react-native";
 import { Image, StyleSheet, ScrollView } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import DocumentBackgroundComponent from "@/components/DocumentBackgroundComponent";
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBlackBurger from '@/assets/images/blackBurgur.svg';
 import SvgFolder from '@/assets/images/folder.svg';
-import SvgFolderOrange from '@/assets/images/folderOrange.svg';
-import SvgFolderSkin from '@/assets/images/folderSkin.svg';
-import SvgFolderLight from '@/assets/images/folderLight.svg';
-import SvgFolderGreen from '@/assets/images/folderGreen.svg';
-import SvgFolderTrash from '@/assets/images/trash.svg';
+// import SvgFolderOrange from '@/assets/images/folderOrange.svg';
+// import SvgFolderSkin from '@/assets/images/folderSkin.svg';
+// import SvgFolderLight from '@/assets/images/folderLight.svg';
+// import SvgFolderGreen from '@/assets/images/folderGreen.svg';
+// import SvgFolderTrash from '@/assets/images/trash.svg';
+import { fileService } from "@/services/FileService";
 
 
 export default function HomeDocument() {
     const [showNewComponent, setShowNewComponent] = useState(false);
+    const [folders, setFolders] = useState<any[]>([]);
 
     const handleButtonClick = () => {
         setShowNewComponent(!showNewComponent);
     };
+
+    useFocusEffect(
+        useCallback(() => {
+            fileService.folders().then((res) => {
+                setFolders(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }, [])
+    );
+
+    const openFolder = (folderId: string) => {
+        router.push({
+            pathname: 'drawing',
+            params: {
+                folderId,
+            },
+        });
+    }
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -46,29 +67,33 @@ export default function HomeDocument() {
                         <Text style={[styles.title, styles.font24, styles.colorWhite,]} >Home data</Text>
                         <Text style={[styles.font14, styles.colorWhite,]}>6 folders</Text>
                         <View style={{ marginTop: 40, }}>
-                            <Link href='/drawing' style={[styles.btn]} >
-                                <View style={styles.flexrow} >
-                                    <View>
-                                        <SvgFolder />
-                                    </View>
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                        Floor plans 
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </View>
-                            </Link>
-                            <Link href='/ddcHome' style={[styles.btn]}  >
+                            {
+                                folders.map(folder =>
+                                    <TouchableOpacity key={folder.id} onPress={() => openFolder(folder.id)} style={[styles.btn]} >
+                                        <View style={styles.flexrow} >
+                                            <View>
+                                                <SvgFolder />
+                                            </View>
+                                            <View style={{ paddingLeft: 20 }}>
+                                                <Text style={styles.heading}>
+                                                    {folder.name}
+                                                </Text>
+                                                <Text style={styles.count}>
+                                                    {folder.filesCount} Items
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            }
+                            {/* <Link href='/ddcHome' style={[styles.btn]}  >
                                 <View style={styles.flexrow}>
                                     <View >
                                         <SvgFolderOrange />
                                     </View>
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
-                                         Tutorials
+                                            Tutorials
                                         </Text>
                                         <Text style={styles.count}>
                                             12 Items
@@ -116,7 +141,7 @@ export default function HomeDocument() {
 
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
-                                        Miscellaneous
+                                            Miscellaneous
                                         </Text>
                                         <Text style={styles.count}>
                                             12 Items
@@ -132,14 +157,14 @@ export default function HomeDocument() {
 
                                     <View style={{ paddingLeft: 20 }}>
                                         <Text style={styles.heading}>
-                                        Deleted documents
+                                            Deleted documents
                                         </Text>
                                         <Text style={styles.count}>
                                             12 Items
                                         </Text>
                                     </View>
                                 </View>
-                            </Link>
+                            </Link> */}
                         </View>
                     </View>
                 </View>
