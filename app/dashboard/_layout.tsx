@@ -121,12 +121,8 @@ export default function RootLayout() {
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
-              <View style={[styles.box, { backgroundColor: "#E8E0D4" }]} >
-                <TouchableOpacity
-                  onPress={() => { router.push('/homedata') }}
-                // href="/homedata"
-
-                >
+              <TouchableOpacity onPress={() => { router.push('/homedata') }} style={[styles.box, { backgroundColor: "#E8E0D4" }]} >
+               
                   <Text style={[
                     styles.textGray,
                     styles.font21,
@@ -135,10 +131,9 @@ export default function RootLayout() {
                   ]}>
                     Home Data
                   </Text>
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
               <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#D6C09D" }]}>
-                <View style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
+                <TouchableOpacity onPress={() => { router.push('/updates') }} style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
                   <Text
                     style={[
                       styles.font14,
@@ -161,7 +156,7 @@ export default function RootLayout() {
                   >
                     7
                   </Text>
-                </View>
+                </TouchableOpacity>
                 <Link
                   href="/updates"
                   style={[
@@ -177,9 +172,8 @@ export default function RootLayout() {
 
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              <View style={[styles.box, { backgroundColor: "#96C8D3" }]}>
-                <Link
-                  href="/homedocument"
+              <TouchableOpacity onPress={() => { router.push('/homedocument') }} style={[styles.box, { backgroundColor: "#96C8D3" }]}>
+                <Text
                   style={[
                     styles.textGray,
                     styles.font21,
@@ -188,17 +182,17 @@ export default function RootLayout() {
                   ]}
                 >
                   Home Documnets
-                </Link>
-              </View>
-              <View
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+              onPress={() => { router.push('/chat') }}
                 style={[
                   styles.box,
                   styles.upperGap10,
                   { backgroundColor: "#EEEEEE" },
                 ]}
               >
-                <Link
-                  href='/chat'
+                <Text
                   style={[
                     styles.textGray,
                     styles.font21,
@@ -208,8 +202,8 @@ export default function RootLayout() {
                 >
                   Home
                   Assistance
-                </Link>
-              </View>
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

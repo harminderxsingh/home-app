@@ -20,7 +20,7 @@ export default function Ads() {
                 <View>
 
                     <View style={[styles.outerGap, styles.flexWithBetween]}>
-                        <Link href="/homedocument" >
+                        <Link href="/updates" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
                             </View>

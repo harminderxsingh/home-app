@@ -24,7 +24,7 @@ export default function Updates() {
                 <View >
 
                     <View style={[styles.outerGap, styles.flexWithBetween]}>
-                        <Link href="/homedocument" >
+                        <Link href="/dashboard" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
                             </View>
@@ -56,7 +56,7 @@ export default function Updates() {
                                         </View>
                                     </View>
                                 </Link>
-                                <Link href='/drawing' style={[styles.btn,]} >
+                                <Link href='/ads' style={[styles.btn,]} >
                                     <View style={{ flexDirection: "row" }} >
                                         <View style={{ marginTop: 5 }}>
                                             <SvgPinkDot />
@@ -71,7 +71,7 @@ export default function Updates() {
                                         </View>
                                     </View>
                                 </Link>
-                                <Link href='/drawing' style={[styles.btn,]} >
+                                <Link href='/ads' style={[styles.btn,]} >
                                     <View style={{ flexDirection: "row" }} >
                                         <View style={{ marginTop: 5 }}>
                                             <SvgPinkDot />
@@ -85,7 +85,7 @@ export default function Updates() {
                                         </View>
                                     </View>
                                 </Link>
-                                <Link href='/drawing' style={[styles.btn,]} >
+                                <Link href='/ads' style={[styles.btn,]} >
                                     <View style={{ flexDirection: "row" }} >
                                         <View style={{ marginTop: 5 }}>
                                             <SvgPinkDot />

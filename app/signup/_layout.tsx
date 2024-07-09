@@ -65,7 +65,7 @@ export default function Signup() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
 
-      <GradientBackgroundComponent>
+      <GradientBackgroundComponent >
         <Header />
         <CardComponent>
           <Text style={styles.title}>Sign up</Text>
@@ -122,7 +122,7 @@ export default function Signup() {
             }}
           ></TouchableOpacity> */}
           <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
-          <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
+          {/* <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} /> */}
           <View style={{ marginVertical: 20 }}>
             <ButtonComponent title="Continue" onPress={handleSignUp} />
           </View>
