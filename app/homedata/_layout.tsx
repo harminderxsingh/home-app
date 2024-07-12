@@ -21,10 +21,10 @@ export default function HomeData() {
                             <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#E8E0D4" }]} >
                             Solar Performance
                             </Link>
-                            <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
+                            <Link href='/electricbill' style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
                             Electricity bill
                             </Link>
-                            <Link href='/ddcHome' style={[styles.btn, { backgroundColor: "#96C8D3" }]}>
+                            <Link href='/waterbill' style={[styles.btn, { backgroundColor: "#96C8D3" }]}>
                             Water bill
                             </Link>
                             <Link href='/mortgage' style={[styles.btn, { backgroundColor: "#D6C09D" }]}>

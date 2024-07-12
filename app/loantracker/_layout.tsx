@@ -61,7 +61,7 @@ export default function LoanTrackerForm() {
 
                 <ScrollView  >
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
-                        <Link href="/homedata"   >
+                        <Link href="/mortgage"   >
                             <View style={styles.circle}>
                                 <SvgLeftArrow />
                             </View>

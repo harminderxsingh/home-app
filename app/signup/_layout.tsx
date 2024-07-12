@@ -65,7 +65,7 @@ export default function Signup() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
 
-      <GradientBackgroundComponent>
+      <GradientBackgroundComponent >
         <Header />
         <CardComponent>
           <Text style={styles.title}>Sign up</Text>
@@ -73,12 +73,14 @@ export default function Signup() {
             <SvgUserIcon />
           </View>
           {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
-          <View style={{ height: 1, backgroundColor: "#323232", marginVertical: 50 }}></View>
+          <View style={{ height: 1, backgroundColor: "#323232", marginVertical: 30 }}></View>
           {/* <View style={styles.orTextContainer}>
             <View style={[styles.line, styles.mRight]} />
             <Text style={styles.orText}>or</Text>
             <View style={[styles.line, styles.mLeft]} />
           </View> */}
+          <View >
+
           <InputComponent name="fullName" placeholder="Full name" onInput={handleInput} />
           {/* <DropdownComponent /> */}
           <View style={styles.pickerContainer}>
@@ -123,12 +125,14 @@ export default function Signup() {
           ></TouchableOpacity> */}
           <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
           <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
-          <View style={{ marginVertical: 20 }}>
+          <View style={{ marginVertical: 5 }}>
             <ButtonComponent title="Continue" onPress={handleSignUp} />
           </View>
           <Text style={styles.text}>Already have an account?{"\n"}
             <TouchableOpacity><Link style={styles.link} href="/login">Login</Link></TouchableOpacity>
           </Text>
+          </View>
+
         </CardComponent>
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 24,
-    marginBottom: 20,
+    marginBottom: 10,
     color: "#595959",
   },
   orText: {

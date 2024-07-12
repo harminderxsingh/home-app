@@ -51,7 +51,7 @@ export default function HomeDocument() {
 
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={[styles.outerGap, styles.flexWithBetween]}>
-                        <Link href="/homedata" >
+                        <Link href="/dashboard" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
                             </View>

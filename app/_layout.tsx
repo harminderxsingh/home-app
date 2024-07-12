@@ -22,6 +22,10 @@ export default function RootLayout() {
         <Stack.Screen name="loantracker" />
         <Stack.Screen name="chat" />
         <Stack.Screen name="userSetting" />
+        <Stack.Screen name="waterbill" />
+        <Stack.Screen name="electricbill" />
+
+
 
 
       </Stack>
