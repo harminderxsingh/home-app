@@ -81,7 +81,7 @@ export default function Signup() {
           </View> */}
           <View >
 
-          <InputComponent name="fullName" placeholder="Full name" onInput={handleInput} />
+          <InputComponent name="fullName" placeholder="Full name" onInput={handleInput} autoFocus={true} />
           {/* <DropdownComponent /> */}
           <View style={styles.pickerContainer}>
             <Picker

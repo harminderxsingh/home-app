@@ -9,10 +9,14 @@ import SvgArrow from '@/assets/images/rightArrw.svg';
 import SvgGreenDot from '@/assets/images/greenDot.svg'
 import {
   GestureHandlerRootView,
+  TextInput,
 } from "react-native-gesture-handler";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import axios from "axios";
+import { BlurView } from 'expo-blur';
+import InputComponent from "@/components/InputComponent";
+
 
 export default function RootLayout() {
   const { user } = useContext(AuthContext);
@@ -23,13 +27,15 @@ export default function RootLayout() {
 
         <Header />
         <View style={styles.outerGap}>
-          <Text style={[styles.font24, styles.fontWight600, styles.textWhite]}>
+          <TextInput style={[styles.font24, styles.fontWight600, styles.hideCursor]} autoFocus={true}>
             Welcome home {user?.fullName}
-          </Text>
+          </TextInput>
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
-          <TouchableOpacity
+          <BlurView
+            intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+
             style={[
               styles.notification,
               styles.upperGap14,
@@ -43,9 +49,12 @@ export default function RootLayout() {
               {" "}
               Today is 2BC with a high chance of rain
             </Text>
-          </TouchableOpacity>
+          </BlurView>
           <View style={[styles.upperGap10]}>
-            <View style={styles.notification}>
+            <BlurView
+              intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+
+              style={styles.notification}>
               <Text
                 style={[styles.font16, styles.fontWight600, styles.textGray, { marginBottom: 10 }]}
               >
@@ -117,12 +126,15 @@ export default function RootLayout() {
                   More alerts...
                 </Text>
               </View>
-            </View>
+            </BlurView>
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
-              <TouchableOpacity onPress={() => { router.push('/homedata') }} style={[styles.box, { backgroundColor: "#E8E0D4" }]} >
-               
+              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+                style={[styles.box]}
+              >
+                <TouchableOpacity onPress={() => { router.push('/homedata') }}  >
+
                   <Text style={[
                     styles.textGray,
                     styles.font21,
@@ -131,8 +143,11 @@ export default function RootLayout() {
                   ]}>
                     Home Data
                   </Text>
-              </TouchableOpacity>
-              <View style={[styles.boxFixed, styles.upperGap10, { backgroundColor: "#D6C09D" }]}>
+                </TouchableOpacity>
+              </BlurView>
+              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+
+                style={[styles.boxFixed, styles.upperGap10]}>
                 <TouchableOpacity onPress={() => { router.push('/updates') }} style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
                   <Text
                     style={[
@@ -168,29 +183,35 @@ export default function RootLayout() {
                 >
                   Billion Bricks Update
                 </Link>
-              </View>
+              </BlurView>
 
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              <TouchableOpacity onPress={() => { router.push('/homedocument') }} style={[styles.box, { backgroundColor: "#96C8D3" }]}>
-                <Text
-                  style={[
-                    styles.textGray,
-                    styles.font21,
-                    styles.fontWight600,
-                    { width: 110 },
-                  ]}
-                >
-                  Home Documnets
-                </Text>
-              </TouchableOpacity>
+              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+              style={[styles.box]}
+              >
+                <TouchableOpacity onPress={() => { router.push('/homedocument') }} >
+                  <Text
+                    style={[
+                      styles.textGray,
+                      styles.font21,
+                      styles.fontWight600,
+                      { width: 110 },
+                    ]}
+                  >
+                    Home Documnets
+                  </Text>
+                </TouchableOpacity>
+              </BlurView>
+              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+             style={[
+              styles.box,
+              styles.upperGap10,
+            ]}
+              >
               <TouchableOpacity
-              onPress={() => { router.push('/chat') }}
-                style={[
-                  styles.box,
-                  styles.upperGap10,
-                  { backgroundColor: "#EEEEEE" },
-                ]}
+                onPress={() => { router.push('/chat') }}
+                
               >
                 <Text
                   style={[
@@ -204,6 +225,7 @@ export default function RootLayout() {
                   Assistance
                 </Text>
               </TouchableOpacity>
+              </BlurView>
             </View>
           </View>
         </View>
@@ -212,6 +234,12 @@ export default function RootLayout() {
   );
 }
 const styles = StyleSheet.create({
+  hideCursor: {
+    color: 'transparent',
+    textShadowColor: 'white', // Shadow color
+    textShadowOffset: { width: 0, height: 2 }, // Shadow offset
+    textShadowRadius: .1,
+  },
   rightGap: {
     paddingRight: 5,
   },
@@ -246,17 +274,19 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 600,
     height: 132,
+    overflow: 'hidden',
     paddingBottom: 12,
     paddingLeft: 9,
     borderRadius: 10,
-    color: "#404040",
+    color: "#fff",
 
   },
   box: {
     fontSize: 21,
     fontWeight: 600,
     height: 132,
-    backgroundColor: "#F4B081",
+    overflow: 'hidden',
+    // backgroundColor: "#F4B081",
     width: "100%",
     justifyContent: "flex-end",
     paddingBottom: 12,
@@ -329,7 +359,7 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
   notification: {
-    backgroundColor: "#FFFFFF",
+    overflow: 'hidden',
     padding: 14,
     borderRadius: 8,
   },

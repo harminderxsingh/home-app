@@ -50,14 +50,16 @@ export default function Login() {
               </View>
 
               <View style={{ height: 1, backgroundColor: "#323232", marginVertical: 50 }}></View>
-              <View style={styles.pickerContainer}>
+              <View style={styles.pickerContainer} >
                 <Picker
                   style={styles.input}
                   selectedValue={formValues.communityId}
                   onValueChange={(itemValue) =>
                     handleInput({ name: 'communityId', value: itemValue })
-                  }>
-                  <Picker.Item label="Select a community" value="" color={styles.disabledItem.color}  />
+                  }
+                  
+                  >
+                  <Picker.Item label="Select a community" value=""  color={styles.disabledItem.color}  />
                   {
                     communities.map(c =>
                       <Picker.Item key={c.id} label={c.name} value={c.id} />
@@ -65,7 +67,7 @@ export default function Login() {
                   }
                 </Picker>
               </View>
-              <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
+              <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" autoFocus={true} />
               <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
             </View>
           </View>

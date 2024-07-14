@@ -39,14 +39,14 @@ export default function UserSetting() {
                         </View>
                         <View>
                             <Text style={styles.label}>Full name</Text>
-                            <InputComponent name="fullName" value={formValues.fullName} onInput={handleInput} placeholder="Anna Alamos" />
+                            <InputComponent name="fullName" value={formValues?.fullName} onInput={handleInput} placeholder="Anna Alamos" />
                         </View>
                         <View>
                             <View style={styles.flexBetween}>
                                 <Text style={styles.label}>Phone number</Text>
                                 <Link href="/signup" style={styles.link} >Edit Phone number</Link>
                             </View>
-                            <InputComponent name="phone" value={formValues.phone} onInput={handleInput} placeholder="9352385 585" />
+                            <InputComponent name="phone" value={formValues?.phone} onInput={handleInput} placeholder="9352385 585" />
                         </View>
                         <View>
                             <View style={styles.flexBetween}>
@@ -61,30 +61,30 @@ export default function UserSetting() {
                         </View>
                         <View>
                             <Text style={styles.label}>Occupation</Text>
-                            <InputComponent name="occupation" value={formValues.occupation} onInput={handleInput} placeholder="" />
+                            <InputComponent name="occupation" value={formValues?.occupation} onInput={handleInput} placeholder="" />
                         </View>
                         <View>
                             <Text style={styles.label}>Age</Text>
-                            <InputComponent name="age" value={`${formValues.age ?? ''}`} onInput={handleInput} placeholder="" keyboardType="numeric" />
+                            <InputComponent name="age" value={`${formValues?.age ?? ''}`} onInput={handleInput} placeholder="" keyboardType="numeric" />
                         </View>
                         <View>
                             <Text style={styles.label}>What are your hobbies and interests?</Text>
-                            <InputComponent name="interests" value={formValues.interests} onInput={handleInput} placeholder="" />
+                            <InputComponent name="interests" value={formValues?.interests} onInput={handleInput} placeholder="" />
                         </View>
                         <View>
                             <Text style={styles.label} >What is your household size
                                 (number of adults and children)?</Text>
-                            <InputComponent name="householdSize" value={`${formValues.householdSize ?? ''}`} onInput={handleInput} keyboardType="numeric" placeholder="" />
+                            <InputComponent name="householdSize" value={`${formValues?.householdSize ?? ''}`} onInput={handleInput} keyboardType="numeric" placeholder="" />
                         </View>
                         <View>
                             <Text style={styles.label} >Do you have any pets?</Text>
-                            <InputComponent name="pets" value={formValues.pets} onInput={handleInput} placeholder="" />
+                            <InputComponent name="pets" value={formValues?.pets} onInput={handleInput} placeholder="" />
                         </View>
                         <View>
                             <Text style={styles.label} >Do you have any specific accessibility
                                 needs or requirements?
                             </Text>
-                            <InputComponent name="accessibility" value={formValues.accessibility} onInput={handleInput} placeholder="" />
+                            <InputComponent name="accessibility" value={formValues?.accessibility} onInput={handleInput} placeholder="" />
                         </View>
                         <TouchableOpacity>
                             <ButtonComponent title="Update" onPress={handleUpdate} />

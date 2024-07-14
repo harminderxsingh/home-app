@@ -10,13 +10,14 @@ import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
 import Header from "../header/_layout";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import SvgAlert from '@/assets/images/bell.svg';
 import Checkbox from 'expo-checkbox';
 import { router } from "expo-router";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
+import { BlurView } from "expo-blur";
 
 
 
@@ -52,18 +53,19 @@ export default function NotificationSetting() {
         const fixDate = (val: string | null) => val ? formatDate(val, 'yyyy-MM-dd') : null;
         setFormValues({
             ...formValues,
-            housePurchasedDate: fixDate(user.housePurchasedDate),
-            solarPanelCleanedDate: fixDate(user.solarPanelCleanedDate),
-            septicTankCleanedDate: fixDate(user.septicTankCleanedDate),
+            housePurchasedDate: fixDate(user?.housePurchasedDate),
+            solarPanelCleanedDate: fixDate(user?.solarPanelCleanedDate),
+            septicTankCleanedDate: fixDate(user?.septicTankCleanedDate),
         })
     }, [user])
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
                 <Header />
-                <View style={{ backgroundColor: "#F7F7F7", borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: "89%", flexDirection: "column", justifyContent: "space-between" }}>
+                <BlurView
+                    intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView' style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: "89%", flexDirection: "column", justifyContent: "space-between",overflow:"hidden" }}>
                     <View >
-                        <Text style={styles.title}>Notifications Settings</Text>
+                        <TextInput style={styles.title} autoFocus={true} >Notifications Settings</TextInput>
                         <View style={{ flexDirection: "row", justifyContent: "center", marginVertical: 30 }}>
                             <SvgAlert />
                         </View>
@@ -71,7 +73,7 @@ export default function NotificationSetting() {
                             <Text style={styles.label}>Date of house purchase </Text>
                             <TouchableOpacity onPress={() => setShowDatePicker('housePurchasedDate')}>
                                 <View pointerEvents="none">
-                                    <InputComponent placeholder="" value={formValues.housePurchasedDate} editable={false} />
+                                    <InputComponent placeholder="" value={formValues?.housePurchasedDate} editable={false} />
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -79,11 +81,11 @@ export default function NotificationSetting() {
                             <Text style={styles.label}>Date of last solar panel cleaning </Text>
                             <TouchableOpacity onPress={() => setShowDatePicker('solarPanelCleanedDate')}>
                                 <View pointerEvents="none">
-                                    <InputComponent placeholder="" value={formValues.solarPanelCleanedDate} editable={false} />
+                                    <InputComponent placeholder="" value={formValues?.solarPanelCleanedDate} editable={false} />
                                 </View>
                             </TouchableOpacity>
                             <View style={styles.flex}>
-                                <Checkbox value={formValues.solarPanelCleanedDate == null} onValueChange={() => handleCheckNull('solarPanelCleanedDate')} />
+                                <Checkbox value={formValues?.solarPanelCleanedDate == null} onValueChange={() => handleCheckNull('solarPanelCleanedDate')} />
                                 <Text style={styles.label}>Never been cleaned</Text>
                             </View>
                         </View>
@@ -91,11 +93,11 @@ export default function NotificationSetting() {
                             <Text style={styles.label}>Date of last septic tank cleaning </Text>
                             <TouchableOpacity onPress={() => setShowDatePicker('septicTankCleanedDate')}>
                                 <View pointerEvents="none">
-                                    <InputComponent placeholder="" value={formValues.septicTankCleanedDate} editable={false} />
+                                    <InputComponent placeholder="" value={formValues?.septicTankCleanedDate} editable={false} />
                                 </View>
                             </TouchableOpacity>
                             <View style={styles.flex}>
-                                <Checkbox value={formValues.septicTankCleanedDate == null} onValueChange={() => handleCheckNull('septicTankCleanedDate')} />
+                                <Checkbox value={formValues?.septicTankCleanedDate == null} onValueChange={() => handleCheckNull('septicTankCleanedDate')} />
                                 <Text style={styles.label}>Never been cleaned</Text>
                             </View>
                         </View>
@@ -112,9 +114,9 @@ export default function NotificationSetting() {
 
 
                     <View style={{ marginBottom: 80 }}>
-                        <ButtonComponent title="Done" onPress={ handleUpdate } />
+                        <ButtonComponent title="Done" onPress={handleUpdate} />
                     </View>
-                </View>
+                </BlurView>
 
             </GradientBackgroundComponent>
         </GestureHandlerRootView>

@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Link } from "expo-router";
 import SvgLogo from '@/assets/images/bB.svg';  // Adjust the path as necessary
 import SvgBurger from '@/assets/images/burger.svg';  // Adjust the path as necessary
 import Options from "../options/_layout";
+import { AuthContext } from "@/contexts/AuthContext";
+
 
 export default function Header() {
+    const { userToken } = useContext(AuthContext);
     const [showNewComponent, setShowNewComponent] = useState(false);
 
     const handleButtonClick = () => {
@@ -16,7 +19,7 @@ export default function Header() {
     return (
         <>
             <View style={[styles.outerGap, styles.flexWithBetween]}>
-                <Link href="/dashboard">
+                <Link href={userToken ? '/dashboard' : '/login' }>
                     <SvgLogo width={30} height={30} />
                 </Link>
                 <View>
