@@ -21,20 +21,6 @@ import { fileService } from "@/services/FileService";
 import { formatDate } from "date-fns";
 
 const { extra } = Constants.expoConfig || {};
-const gviewSupportedMimeTypes = [
-    'application/pdf',
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    'application/vnd.ms-excel',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'application/vnd.ms-powerpoint',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-    'text/plain',
-    'application/rtf',
-    'image/png',
-    'image/jpeg',
-    'image/gif',
-  ];
 
 export default function Drawing() {
     const { folderId } = useLocalSearchParams<{ folderId: string }>();
@@ -59,16 +45,13 @@ export default function Drawing() {
 
     const openFile = (file: any) => {
         const url = `${extra?.baseUrl}${file.path}`;
-        console.log(url)
-        if (gviewSupportedMimeTypes.includes(file.mimetype)) {
-            router.push({
-                pathname: 'fileviewer',
-                params: {
-                    mimetype: file.mimetype,
-                    url,
-                },
-            });
-        }
+        router.push({
+            pathname: 'fileviewer',
+            params: {
+                mimetype: file.mimetype,
+                url,
+            },
+        });
     }
 
     const pickCamera = async () => {
