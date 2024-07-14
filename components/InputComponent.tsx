@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, RefObject } from 'react';
 import { TextInput, StyleSheet, TextStyle, TextInputProps } from 'react-native';
 
 interface InputProps extends TextInputProps {
@@ -8,15 +8,16 @@ interface InputProps extends TextInputProps {
   onInput?: (input: { value: string, name?: string }) => void;
 }
 
-const InputComponent: React.FC<InputProps> = ({ name, inputStyle, onInput, ...rest }) => {
+const InputComponent = forwardRef<TextInput, InputProps>(({ name, inputStyle, onInput, ...rest }, ref) => {
   return (
     <TextInput
+      ref={ref}
       style={[styles.input, inputStyle]}
       onChangeText={(res) => onInput && onInput({ name, value: res })}
       {...rest}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   input: {

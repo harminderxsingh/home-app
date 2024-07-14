@@ -2,19 +2,22 @@ import CardComponent from "@/components/CardComponent";
 import { View, Text } from "react-native";
 import { Image, StyleSheet, ToastAndroid } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
-import UserSetting from "../userSetting/_layout";
 import { useContext, useState } from "react";
 import { Link, router } from "expo-router";
 import { AuthContext } from "@/contexts/AuthContext";
+import DelayedLink from "@/components/DelayedLink";
+import useDelayedNavigation from "@/components/useDelayedNavigation";
 
 export default function Options() {
+
+    const delayedNavigate = useDelayedNavigation();
     const { logout } = useContext(AuthContext);
     const [showNewComponent, setShowNewComponent] = useState(false);
     const showToast = (msg: any = "Logout Successfully") => {
         ToastAndroid.show(msg, ToastAndroid.SHORT);
     };
     const handleButtonClick = () => {
-        router.push('userSetting')
+        delayedNavigate('userSetting')
         setShowNewComponent(!showNewComponent);
     };
 
@@ -32,18 +35,18 @@ export default function Options() {
                         <View>
                             <TouchableOpacity style={styles.button}>
                                 <Text>
-                                    <Link href="/notificationsetting">
+                                    <DelayedLink href="/notificationsetting">
                                         Notification settings
-                                    </Link>
+                                    </DelayedLink>
                                 </Text>
                             </TouchableOpacity>
                         </View>
                         <View>
                             <TouchableOpacity style={styles.button}>
                                 <Text>
-                                    <Link href="/about">
+                                    <DelayedLink href="/about">
                                         About
-                                    </Link>
+                                    </DelayedLink>
                                 </Text>
                             </TouchableOpacity>
                         </View>

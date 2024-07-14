@@ -1,8 +1,8 @@
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
+import BlurViewComponent from "@/components/BlurViewComponent";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import Header from "../header/_layout";
-import { Link, router } from "expo-router";
 
 import SvgSetting from '@/assets/images/setting.svg';
 import SvgArrow from '@/assets/images/rightArrw.svg';
@@ -14,11 +14,14 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import axios from "axios";
-import { BlurView } from 'expo-blur';
 import InputComponent from "@/components/InputComponent";
+import useDelayedNavigation from "@/components/useDelayedNavigation";
+import DelayedLink from "@/components/DelayedLink";
 
 
 export default function RootLayout() {
+  const delayedNavigate = useDelayedNavigation();
+
   const { user } = useContext(AuthContext);
 
   return (
@@ -27,14 +30,14 @@ export default function RootLayout() {
 
         <Header />
         <View style={styles.outerGap}>
-          <TextInput style={[styles.font24, styles.fontWight600, styles.hideCursor]} autoFocus={true}>
+          <TextInput style={[styles.font24, styles.fontWight600, styles.hideCursor]} >
             Welcome home {user?.fullName}
           </TextInput>
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
-          <BlurView
-            intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+          <BlurViewComponent
+            intensity={50} tint='light' blurReductionFactor={1} 
 
             style={[
               styles.notification,
@@ -49,10 +52,10 @@ export default function RootLayout() {
               {" "}
               Today is 2BC with a high chance of rain
             </Text>
-          </BlurView>
+          </BlurViewComponent>
           <View style={[styles.upperGap10]}>
-            <BlurView
-              intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+            <BlurViewComponent
+              intensity={50} tint='light' blurReductionFactor={1} 
 
               style={styles.notification}>
               <Text
@@ -90,22 +93,22 @@ export default function RootLayout() {
                   <SvgArrow />
                 </TouchableOpacity>
               </View>
-              <Link href="/notificationsetting" style={[styles.font13, styles.textGray, styles.upperGap14]}>
+              <DelayedLink href="/notificationsetting" style={[styles.font13, styles.textGray, styles.upperGap14]}>
                 <View style={styles.rightGap}>
                   <SvgGreenDot />
                 </View>
                 <Text >
                   Set Solar and septic tank alerts {">"}
                 </Text>
-              </Link>
-              <Link href="/contact" style={[styles.font13, styles.textGray, styles.upperGap14]}>
+              </DelayedLink>
+              <DelayedLink href="/contact" style={[styles.font13, styles.textGray, styles.upperGap14]}>
                 <View style={styles.rightGap}>
                   <SvgGreenDot />
                 </View>
                 <Text >
                   Solar panel maintenance time in 12 days. {">"}
                 </Text>
-              </Link>
+              </DelayedLink>
               <Text style={[styles.font13, styles.textGray, styles.upperGap14]}>
                 <View style={styles.rightGap}>
                   <SvgGreenDot />
@@ -126,14 +129,14 @@ export default function RootLayout() {
                   More alerts...
                 </Text>
               </View>
-            </BlurView>
+            </BlurViewComponent>
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
-              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+              <BlurViewComponent intensity={50} tint='light' blurReductionFactor={1} 
                 style={[styles.box]}
               >
-                <TouchableOpacity onPress={() => { router.push('/homedata') }}  >
+                <TouchableOpacity onPress={() => { delayedNavigate('/homedata') }}  >
 
                   <Text style={[
                     styles.textGray,
@@ -144,11 +147,11 @@ export default function RootLayout() {
                     Home Data
                   </Text>
                 </TouchableOpacity>
-              </BlurView>
-              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+              </BlurViewComponent>
+              <BlurViewComponent intensity={50} tint='light' blurReductionFactor={1} 
 
                 style={[styles.boxFixed, styles.upperGap10]}>
-                <TouchableOpacity onPress={() => { router.push('/updates') }} style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
+                <TouchableOpacity onPress={() => { delayedNavigate('/updates') }} style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
                   <Text
                     style={[
                       styles.font14,
@@ -172,7 +175,7 @@ export default function RootLayout() {
                     7
                   </Text>
                 </TouchableOpacity>
-                <Link
+                <DelayedLink
                   href="/updates"
                   style={[
                     styles.textGray,
@@ -182,15 +185,15 @@ export default function RootLayout() {
                   ]}
                 >
                   Billion Bricks Update
-                </Link>
-              </BlurView>
+                </DelayedLink>
+              </BlurViewComponent>
 
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+              <BlurViewComponent intensity={50} tint='light' blurReductionFactor={1} 
               style={[styles.box]}
               >
-                <TouchableOpacity onPress={() => { router.push('/homedocument') }} >
+                <TouchableOpacity onPress={() => { delayedNavigate('/homedocument') }} >
                   <Text
                     style={[
                       styles.textGray,
@@ -202,15 +205,15 @@ export default function RootLayout() {
                     Home Documnets
                   </Text>
                 </TouchableOpacity>
-              </BlurView>
-              <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'
+              </BlurViewComponent>
+              <BlurViewComponent intensity={50} tint='light' blurReductionFactor={1} 
              style={[
               styles.box,
               styles.upperGap10,
             ]}
               >
               <TouchableOpacity
-                onPress={() => { router.push('/chat') }}
+                onPress={() => { delayedNavigate('/chat') }}
                 
               >
                 <Text
@@ -225,7 +228,7 @@ export default function RootLayout() {
                   Assistance
                 </Text>
               </TouchableOpacity>
-              </BlurView>
+              </BlurViewComponent>
             </View>
           </View>
         </View>

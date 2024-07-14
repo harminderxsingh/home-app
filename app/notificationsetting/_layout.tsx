@@ -17,7 +17,7 @@ import { router } from "expo-router";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
-import { BlurView } from "expo-blur";
+import BlurViewComponent from "@/components/BlurViewComponent";
 
 
 
@@ -62,10 +62,10 @@ export default function NotificationSetting() {
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
                 <Header />
-                <BlurView
-                    intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView' style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: "89%", flexDirection: "column", justifyContent: "space-between",overflow:"hidden" }}>
+                <BlurViewComponent
+                    intensity={50} tint='light' blurReductionFactor={1} style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: "89%", flexDirection: "column", justifyContent: "space-between",overflow:"hidden" }}>
                     <View >
-                        <TextInput style={styles.title} autoFocus={true} >Notifications Settings</TextInput>
+                        <TextInput style={styles.title}>Notifications Settings</TextInput>
                         <View style={{ flexDirection: "row", justifyContent: "center", marginVertical: 30 }}>
                             <SvgAlert />
                         </View>
@@ -116,7 +116,7 @@ export default function NotificationSetting() {
                     <View style={{ marginBottom: 80 }}>
                         <ButtonComponent title="Done" onPress={handleUpdate} />
                     </View>
-                </BlurView>
+                </BlurViewComponent>
 
             </GradientBackgroundComponent>
         </GestureHandlerRootView>

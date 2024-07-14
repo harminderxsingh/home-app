@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Header from "../header/_layout";
 import HomeBackgroundComponent from "@/components/HomeBackgroundComponent";
-import { BlurView } from "expo-blur";
+import BlurViewComponent from "@/components/BlurViewComponent";
 
 export default function HomeData() {
 
@@ -20,14 +20,14 @@ export default function HomeData() {
                         <Text style={[styles.title, styles.font24, styles.colorWhite, styles.fontWeight600]} >Home portal</Text>
                         <Text style={[styles.font14, styles.colorWhite, styles.fontWeight600]}>Get to know your home by the numbers</Text>
                         <View style={{ marginTop: 40, }}>
-                            <BlurView style={[styles.btn]}
-                                intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView'>
+                            <BlurViewComponent style={[styles.btn]}
+                                intensity={50} tint='light' blurReductionFactor={1}>
                                 <Link href='/ddcHome' style={styles.textCenter} >
-                                    <TextInput autoFocus={true} >
+                                    <TextInput >
                                         Solar Performance
                                     </TextInput>
                                 </Link>
-                            </BlurView>
+                            </BlurViewComponent>
                             <Link href='/electricbill' style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
                                 Electricity bill
                             </Link>

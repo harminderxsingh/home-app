@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BlurView } from 'expo-blur';
+import BlurViewComponent from './BlurViewComponent';
 
 interface CardProps {
   children: React.ReactNode;
 }
 
 const CardComponent: React.FC<CardProps> = ({ children }) => {
-  return <BlurView intensity={50} tint='light' blurReductionFactor={1} experimentalBlurMethod='dimezisBlurView' style={styles.card}><View>{children}</View></BlurView>;
+  return <BlurViewComponent intensity={20} tint='light' blurReductionFactor={0.5} style={styles.card}>{children}</BlurViewComponent>;
 };
 
 

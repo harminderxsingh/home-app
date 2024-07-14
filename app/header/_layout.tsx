@@ -6,13 +6,20 @@ import SvgLogo from '@/assets/images/bB.svg';  // Adjust the path as necessary
 import SvgBurger from '@/assets/images/burger.svg';  // Adjust the path as necessary
 import Options from "../options/_layout";
 import { AuthContext } from "@/contexts/AuthContext";
+import { useBlur } from "@/contexts/BlurContext";
 
 
 export default function Header() {
+    const { visible, setVisible } = useBlur();
     const { userToken } = useContext(AuthContext);
     const [showNewComponent, setShowNewComponent] = useState(false);
 
     const handleButtonClick = () => {
+        if (showNewComponent) {
+            setTimeout(() => {
+                setVisible(true)
+            }, 10);
+        }
         setShowNewComponent(!showNewComponent);
     };
 
