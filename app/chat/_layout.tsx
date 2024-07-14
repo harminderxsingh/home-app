@@ -1,10 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
-import ButtonComponent from "@/components/ButtonComponent";
-import InputComponent from "@/components/InputComponent";
-import CardComponent from "@/components/CardComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
-import { Link, router } from "expo-router";
 import Header from "../header/_layout";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import SvgUserIcon from '@/assets/images/userIcon.svg';
