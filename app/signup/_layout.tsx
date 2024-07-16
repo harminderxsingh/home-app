@@ -91,13 +91,13 @@ export default function Signup() {
 
       <GradientBackgroundComponent >
         <Header />
-        <BlurView intensity={20} tint='light' blurReductionFactor={0.5} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="login">
+        <BlurView intensity={52} tint='light' blurReductionFactor={3} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="login">
           <Text style={styles.title}>Sign up</Text>
           <View style={{ flexDirection: "row", justifyContent: 'center' }}>
             <SvgUserIcon />
           </View>
           {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
-          <View style={{ height: 1, backgroundColor: "#323232", marginVertical: 30 }}></View>
+          <View style={{ height: 1, backgroundColor: "#fff", marginVertical: 30 }}></View>
           <View >
 
             <InputComponent ref={inputRef} name="fullName" placeholder="Full name" onInput={handleInput} />
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     marginBottom: 10,
-    color: "#595959",
+    color: "#fff",
   },
   orText: {
     textAlign: "center",
@@ -205,11 +205,11 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   text: {
-    color: "#595959",
+    color: "#fff",
     textAlign: "center",
     marginTop: 10,
   },
   link: {
-    color: "#1E90FF",
+    color: "#fff",
   }
 });

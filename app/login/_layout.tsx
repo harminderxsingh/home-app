@@ -63,50 +63,50 @@ export default function Login() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GradientBackgroundComponent>
         <Header />
-          <BlurView intensity={20} tint='light' blurReductionFactor={0.5} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="signup">
-            <View style={{ flexDirection: "column", height: "85%", justifyContent: "space-between" }}>
-              <View>
-                <Text style={styles.title}>Log in</Text>
-                <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                  <SvgUserIcon />
-                </View>
-
-                <View style={{ height: 1, backgroundColor: "#323232", marginVertical: 50 }}></View>
-                <View style={styles.pickerContainer} >
-                  <Picker
-                    style={styles.input}
-                    selectedValue={formValues.communityId}
-                    onValueChange={(itemValue) =>
-                      handleInput({ name: 'communityId', value: itemValue })
-                    }
-
-                  >
-                    <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
-                    {
-                      communities.map(c =>
-                        <Picker.Item key={c.id} label={c.name} value={c.id} />
-                      )
-                    }
-                  </Picker>
-                </View>
-                <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
-                <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
-              </View>
-            </View>
+        <BlurView intensity={52} tint='light' blurReductionFactor={3} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="signup">
+          <View style={{ flexDirection: "column", height: "85%", justifyContent: "space-between" }}>
             <View>
+              <Text style={styles.title}>Log in</Text>
+              <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+                <SvgUserIcon />
+              </View>
 
-              <ButtonComponent title="Log in" onPress={handleLogin} />
+              <View style={{ height: 1, backgroundColor: "#fff", marginVertical: 50 }}></View>
+              <View style={styles.pickerContainer} >
+                <Picker
+                  style={styles.input}
+                  selectedValue={formValues.communityId}
+                  onValueChange={(itemValue) =>
+                    handleInput({ name: 'communityId', value: itemValue })
+                  }
 
-              <Text style={styles.text}>
-                Don’t have an account?{"\n"}
-                <TouchableOpacity onPress={() => navigate('/signup')}>
-                  <Text style={styles.link}>
-                    Sign up
-                  </Text>
-                </TouchableOpacity>
-              </Text>
+                >
+                  <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
+                  {
+                    communities.map(c =>
+                      <Picker.Item key={c.id} label={c.name} value={c.id} />
+                    )
+                  }
+                </Picker>
+              </View>
+              <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
+              <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
             </View>
-          </BlurView>
+          </View>
+          <View>
+
+            <ButtonComponent title="Log in" onPress={handleLogin} />
+
+            <Text style={styles.text}>
+              Don’t have an account?{"\n"}
+              <TouchableOpacity onPress={() => navigate('/signup')}>
+                <Text style={styles.link}>
+                  Sign up
+                </Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
+        </BlurView>
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
 
@@ -154,15 +154,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     marginBottom: 20,
-    color: "#595959",
+    color: "#fff",
   },
 
   text: {
-    color: "#595959",
+    color: "#fff",
     textAlign: "center",
     marginTop: 10,
   },
   link: {
-    color: "#1E90FF",
+    color: "#fff",
   }
 });
