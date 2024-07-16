@@ -45,10 +45,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.2)',
         padding: 7,
         borderRadius: 10,
-        shadowColor: '#171717',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        
+        elevation: 9,
     },
     shadowProp: {
         shadowColor: '#171717',

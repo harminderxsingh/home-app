@@ -28,14 +28,14 @@ export default function Options() {
                 <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
                     <View>
                         <View>
-                            <TouchableOpacity style={styles.button} onPress={handleButtonClick}>
-                                <Text>User settings</Text>
+                            <TouchableOpacity onPress={handleButtonClick}>
+                                <Text style={styles.textColor}>User settings</Text>
                             </TouchableOpacity>
                         </View>
                         <View>
                             <TouchableOpacity style={styles.button}>
-                                <Text>
-                                    <DelayedLink href="/notificationsetting">
+                                <Text style={{paddingBottom:10}} >
+                                    <DelayedLink href="/notificationsetting" style={styles.textColor}>
                                         Notification settings
                                     </DelayedLink>
                                 </Text>
@@ -43,8 +43,8 @@ export default function Options() {
                         </View>
                         <View>
                             <TouchableOpacity style={styles.button}>
-                                <Text>
-                                    <DelayedLink href="/about">
+                                <Text style={{paddingVertical:20}}>
+                                    <DelayedLink href="/about" style={[styles.textColor]}>
                                         About
                                     </DelayedLink>
                                 </Text>
@@ -52,51 +52,28 @@ export default function Options() {
                         </View>
                         <View style={styles.button}>
                             <TouchableOpacity style={styles.button2}>
-                                <Text>Data privacy</Text>
+                                <Text style={styles.textColor}>Data privacy</Text>
                                 <Image source={require('@/assets/images/arrow.svg')} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button2}>
-                                <Text>Terms</Text>
+                                <Text style={styles.textColor}>Terms</Text>
                                 <Image source={require('@/assets/images/arrow.svg')} />
                             </TouchableOpacity>
                         </View>
                         <View>
                             <TouchableOpacity style={styles.button} onPress={logout}>
-                                <Text>Log out</Text>
+                                <Text style={[styles.textColor,{paddingVertical:20}]}>Log out</Text>
                             </TouchableOpacity>
                         </View>
-                        <View>
-                            <TouchableOpacity style={styles.hidden}>
-                                <Text></Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity style={styles.hidden}>
-                                <Text></Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity style={styles.hidden}>
-                                <Text></Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity style={styles.hidden}>
-                                <Text></Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <TouchableOpacity style={styles.hidden}>
-                                <Text></Text>
-                            </TouchableOpacity>
-                        </View>
+                       
+                    
                     </View>
                     <View>
                         <View>
                             <Text style={styles.textCenter}>Version 0.9.1</Text>
                             <View style={[styles.flexCenter, { marginVertical: 5 }]}>
-                                <Text>App by</Text>
-                                <Image source={require('@/assets/images/bB_logo.png')} />
+                                <Text style={{color:'#fff'}}>App by</Text>
+                                <Image source={require('@/assets/images/white_logo.png')} />
                             </View>
                             <Text style={styles.textCenter}>billionbricks.org</Text>
                         </View>
@@ -108,6 +85,11 @@ export default function Options() {
     );
 }
 const styles = StyleSheet.create({
+    textColor: {
+        color: '#fff',
+        fontSize:24,
+
+    },
     hidden: {
         opacity: 5,
         paddingVertical: 12,
@@ -118,20 +100,21 @@ const styles = StyleSheet.create({
     },
     textCenter: {
         textAlign: 'center',
+        color:'#fff',
     },
     button: {
         paddingVertical: 12,
         textAlign: 'left',
         borderBottomWidth: 1,
-        borderBottomColor: '#727272',
-        color: "#595959",
+        borderBottomColor: '#fff',
+        color: "#fffff",
     },
     button2: {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingVertical: 7,
         textAlign: 'left',
-        color: "#595959",
+        color: "#fffff",
     },
     shadowProp: {
         shadowColor: '#171717',

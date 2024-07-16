@@ -18,6 +18,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
 import BlurViewComponent from "@/components/BlurViewComponent";
+import InsetShadow from 'react-native-inset-shadow'
 
 
 
@@ -63,59 +64,67 @@ export default function NotificationSetting() {
             <GradientBackgroundComponent>
                 <Header />
                 <BlurViewComponent
-                    intensity={50} tint='light' blurReductionFactor={1} style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: "89%", flexDirection: "column", justifyContent: "space-between",overflow:"hidden" }}>
-                    <View >
-                        <TextInput style={styles.title}>Notifications Settings</TextInput>
-                        <View style={{ flexDirection: "row", justifyContent: "center", marginVertical: 30 }}>
-                            <SvgAlert />
-                        </View>
-                        <View>
-                            <Text style={styles.label}>Date of house purchase </Text>
-                            <TouchableOpacity onPress={() => setShowDatePicker('housePurchasedDate')}>
-                                <View pointerEvents="none">
-                                    <InputComponent placeholder="" value={formValues?.housePurchasedDate} editable={false} />
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View>
-                            <Text style={styles.label}>Date of last solar panel cleaning </Text>
-                            <TouchableOpacity onPress={() => setShowDatePicker('solarPanelCleanedDate')}>
-                                <View pointerEvents="none">
-                                    <InputComponent placeholder="" value={formValues?.solarPanelCleanedDate} editable={false} />
-                                </View>
-                            </TouchableOpacity>
-                            <View style={styles.flex}>
-                                <Checkbox value={formValues?.solarPanelCleanedDate == null} onValueChange={() => handleCheckNull('solarPanelCleanedDate')} />
-                                <Text style={styles.label}>Never been cleaned</Text>
+                    intensity={50} tint='light' blurReductionFactor={1} style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, height: "89%", flexDirection: "column", justifyContent: "space-evenly", overflow: "hidden" }}>
+
+                    <View style={{ padding: 29, }}>
+                        <View >
+                            <TextInput style={styles.title}>Notifications Settings</TextInput>
+                            <View style={{ flexDirection: "row", justifyContent: "center", borderBottomColor: "#fff", borderBottomWidth: 1, paddingBottom: 52, marginVertical: 20 }}>
+                                <SvgAlert />
                             </View>
+
+
+
                         </View>
-                        <View>
-                            <Text style={styles.label}>Date of last septic tank cleaning </Text>
-                            <TouchableOpacity onPress={() => setShowDatePicker('septicTankCleanedDate')}>
-                                <View pointerEvents="none">
-                                    <InputComponent placeholder="" value={formValues?.septicTankCleanedDate} editable={false} />
-                                </View>
-                            </TouchableOpacity>
-                            <View style={styles.flex}>
-                                <Checkbox value={formValues?.septicTankCleanedDate == null} onValueChange={() => handleCheckNull('septicTankCleanedDate')} />
-                                <Text style={styles.label}>Never been cleaned</Text>
+
+
+
+
+                        <View style={{ marginBottom: 80 }}>
+                            <View>
+                                <Text style={styles.label}>Date of house purchase </Text>
+                                <TouchableOpacity onPress={() => setShowDatePicker('housePurchasedDate')}>
+                                    <View pointerEvents="none">
+                                        <InputComponent placeholder="" value={formValues?.housePurchasedDate} editable={false} />
+                                    </View>
+                                </TouchableOpacity>
                             </View>
+                            <View>
+                                <Text style={styles.label}>Date of last solar panel cleaning </Text>
+                                <TouchableOpacity onPress={() => setShowDatePicker('solarPanelCleanedDate')}>
+                                    <View pointerEvents="none">
+                                        <InputComponent placeholder="" value={formValues?.solarPanelCleanedDate} editable={false} />
+                                    </View>
+                                </TouchableOpacity>
+                                <View style={styles.flex}>
+                                    <Checkbox value={formValues?.solarPanelCleanedDate == null} onValueChange={() => handleCheckNull('solarPanelCleanedDate')} />
+                                    <Text style={styles.label}>Never been cleaned</Text>
+                                </View>
+                            </View>
+                            <View>
+                                <Text style={styles.label}>Date of last septic tank cleaning </Text>
+                                <TouchableOpacity onPress={() => setShowDatePicker('septicTankCleanedDate')}>
+                                    <View pointerEvents="none">
+                                        <InputComponent placeholder="" value={formValues?.septicTankCleanedDate} editable={false} />
+                                    </View>
+                                </TouchableOpacity>
+                                <View style={styles.flex}>
+                                    <Checkbox value={formValues?.septicTankCleanedDate == null} onValueChange={() => handleCheckNull('septicTankCleanedDate')} />
+                                    <Text style={styles.label}>Never been cleaned</Text>
+                                </View>
+                            </View>
+
+
+                            {
+                                !!showDatePicker && <RNDateTimePicker value={new Date(formValues[showDatePicker] ?? Date.now())} onChange={handleDateChange} />
+                            }
+
                         </View>
-
-
-                        {
-                            !!showDatePicker && <RNDateTimePicker value={new Date(formValues[showDatePicker] ?? Date.now())} onChange={handleDateChange} />
-                        }
-
-
+                        <View style={{ paddingBottom: 60 }}>
+                            <ButtonComponent title="Done" onPress={handleUpdate} />
+                        </View>
                     </View>
 
-
-
-
-                    <View style={{ marginBottom: 80 }}>
-                        <ButtonComponent title="Done" onPress={handleUpdate} />
-                    </View>
                 </BlurViewComponent>
 
             </GradientBackgroundComponent>
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#595959',
+        color: '#fff',
         paddingBottom: 5,
     },
 
@@ -153,7 +162,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontSize: 24,
-        color: "#595959",
+        color: "#fff",
     },
 
     link: {

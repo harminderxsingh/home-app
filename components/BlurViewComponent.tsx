@@ -3,6 +3,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { BlurTint, BlurView } from 'expo-blur';
 import { useFocusEffect } from 'expo-router';
 import { useBlur } from '@/contexts/BlurContext';
+import InsetShadow from 'react-native-inset-shadow'
 
 interface BlurViewComponentProps {
     intensity?: number;
@@ -40,7 +41,11 @@ const BlurViewComponent: React.FC<BlurViewComponentProps> = ({
             experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'}
             style={[style]}
         >
+              <InsetShadow
+                 shadowColor="white" left={false} shadowOpacity={10} elevation={10} style={{ borderRadius: 16 }}>
+
             {children}
+                 </InsetShadow>
         </BlurView>
     );
 };
