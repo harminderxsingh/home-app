@@ -92,15 +92,14 @@ export default function Signup() {
 
       <GradientBackgroundComponent >
         <Header />
-        <BlurView intensity={52} tint='light' blurReductionFactor={3} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="login">
-          <InsetShadow shadowColor="white" left={false} shadowOpacity={10} elevation={10} style={{ borderRadius: 16 }}>
-            <View style={{ padding: 34, }}>
+       
+            <View style={[styles.card,{ padding: 34, }]}>
               <Text style={styles.title}>Sign up</Text>
               <View style={{ flexDirection: "row", justifyContent: 'center' }}>
                 <SvgUserIcon />
               </View>
               {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
-              <View style={{ height: 1, backgroundColor: "#fff", marginVertical: 30 }}></View>
+              <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 30 }}></View>
               <View >
                 <InputComponent ref={inputRef} name="fullName" placeholder="Full name" onInput={handleInput} />
                 {/* <DropdownComponent /> */}
@@ -131,8 +130,6 @@ export default function Signup() {
                 </Text>
               </View>
             </View>
-          </InsetShadow>
-        </BlurView>
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
   );
@@ -143,6 +140,7 @@ const styles = StyleSheet.create({
     height: "85%",
     minHeight: "80%",
     borderRadius: 16,
+    backgroundColor:"#fff",
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
     margin: 20,
@@ -154,15 +152,14 @@ const styles = StyleSheet.create({
     right: 0,
   },
   pickerContainer: {
-    borderWidth: 0,
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 14,
+    
   },
   input: {
     width: "100%",
-    backgroundColor: '#fff',
-    borderWidth: 0,
+    backgroundColor: '#f0f0f0',
     padding: 13,
     fontWeight: '400',
     fontSize: 16,
@@ -196,7 +193,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     marginBottom: 10,
-    color: "#fff",
+    color: "#595959",
   },
   orText: {
     textAlign: "center",
@@ -204,11 +201,11 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   text: {
-    color: "#fff",
+    color: "#595959",
     textAlign: "center",
     marginTop: 10,
   },
   link: {
-    color: "#fff",
+    color: "#595959",
   }
 });

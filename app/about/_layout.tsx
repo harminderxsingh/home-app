@@ -9,7 +9,6 @@ import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Header from "../header/_layout";
 import SvgWarning from '@/assets/images/warning-big.svg';
-import BlurViewComponent from "@/components/BlurViewComponent";
 
 export default function About() {
     const [visible, setVisible] = useState(false);
@@ -27,11 +26,10 @@ export default function About() {
         <GradientBackgroundComponent style={{ flex: 1 }}>
             <GestureHandlerRootView  >
                 <Header />
-                <BlurViewComponent intensity={52} tint='light' blurReductionFactor={3} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="login">
                 
-                    <View style={{ position: "absolute", padding: 15, zIndex: 1, width: '100%', height: '100%' }}>
+                    <View style={[styles.card,{ position: "absolute", padding: 15}]}>
                         <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
-                            <View style={{borderBottomColor:"#fff",borderBottomWidth:1, paddingBottom:52,marginHorizontal:20}}>
+                            <View style={{borderBottomColor:"#595959",borderBottomWidth:1, paddingBottom:52,marginHorizontal:20}}>
                                 <Text style={styles.title}>About</Text>
                                 <View style={{flexDirection:'row',justifyContent:"center"}}><SvgWarning /></View>
                             </View>
@@ -40,7 +38,6 @@ export default function About() {
                             </View>
                         </View>
                     </View>
-                </BlurViewComponent>
 
             </GestureHandlerRootView>
         </GradientBackgroundComponent>
@@ -49,6 +46,7 @@ export default function About() {
 const styles = StyleSheet.create({
     card: {
         height: "85%",
+        backgroundColor:"#fff",
         minHeight: "80%",
         borderRadius: 16,
         borderBottomRightRadius: 0,
@@ -66,6 +64,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginTop: 20,
         marginBottom:26,
-        color: "#fff",
+        color: "#595959",
     },
 });

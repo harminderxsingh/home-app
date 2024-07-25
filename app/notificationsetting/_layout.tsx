@@ -19,6 +19,7 @@ import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
 import BlurViewComponent from "@/components/BlurViewComponent";
 import InsetShadow from 'react-native-inset-shadow'
+import CardComponent from "@/components/CardComponent";
 
 
 
@@ -60,13 +61,14 @@ export default function NotificationSetting() {
         })
     }, [user])
     return (
+
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
                 <Header />
-                <BlurViewComponent
-                    intensity={50} tint='light' blurReductionFactor={1} style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, height: "89%", flexDirection: "column", justifyContent: "space-evenly", overflow: "hidden" }}>
-
-                    <View style={{ padding: 29, }}>
+                {/* <BlurViewComponent
+                    intensity={50} tint='light' blurReductionFactor={1} style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, height: "89%", flexDirection: "column", justifyContent: "space-evenly", overflow: "hidden" }}> */}
+                <CardComponent>
+                    <View >
                         <View >
                             <TextInput style={styles.title}>Notifications Settings</TextInput>
                             <View style={{ flexDirection: "row", justifyContent: "center", borderBottomColor: "#fff", borderBottomWidth: 1, paddingBottom: 52, marginVertical: 20 }}>
@@ -124,8 +126,9 @@ export default function NotificationSetting() {
                             <ButtonComponent title="Done" onPress={handleUpdate} />
                         </View>
                     </View>
+                </CardComponent>
 
-                </BlurViewComponent>
+                {/* </BlurViewComponent> */}
 
             </GradientBackgroundComponent>
         </GestureHandlerRootView>
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#fff',
+        color: '#595959',
         paddingBottom: 5,
     },
 
@@ -162,7 +165,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontSize: 24,
-        color: "#fff",
+        color: "#595959",
     },
 
     link: {

@@ -72,8 +72,8 @@ export default function Options() {
                         <View>
                             <Text style={styles.textCenter}>Version 0.9.1</Text>
                             <View style={[styles.flexCenter, { marginVertical: 5 }]}>
-                                <Text style={{color:'#fff'}}>App by</Text>
-                                <Image source={require('@/assets/images/white_logo.png')} />
+                                <Text style={{color:'#595959'}}>App by</Text>
+                                <Image source={require('@/assets/images/bB_logo.png')} />
                             </View>
                             <Text style={styles.textCenter}>billionbricks.org</Text>
                         </View>
@@ -86,9 +86,8 @@ export default function Options() {
 }
 const styles = StyleSheet.create({
     textColor: {
-        color: '#fff',
+        color: '#595959',
         fontSize:24,
-
     },
     hidden: {
         opacity: 5,
@@ -100,21 +99,21 @@ const styles = StyleSheet.create({
     },
     textCenter: {
         textAlign: 'center',
-        color:'#fff',
+        color:'#595959',
     },
     button: {
         paddingVertical: 12,
         textAlign: 'left',
         borderBottomWidth: 1,
-        borderBottomColor: '#fff',
-        color: "#fffff",
+        borderBottomColor: '#595959',
+        color: "#595959",
     },
     button2: {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingVertical: 7,
         textAlign: 'left',
-        color: "#fffff",
+        color: "#595959",
     },
     shadowProp: {
         shadowColor: '#171717',

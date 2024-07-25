@@ -22,8 +22,8 @@ const InputComponent = forwardRef<TextInput, InputProps>(({ name, inputStyle, on
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    backgroundColor: '#fff',
-    borderWidth: 0,
+    backgroundColor: '#f0f0f0',
+    borderColor:"#595959",
     padding: 13,
     borderRadius: 12,
     marginBottom: 14,

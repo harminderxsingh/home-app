@@ -20,21 +20,19 @@ export default function HomeData() {
                         <Text style={[styles.title, styles.font24, styles.colorWhite, styles.fontWeight600]} >Home portal</Text>
                         <Text style={[styles.font14, styles.colorWhite, styles.fontWeight600]}>Get to know your home by the numbers</Text>
                         <View style={{ marginTop: 40, }}>
-                            <BlurViewComponent style={[styles.btn]}
-                                intensity={50} tint='light' blurReductionFactor={1}>
-                                <Link href='/ddcHome' style={styles.textCenter} >
-                                    <TextInput >
+                            {/* <BlurViewComponent }
+                                intensity={50} tint='light' blurReductionFactor={1}> */}
+                                <Link href='/ddcHome' style={[styles.textCenter,styles.btn]} >
                                         Solar Performance
-                                    </TextInput>
                                 </Link>
-                            </BlurViewComponent>
-                            <Link href='/electricbill' style={[styles.btn, { backgroundColor: "#D9D9D9" }]}>
+                            {/* </BlurViewComponent> */}
+                            <Link href='/electricbill' style={[styles.btn]}>
                                 Electricity bill
                             </Link>
-                            <Link href='/waterbill' style={[styles.btn, { backgroundColor: "#96C8D3" }]}>
+                            <Link href='/waterbill' style={[styles.btn]}>
                                 Water bill
                             </Link>
-                            <Link href='/mortgage' style={[styles.btn, { backgroundColor: "#D6C09D" }]}>
+                            <Link href='/mortgage' style={[styles.btn]}>
                                 Loan tracker
                             </Link>
                         </View>
@@ -57,10 +55,10 @@ textCenter:{textAlign:"center",
     },
     btn: {
         paddingVertical: 25,
-        // backgroundColor: "gray",
+        backgroundColor: "#fff",
         borderRadius: 15,
         fontSize: 20,
-        // fontWeight: 600,
+        fontWeight: 600,
         overflow: "hidden",
         textAlign: "center",
         color: "#292828",

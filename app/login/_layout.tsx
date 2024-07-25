@@ -64,9 +64,7 @@ export default function Login() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GradientBackgroundComponent>
         <Header />
-        <BlurView intensity={52} tint='light' blurReductionFactor={3} experimentalBlurMethod={visible ? 'dimezisBlurView' : 'none'} style={styles.card} key="signup">
-          <InsetShadow shadowColor="white" left={false} shadowOpacity={10} elevation={10} style={{ borderRadius: 16 }}>
-            <View style={{ padding: 34, }}>
+            <View style={[styles.card, { padding: 34, }]}>
               <View style={{ flexDirection: "column", height: "85%", justifyContent: "space-between" }}>
                 <View>
                   <Text style={styles.title}>Log in</Text>
@@ -74,7 +72,7 @@ export default function Login() {
                     <SvgUserIcon />
                   </View>
 
-                  <View style={{ height: 1, backgroundColor: "#fff", marginVertical: 50 }}></View>
+                  <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 50 }}></View>
                   <View style={styles.pickerContainer} >
                     <Picker
                       style={styles.input}
@@ -111,8 +109,6 @@ export default function Login() {
               </View>
             </View>
 
-          </InsetShadow>
-        </BlurView>
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
 
@@ -121,6 +117,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   card: {
+    backgroundColor:"white",
     height: "85%",
     minHeight: "80%",
     borderRadius: 16,
@@ -135,14 +132,13 @@ const styles = StyleSheet.create({
     right: 0,
   },
   pickerContainer: {
-    borderWidth: 0,
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 14,
   },
   input: {
     width: "100%",
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f0f0',
     borderWidth: 0,
     padding: 13,
     fontWeight: '400',
@@ -157,15 +153,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 24,
     marginBottom: 20,
-    color: "#fff",
+    color: "#595959",
   },
 
   text: {
-    color: "#fff",
+    color: "#595959",
     textAlign: "center",
     marginTop: 10,
   },
   link: {
-    color: "#fff",
+    color: "#595959",
   }
 });

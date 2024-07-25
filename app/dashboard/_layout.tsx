@@ -38,35 +38,35 @@ export default function RootLayout() {
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
-          <BlurView
+          {/* <BlurView
             intensity={10} tint='light' blurReductionFactor={2}
             experimentalBlurMethod='dimezisBlurView'
             style={{ overflow: "hidden", borderRadius: 5 }}
-          >
+          > */}
 
-            <View>
-              <LinearGradient
+          <View>
+            {/* <LinearGradient
                 // Background Linear Gradient
                 colors={['rgba(240, 240, 240, 0.4)', 'transparent']}
                 style={styles.background1}
 
-              />
-              <View style={[
-                styles.notification,
-                styles.upperGap14,
-                { flexDirection: "row", alignItems: "center" },
-              ]}>
-                <View>
-                  <SvgSetting height={18} width={20} />
-                </View>
-                <Text style={[styles.font14, { color: "#fff" }]}>
-                  {" "}
-                  Today is 2BC with a high chance of rain
-                </Text>
+              /> */}
+            <View style={[
+              styles.notification,
+              styles.upperGap14,
+              { flexDirection: "row", alignItems: "center" },
+            ]}>
+              <View>
+                <SvgSetting height={18} width={20} />
               </View>
+              <Text style={[styles.font14, { color: "#595959" }]}>
+                {" "}
+                Today is 2BC with a high chance of rain
+              </Text>
             </View>
+          </View>
 
-          </BlurView>
+          {/* </BlurView> */}
           <View style={[styles.upperGap10]}>
             <BlurView
               intensity={20} tint='light' blurReductionFactor={2}
@@ -169,43 +169,43 @@ export default function RootLayout() {
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
 
-              <BlurView
+              {/* <BlurView
                 intensity={35} tint='light' blurReductionFactor={4}
                 experimentalBlurMethod='dimezisBlurView'
                 style={{ overflow: "hidden", borderRadius: 10 }}
-              >
-                <LinearGradient
+              > */}
+              {/* <LinearGradient
                   // Background Linear Gradient
                   colors={['rgba(240, 240, 240, 0.3)', 'transparent']}
                   style={styles.background}
 
-                />
+                /> */}
+              <TouchableOpacity onPress={() => { delayedNavigate('/homedata') }}  >
                 <View style={[styles.box]}>
-                  <TouchableOpacity onPress={() => { delayedNavigate('/homedata') }}  >
-                    <Text style={[
-                      styles.textGray,
-                      styles.font21,
-                      styles.fontWight600,
-                      { width: 60 },
-                    ]}>
-                      Home Data
-                    </Text>
-                  </TouchableOpacity>
+                  <Text style={[
+                    styles.textGray,
+                    styles.font21,
+                    styles.fontWight600,
+                    { width: 60 },
+                  ]}>
+                    Home Data
+                  </Text>
                 </View>
+              </TouchableOpacity>
 
-              </BlurView>
+              {/* </BlurView> */}
 
 
-              <BlurView
+              {/* <BlurView
                 intensity={35} tint='light' blurReductionFactor={4}
                 experimentalBlurMethod='dimezisBlurView'
                 style={{ overflow: "hidden", borderRadius: 10, marginTop: 10 }}
-              >
-
+              > */}
+              <TouchableOpacity onPress={() => { delayedNavigate('/updates') }}>
                 <View style={[styles.boxFixed, styles.upperGap10]}>
 
                   <View>
-                    <TouchableOpacity onPress={() => { delayedNavigate('/updates') }} style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
+                    <View style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
                       <Text
                         style={[
                           styles.font14,
@@ -228,7 +228,7 @@ export default function RootLayout() {
                       >
                         7
                       </Text>
-                    </TouchableOpacity>
+                    </View>
                     <DelayedLink
                       href="/updates"
                       style={[
@@ -245,11 +245,13 @@ export default function RootLayout() {
 
 
                 </View>
-              </BlurView>
+              </TouchableOpacity>
+
+              {/* </BlurView> */}
 
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              <BlurView
+              {/* <BlurView
                 intensity={35} tint='light' blurReductionFactor={4}
                 experimentalBlurMethod='dimezisBlurView'
                 style={{ overflow: "hidden", borderRadius: 10 }}
@@ -259,65 +261,62 @@ export default function RootLayout() {
                   colors={['rgba(240, 240, 240, 0.3)', 'transparent']}
                   style={styles.background}
 
-                />
+                /> */}
+              <TouchableOpacity onPress={() => { delayedNavigate('/homedocument') }} >
                 <View
-
                   style={[styles.box]}
                 >
-
-
-                  <TouchableOpacity onPress={() => { delayedNavigate('/homedocument') }} >
-                    <Text
-                      style={[
-                        styles.textGray,
-                        styles.font21,
-                        styles.fontWight600,
-                        { width: 110 },
-                      ]}
-                    >
-                      Home Documnets
-                    </Text>
-                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.textGray,
+                      styles.font21,
+                      styles.fontWight600,
+                      { width: 110 },
+                    ]}
+                  >
+                    Home Documnets
+                  </Text>
                 </View>
-              </BlurView>
+              </TouchableOpacity>
+              {/* </BlurView> */}
 
-              <BlurView
+              {/* <BlurView
                 intensity={35} tint='light' blurReductionFactor={4}
                 experimentalBlurMethod='dimezisBlurView'
                 style={{ overflow: "hidden", borderRadius: 10, marginTop: 10 }}
-              >
-                <LinearGradient
+              > */}
+              {/* <LinearGradient
                   // Background Linear Gradient
                   colors={['rgba(240, 240, 240, 0.3)', 'transparent']}
                   style={styles.background}
 
-                />
-                <View
+                /> */}
+              <View
 
-                  style={[
-                    styles.box3,
-                    styles.upperGap10,
-                  ]}
+                style={[
+                  styles.box3,
+                  styles.upperGap10,
+                ]}
+              >
+                <TouchableOpacity
+                  onPress={() => { delayedNavigate('/chat') }}
+
                 >
-                  <TouchableOpacity
-                    onPress={() => { delayedNavigate('/chat') }}
-
+                  <Text
+                    style={[
+                      styles.textGray,
+                      styles.font21,
+                      styles.fontWight600,
+                      { width: 110 },
+                    ]}
                   >
-                    <Text
-                      style={[
-                        styles.textGray,
-                        styles.font21,
-                        styles.fontWight600,
-                        { width: 110 },
-                      ]}
-                    >
-                      Home
-                      Assistance
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+                    Home
+                    Assistance
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
-              </BlurView>
+              {/* </BlurView> */}
             </View>
           </View>
         </View>
@@ -373,7 +372,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
     paddingRight: 9,
     backgroundColor: "#rgba(90, 123, 140, 1)",
-
     borderRadius: 50,
     display: "flex",
     justifyContent: "center",
@@ -394,7 +392,8 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 600,
     height: 132,
-    overflow: 'hidden',
+    // overflow: 'hidden',
+    backgroundColor: "#fff",
     paddingBottom: 12,
     paddingLeft: 9,
     borderRadius: 10,
@@ -405,8 +404,8 @@ const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 600,
     height: 132,
-    overflow: 'hidden',
-    // backgroundColor: "#F4B081",
+    // overflow: 'hidden',
+    backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
     paddingBottom: 12,
@@ -419,7 +418,7 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     height: 132,
     overflow: 'hidden',
-    // backgroundColor: "#F4B081",
+    backgroundColor: "#fff",
     width: "100%",
     justifyContent: "flex-end",
     paddingBottom: 12,
@@ -478,7 +477,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#DCE1E5",
   },
   textGray: {
-    color: "#fff",
+    color: "#595959",
   },
   textEnd: {
     textAlign: "right",
@@ -492,7 +491,8 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   notification: {
-    overflow: 'hidden',
+    // overflow: 'hidden',
+    backgroundColor: "#ffffff",
     padding: 14,
     borderRadius: 8,
   },

@@ -9,12 +9,14 @@ interface CardProps {
 }
 
 const CardComponent: React.FC<CardProps> = ({ children }) => {
-  return <BlurView intensity={52} tint='light' blurReductionFactor={3} experimentalBlurMethod='dimezisBlurView' style={styles.card}><InsetShadow shadowColor="white" left={false} shadowOpacity={10} elevation={10} style={{borderRadius: 16}}><View style={{padding:34}}>{children}</View></InsetShadow></BlurView>;
+  return <View style={styles.card}>{children}</View>;
 };
 
 
 const styles = StyleSheet.create({
   card: {
+    padding:34,
+    backgroundColor:"#fff",
     height: "85%",
     minHeight: "80%",
     borderRadius: 16,
