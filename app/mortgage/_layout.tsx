@@ -22,9 +22,11 @@ export default function MortgageData() {
     useFocusEffect(
         useCallback(() => {
             loanService.getLoan().then(res => {
-                processData(res.loan)
+                if (res.loan) {
+                    processData(res.loan)
+                }
             }).catch(err => {
-                console.log(err.response.data)
+                console.log(err.response?.data ?? err)
             })
         }, [])
     );
@@ -127,7 +129,7 @@ export default function MortgageData() {
                         </View>
 
                         {
-                            loanActive ?
+                            loanActive && !!loanDetails ?
                                 <View style={{ marginTop: 40, }}>
                                     <View style={{ backgroundColor: "#466488", borderRadius: 12, paddingTop: 17, paddingLeft: 21 }}>
                                         <View >

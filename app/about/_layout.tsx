@@ -1,7 +1,6 @@
 import ButtonComponent from "@/components/ButtonComponent";
 import CardComponent from "@/components/CardComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
-import { BlurView } from "expo-blur";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { View, Text } from "react-native";

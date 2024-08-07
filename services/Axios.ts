@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 
 const { extra } = Constants.expoConfig || {};
@@ -20,5 +21,16 @@ api.interceptors.request.use(async (config) => {
 }, (error) => {
     return Promise.reject(error);
 });
+
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            router.push('Login');
+        }
+        return Promise.reject(error);
+    }
+);
+
 
 export default api;

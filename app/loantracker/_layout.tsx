@@ -25,14 +25,14 @@ export default function LoanTrackerForm() {
                 setProjects(res)
             }
         }).catch(err => {
-            console.log(err.response.data)
+            console.error(err.response?.data ?? err)
         })
         loanService.getLoan().then(res => {
             if (res.loan) {
                 setFormValues(res.loan)
             }
         }).catch(err => {
-            console.log(err.response.data)
+            console.error(err.response?.data ?? err)
         })
     }, [])
 

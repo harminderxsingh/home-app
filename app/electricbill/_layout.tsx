@@ -25,7 +25,7 @@ export default function ElectricBill() {
                 </View>
             </View>
             <WebView
-                source={{ uri: 'https://expo.dev' }}
+                source={{ uri: 'https://google.com' }}
             />
         </>
     );

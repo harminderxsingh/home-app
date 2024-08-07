@@ -25,7 +25,7 @@ export default function WaterBill() {
                 </View>
             </View>
             <WebView
-                source={{ uri: 'https://expo.dev' }}
+                source={{ uri: 'https://google.com' }}
             />
         </>
     );

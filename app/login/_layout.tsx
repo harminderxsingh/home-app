@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, ToastAndroid, Animated } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ToastAndroid, Animated, Keyboard } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
@@ -11,11 +11,9 @@ import { authService } from "@/services/AuthService";
 import { Picker } from "@react-native-picker/picker";
 import { communityService } from "@/services/CommunityService";
 import { AuthContext } from "@/contexts/AuthContext";
-import { BlurView } from "expo-blur";
 import InsetShadow from 'react-native-inset-shadow'
 
 export default function Login() {
-  const [visible, setVisible] = useState(false);
   const [formValues, setFormValues] = useState<any>({ communityId: '' });
   const [communities, setCommunities] = useState<any[]>([]);
   const { login } = useContext(AuthContext);
@@ -23,24 +21,23 @@ export default function Login() {
     communityService.get().then(res => {
       setCommunities(res)
     })
-    // setTimeout(() => setVisible(true), 500);
-    // return () => {
-    //   setVisible(false)
-    // }
   }, [])
-  // useEffect(() => {
-  //   console.log('login', visible)
-  // }, [visible])
 
-  useFocusEffect(
-    useCallback(() => {
-      const timer = setTimeout(() => setVisible(true), 100);
-      return () => {
-        clearTimeout(timer);
-        setVisible(false); // Reset state when screen loses focus
-      };
-    }, [])
-  );
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardOpen(true);
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardOpen(false);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   const handleInput = (data: any) => {
     setFormValues({ ...formValues, [data.name]: data.value })
@@ -57,14 +54,13 @@ export default function Login() {
     }
   };
   const navigate = async (path: string) => {
-    setVisible(false)
     router.push(path)
   }
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GradientBackgroundComponent>
         <Header />
-            <View style={[styles.card, { padding: 34, }]}>
+            <View style={[styles.card, keyboardOpen ? styles.cardWithKeyboard : styles.cardWithoutKeyboard]}>
               <View style={{ flexDirection: "column", height: "85%", justifyContent: "space-between" }}>
                 <View>
                   <Text style={styles.title}>Log in</Text>
@@ -118,8 +114,6 @@ export default function Login() {
 const styles = StyleSheet.create({
   card: {
     backgroundColor:"white",
-    height: "85%",
-    minHeight: "80%",
     borderRadius: 16,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
@@ -130,6 +124,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    padding:  34,
+  },
+  cardWithKeyboard: {
+    bottom: -50
+  },
+  cardWithoutKeyboard: {
+    minHeight: '80%'
   },
   pickerContainer: {
     borderRadius: 12,

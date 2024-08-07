@@ -18,7 +18,6 @@ import InputComponent from "@/components/InputComponent";
 import useDelayedNavigation from "@/components/useDelayedNavigation";
 import DelayedLink from "@/components/DelayedLink";
 import { LinearGradient } from 'expo-linear-gradient';
-import { BlurView } from "expo-blur";
 
 
 export default function RootLayout() {
@@ -68,9 +67,7 @@ export default function RootLayout() {
 
           {/* </BlurView> */}
           <View style={[styles.upperGap10]}>
-            <BlurView
-              intensity={20} tint='light' blurReductionFactor={2}
-              experimentalBlurMethod='dimezisBlurView'
+            <View
               style={{ overflow: "hidden", borderRadius: 10 }}
             >
               <LinearGradient
@@ -164,7 +161,7 @@ export default function RootLayout() {
                 </View>
               </View>
 
-            </BlurView>
+            </View>
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>

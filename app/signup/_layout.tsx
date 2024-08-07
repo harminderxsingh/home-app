@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ToastAndroid,
+  Keyboard,
 } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
@@ -18,39 +19,37 @@ import Header from "../header/_layout";
 import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
 import { communityService } from "@/services/CommunityService";
 import { AuthContext } from "@/contexts/AuthContext";
-import { BlurView } from "expo-blur";
 import InsetShadow from 'react-native-inset-shadow'
 
 
 export default function Signup() {
   const inputRef = useRef<TextInput>(null);
-  const [visible, setVisible] = useState(false);
 
   const [communities, setCommunities] = useState<any[]>([]);
   const [formValues, setFormValues] = useState<any>({});
   const { signup } = useContext(AuthContext);
 
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardOpen(true);
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardOpen(false);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   useEffect(() => {
     communityService.get().then(res => {
       setCommunities(res)
     })
-    // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    // inputRef.current?.focus()
-    // setTimeout(() => setVisible(true), 100);
-    // return () => {
-    //   setVisible(false)
-    // }
   }, [])
-
-  useFocusEffect(
-    useCallback(() => {
-      const timer = setTimeout(() => setVisible(true), 100);
-      return () => {
-        clearTimeout(timer);
-        setVisible(false); // Reset state when screen loses focus
-      };
-    }, [])
-  );
 
   const showToast = (msg: any) => {
     ToastAndroid.show(msg, ToastAndroid.SHORT);
@@ -83,7 +82,6 @@ export default function Signup() {
   }
 
   const navigate = async (path: string) => {
-    setVisible(false)
     router.push(path)
   }
 
@@ -92,44 +90,44 @@ export default function Signup() {
 
       <GradientBackgroundComponent >
         <Header />
-       
-            <View style={[styles.card,{ padding: 34, }]}>
-              <Text style={styles.title}>Sign up</Text>
-              <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                <SvgUserIcon />
-              </View>
-              {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
-              <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 30 }}></View>
-              <View >
-                <InputComponent ref={inputRef} name="fullName" placeholder="Full name" onInput={handleInput} />
-                {/* <DropdownComponent /> */}
-                <View style={styles.pickerContainer}>
-                  <Picker
-                    style={styles.input}
-                    selectedValue={formValues.communityId}
-                    onValueChange={(itemValue) =>
-                      handleInput({ name: 'communityId', value: itemValue })
-                    }>
-                    <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
-                    {
-                      communities.map(c =>
-                        <Picker.Item key={c.id} label={c.name} value={c.id} />
-                      )
-                    }
-                  </Picker>
-                </View>
-                <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
-                <InputComponent name="customerNumber" placeholder="Customer number / ID ??" onInput={handleInput} />
-                <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
-                <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
-                <View style={{ marginVertical: 5 }}>
-                  <ButtonComponent title="Continue" onPress={handleSignUp} />
-                </View>
-                <Text style={styles.text}>Already have an account?{"\n"}
-                  <TouchableOpacity onPress={() => navigate('login')}><Text style={styles.link}>Login</Text></TouchableOpacity>
-                </Text>
-              </View>
+
+        <View style={[styles.card, keyboardOpen ? styles.cardWithKeyboard : styles.cardWithoutKeyboard]}>
+          <Text style={styles.title}>Sign up</Text>
+          <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+            <SvgUserIcon />
+          </View>
+          {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
+          <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 30 }}></View>
+          <View >
+            <InputComponent ref={inputRef} name="fullName" placeholder="Full name" onInput={handleInput} />
+            {/* <DropdownComponent /> */}
+            <View style={styles.pickerContainer}>
+              <Picker
+                style={styles.input}
+                selectedValue={formValues.communityId}
+                onValueChange={(itemValue) =>
+                  handleInput({ name: 'communityId', value: itemValue })
+                }>
+                <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
+                {
+                  communities.map(c =>
+                    <Picker.Item key={c.id} label={c.name} value={c.id} />
+                  )
+                }
+              </Picker>
             </View>
+            <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
+            <InputComponent name="customerNumber" placeholder="Customer number / ID ??" onInput={handleInput} />
+            <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
+            <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
+            <View style={{ marginVertical: 5 }}>
+              <ButtonComponent title="Continue" onPress={handleSignUp} />
+            </View>
+            <Text style={styles.text}>Already have an account?{"\n"}
+              <TouchableOpacity onPress={() => navigate('login')}><Text style={styles.link}>Login</Text></TouchableOpacity>
+            </Text>
+          </View>
+        </View>
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
   );
@@ -137,10 +135,8 @@ export default function Signup() {
 
 const styles = StyleSheet.create({
   card: {
-    height: "85%",
-    minHeight: "80%",
     borderRadius: 16,
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
     margin: 20,
@@ -150,12 +146,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    padding: 34,
+  },
+  cardWithKeyboard: {
+    bottom: -70
+  },
+  cardWithoutKeyboard: {
+    maxHeight: '100%',
+    minHeight: '80%',
+    height: '85%',
   },
   pickerContainer: {
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 14,
-    
+
   },
   input: {
     width: "100%",
