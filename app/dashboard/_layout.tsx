@@ -288,6 +288,10 @@ export default function RootLayout() {
                   style={styles.background}
 
                 /> */}
+                <TouchableOpacity
+                  onPress={() => { delayedNavigate('/chat') }}
+
+                >
               <View
 
                 style={[
@@ -295,10 +299,6 @@ export default function RootLayout() {
                   styles.upperGap10,
                 ]}
               >
-                <TouchableOpacity
-                  onPress={() => { delayedNavigate('/chat') }}
-
-                >
                   <Text
                     style={[
                       styles.textGray,
@@ -310,8 +310,8 @@ export default function RootLayout() {
                     Home
                     Assistance
                   </Text>
-                </TouchableOpacity>
               </View>
+              </TouchableOpacity>
 
               {/* </BlurView> */}
             </View>

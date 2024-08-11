@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -17,8 +17,11 @@ import SvgCheck from '@/assets/images/check.svg';
 import * as Linking from 'expo-linking';
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
+import { router } from "expo-router";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Contact() {
+    const { user, updateNotification } = useContext(AuthContext);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [value, setValue] = useState('');
 
@@ -28,6 +31,16 @@ export default function Contact() {
         }
         setShowDatePicker(false);
     };
+
+    
+    const handleUpdate = async () => {
+        try {
+            await updateNotification({...user, solarPanelCleanedDate: value})
+            router.push('dashboard')
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -66,7 +79,7 @@ export default function Contact() {
                         />
                     )}
                     <View style={{ marginBottom: 130 }}>
-                        <ButtonComponent title="Done" onPress={() => { }} />
+                        <ButtonComponent title="Done" onPress={handleUpdate} />
                     </View>
                 </View>
             </GradientBackgroundComponent>
