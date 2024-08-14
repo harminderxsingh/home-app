@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, ToastAndroid, Animated, Keyboard } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ToastAndroid, Animated, Keyboard, Dimensions, ScrollView } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
@@ -11,11 +11,16 @@ import { authService } from "@/services/AuthService";
 import { Picker } from "@react-native-picker/picker";
 import { communityService } from "@/services/CommunityService";
 import { AuthContext } from "@/contexts/AuthContext";
-import InsetShadow from 'react-native-inset-shadow'
 
 export default function Login() {
   const [formValues, setFormValues] = useState<any>({ communityId: '' });
   const [communities, setCommunities] = useState<any[]>([]);
+
+
+  const { height } = Dimensions.get('window');
+  const SHORT_HEIGHT_THRESHOLD = 667;
+  const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
+
   const { login } = useContext(AuthContext);
   useEffect(() => {
     communityService.get().then(res => {
@@ -56,54 +61,67 @@ export default function Login() {
   const navigate = async (path: string) => {
     router.push(path)
   }
+  const cardView = <View style={[styles.card, keyboardOpen ? styles.cardWithKeyboard : styles.cardWithoutKeyboard, isShortHeight ? { position: 'relative' } : {}]}>
+    <View style={{ flexDirection: "column", height: isShortHeight ? 'auto' : "85%", justifyContent: "space-between" }}>
+      <View>
+        <Text style={styles.title}>Log in</Text>
+        <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+          <SvgUserIcon />
+        </View>
+
+        <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 50 }}></View>
+        <View style={styles.pickerContainer} >
+          <Picker
+            style={styles.input}
+            selectedValue={formValues.communityId}
+            onValueChange={(itemValue) =>
+              handleInput({ name: 'communityId', value: itemValue })
+            }
+
+          >
+            <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
+            {
+              communities.map(c =>
+                <Picker.Item key={c.id} label={c.name} value={c.id} />
+              )
+            }
+          </Picker>
+        </View>
+        <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
+        <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
+      </View>
+    </View>
+    <View>
+
+      <ButtonComponent title="Log in" onPress={handleLogin} />
+
+      <Text style={styles.text}>
+        Don’t have an account?{"\n"}
+        <TouchableOpacity onPress={() => navigate('/signup')}>
+          <Text style={styles.link}>
+            Sign up
+          </Text>
+        </TouchableOpacity>
+      </Text>
+    </View>
+  </View>
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GradientBackgroundComponent>
-        <Header />
-            <View style={[styles.card, keyboardOpen ? styles.cardWithKeyboard : styles.cardWithoutKeyboard]}>
-              <View style={{ flexDirection: "column", height: "85%", justifyContent: "space-between" }}>
-                <View>
-                  <Text style={styles.title}>Log in</Text>
-                  <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-                    <SvgUserIcon />
-                  </View>
+        {
+          isShortHeight ?
+            <ScrollView>
+              <Header />
 
-                  <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 50 }}></View>
-                  <View style={styles.pickerContainer} >
-                    <Picker
-                      style={styles.input}
-                      selectedValue={formValues.communityId}
-                      onValueChange={(itemValue) =>
-                        handleInput({ name: 'communityId', value: itemValue })
-                      }
+              {cardView}
+            </ScrollView>
+            :
+            <>
+              <Header />
 
-                    >
-                      <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
-                      {
-                        communities.map(c =>
-                          <Picker.Item key={c.id} label={c.name} value={c.id} />
-                        )
-                      }
-                    </Picker>
-                  </View>
-                  <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
-                  <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
-                </View>
-              </View>
-              <View>
-
-                <ButtonComponent title="Log in" onPress={handleLogin} />
-
-                <Text style={styles.text}>
-                  Don’t have an account?{"\n"}
-                  <TouchableOpacity onPress={() => navigate('/signup')}>
-                    <Text style={styles.link}>
-                      Sign up
-                    </Text>
-                  </TouchableOpacity>
-                </Text>
-              </View>
-            </View>
+              {cardView}
+            </>
+        }
 
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
@@ -113,7 +131,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor:"white",
+    backgroundColor: "white",
     borderRadius: 16,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
@@ -124,7 +142,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding:  34,
+    padding: 34,
   },
   cardWithKeyboard: {
     bottom: -50

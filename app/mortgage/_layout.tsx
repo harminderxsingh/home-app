@@ -2,7 +2,7 @@
 import { Link, router, useFocusEffect } from "expo-router";
 import { View, Text } from "react-native";
 import { Image, StyleSheet } from 'react-native';
-import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
+import { GestureHandlerRootView, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useCallback, useEffect, useState } from "react";
 import * as Progress from 'react-native-progress';
 import SvgSunWithEarth from '@/assets/images/sunWithEarth.svg';
@@ -74,20 +74,22 @@ export default function MortgageData() {
         if (dateLoanStarted && isAfter(dateLoanEnd, currentDate)) {
             setLoanActive(true)
         }
+        const progress = Math.min(Math.round((monthsElapsed / periodOfLoanInMonths * 100)), 100)
+        const isCompleted = progress === 100;
         setLoanDetails({
             ...loan,
             dateLoanStarted: format(dateLoanStart, 'yyyy-MM-dd'),
             dateLoanEnd: format(dateLoanEnd, 'MMMM yyyy'),
             timeRemaining: {
-                years: padZero(yearsRemaining),
-                months: padZero(monthsRemaining)
+                years: padZero(isCompleted ? 0 : yearsRemaining),
+                months: padZero(isCompleted ? 0 : monthsRemaining)
             },
             emiAmount: emi.toFixed(2),
             nextEmiDate: format(nextEmiDate, 'MMMM yyyy'),
             principalPaid: principalPaid.toFixed(2),
             interestPaid: interestPaid.toFixed(2),
-            remainingBalance: remainingPrincipal.toFixed(2),
-            progress: Math.round((monthsElapsed / periodOfLoanInMonths * 100))
+            remainingBalance: (isCompleted ? 0 : remainingPrincipal).toFixed(2),
+            progress 
         });
     }
 
@@ -99,7 +101,7 @@ export default function MortgageData() {
         <GestureHandlerRootView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#D1D1D1"></StatusBar>
 
-            <View style={{ backgroundColor: "#F0F0F0" }}>
+            <ScrollView style={{ backgroundColor: "#F0F0F0" }}>
 
                 <View style={[styles.outerGap, styles.flexWithBetween]}>
                     <Link href="/homedata" >
@@ -129,7 +131,7 @@ export default function MortgageData() {
                         </View>
 
                         {
-                            loanActive && !!loanDetails ?
+                            loanDetails.progress != undefined && !!loanDetails ?
                                 <View style={{ marginTop: 40, }}>
                                     <View style={{ backgroundColor: "#466488", borderRadius: 12, paddingTop: 17, paddingLeft: 21 }}>
                                         <View >
@@ -149,6 +151,7 @@ export default function MortgageData() {
                                             </View>
                                         </View>
                                     </View>
+                                    { loanActive &&
                                     <View style={[styles.shadow, { backgroundColor: "#E8E0D4", borderRadius: 12, marginTop: 17, padding: 17 }]}>
                                         <View >
                                             <Text style={[styles.font16, { color: "#595959", fontWeight: 500 }]}>My next payment </Text>
@@ -160,7 +163,7 @@ export default function MortgageData() {
                                                 </View>
                                             </View>
                                         </View>
-                                    </View>
+                                    </View>}
                                     <View style={[styles.shadow, { backgroundColor: "#fff", borderRadius: 12, marginTop: 17, padding: 17 }]}>
                                         <View >
                                             <Text style={[styles.font16, { color: "#595959", fontWeight: 500, }]}>Payoff progress </Text>
@@ -199,7 +202,7 @@ export default function MortgageData() {
                                                             Balance
                                                         </Text>
                                                         <Text style={[styles.amount, { color: "#BC5D54" }]}>
-                                                            ₱ {loanDetails.emiAmount}
+                                                            ₱ {loanDetails.remainingBalance}
                                                         </Text>
                                                     </View>
                                                     <View>
@@ -240,7 +243,7 @@ export default function MortgageData() {
                     </View>
                 </View>
 
-            </View>
+            </ScrollView>
         </GestureHandlerRootView>
 
     );

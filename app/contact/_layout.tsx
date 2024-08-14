@@ -4,13 +4,14 @@ import {
     View,
     Text,
     TouchableOpacity,
+    Dimensions,
 } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
 import { Link } from "expo-router";
 import Header from "../header/_layout";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import SvgPhone from '@/assets/images/phone-black.svg';
 import SvgWarning from '@/assets/images/warning-black.svg';
 import SvgCheck from '@/assets/images/check.svg';
@@ -25,6 +26,9 @@ export default function Contact() {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [value, setValue] = useState('');
 
+    const windowHeight = Dimensions.get('window').height;
+    const calculatedHeight = windowHeight - 160;
+
     const handleDateChange = (event, selectedDate) => {
         if (selectedDate) {
             setValue(format(selectedDate, 'yyyy-MM-dd'));
@@ -32,10 +36,10 @@ export default function Contact() {
         setShowDatePicker(false);
     };
 
-    
+
     const handleUpdate = async () => {
         try {
-            await updateNotification({...user, solarPanelCleanedDate: value})
+            await updateNotification({ ...user, solarPanelCleanedDate: value })
             router.push('dashboard')
         } catch (error) {
             console.log(error)
@@ -46,7 +50,7 @@ export default function Contact() {
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
                 <Header />
-                <View style={{ backgroundColor: "#F7F7F7", borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: "89%", flexDirection: "column", justifyContent: "space-between" }}>
+                <ScrollView style={{ backgroundColor: "#F7F7F7", borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: calculatedHeight, flexDirection: "column" }}>
                     <View>
                         <Text style={styles.title}>Solar panel cleaning time</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center", paddingHorizontal: 20 }}>
@@ -81,7 +85,7 @@ export default function Contact() {
                     <View style={{ marginBottom: 130 }}>
                         <ButtonComponent title="Done" onPress={handleUpdate} />
                     </View>
-                </View>
+                </ScrollView>
             </GradientBackgroundComponent>
         </GestureHandlerRootView>
     );

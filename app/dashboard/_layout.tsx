@@ -1,6 +1,6 @@
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
 import BlurViewComponent from "@/components/BlurViewComponent";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
 import { StyleSheet } from "react-native";
 import Header from "../header/_layout";
 
@@ -22,6 +22,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function RootLayout() {
   const delayedNavigate = useDelayedNavigation();
+
+
+  const { height } = Dimensions.get('window');
+  const SHORT_HEIGHT_THRESHOLD = 667;
+  const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const { user } = useContext(AuthContext);
 
@@ -165,20 +170,8 @@ export default function RootLayout() {
           </View>
           <View style={styles.grid}>
             <View style={[styles.item, styles.upperGap10]}>
-
-              {/* <BlurView
-                intensity={35} tint='light' blurReductionFactor={4}
-                experimentalBlurMethod='dimezisBlurView'
-                style={{ overflow: "hidden", borderRadius: 10 }}
-              > */}
-              {/* <LinearGradient
-                  // Background Linear Gradient
-                  colors={['rgba(240, 240, 240, 0.3)', 'transparent']}
-                  style={styles.background}
-
-                /> */}
               <TouchableOpacity onPress={() => { delayedNavigate('/homedata') }}  >
-                <View style={[styles.box]}>
+                <View style={[styles.box, ...(isShortHeight ? [styles.boxSm] : [])]}>
                   <Text style={[
                     styles.textGray,
                     styles.font21,
@@ -190,20 +183,9 @@ export default function RootLayout() {
                 </View>
               </TouchableOpacity>
 
-              {/* </BlurView> */}
-
-
-              {/* <BlurView
-                intensity={35} tint='light' blurReductionFactor={4}
-                experimentalBlurMethod='dimezisBlurView'
-                style={{ overflow: "hidden", borderRadius: 10, marginTop: 10 }}
-              > */}
               <TouchableOpacity onPress={() => { delayedNavigate('/updates') }}>
-                <View style={[styles.boxFixed, styles.upperGap10]}>
-
-                  <View>
-                    <View style={{ flexDirection: 'row', justifyContent: "flex-end" }}>
-                      <Text
+                <View style={[styles.box, styles.upperGap10, ...(isShortHeight ? [styles.boxSm] : [])]}>
+                <Text
                         style={[
                           styles.font14,
                           styles.upperEnd,
@@ -225,7 +207,6 @@ export default function RootLayout() {
                       >
                         7
                       </Text>
-                    </View>
                     <DelayedLink
                       href="/updates"
                       style={[
@@ -235,33 +216,19 @@ export default function RootLayout() {
                         { width: 80 },
                       ]}
                     >
-                      Billion Bricks Update
+                      BB Update{height}
                     </DelayedLink>
-                  </View>
 
 
 
                 </View>
               </TouchableOpacity>
 
-              {/* </BlurView> */}
-
             </View>
             <View style={[styles.item, styles.upperGap10]}>
-              {/* <BlurView
-                intensity={35} tint='light' blurReductionFactor={4}
-                experimentalBlurMethod='dimezisBlurView'
-                style={{ overflow: "hidden", borderRadius: 10 }}
-              >
-                <LinearGradient
-                  // Background Linear Gradient
-                  colors={['rgba(240, 240, 240, 0.3)', 'transparent']}
-                  style={styles.background}
-
-                /> */}
               <TouchableOpacity onPress={() => { delayedNavigate('/homedocument') }} >
                 <View
-                  style={[styles.box]}
+                  style={[styles.box, ...(isShortHeight ? [styles.boxSm] : [])]}
                 >
                   <Text
                     style={[
@@ -275,30 +242,18 @@ export default function RootLayout() {
                   </Text>
                 </View>
               </TouchableOpacity>
-              {/* </BlurView> */}
+              <TouchableOpacity
+                onPress={() => { delayedNavigate('/chat') }}
 
-              {/* <BlurView
-                intensity={35} tint='light' blurReductionFactor={4}
-                experimentalBlurMethod='dimezisBlurView'
-                style={{ overflow: "hidden", borderRadius: 10, marginTop: 10 }}
-              > */}
-              {/* <LinearGradient
-                  // Background Linear Gradient
-                  colors={['rgba(240, 240, 240, 0.3)', 'transparent']}
-                  style={styles.background}
-
-                /> */}
-                <TouchableOpacity
-                  onPress={() => { delayedNavigate('/chat') }}
-
-                >
-              <View
-
-                style={[
-                  styles.box3,
-                  styles.upperGap10,
-                ]}
               >
+                <View
+
+                  style={[
+                    styles.box,
+                    styles.upperGap10,
+                    ...(isShortHeight ? [styles.boxSm] : [])
+                  ]}
+                >
                   <Text
                     style={[
                       styles.textGray,
@@ -310,7 +265,7 @@ export default function RootLayout() {
                     Home
                     Assistance
                   </Text>
-              </View>
+                </View>
               </TouchableOpacity>
 
               {/* </BlurView> */}
@@ -366,8 +321,10 @@ const styles = StyleSheet.create({
     paddingTop: 9,
   },
   upperEnd: {
+    position: 'absolute',
+    top: 9,
+    right: 9,
     textAlign: "right",
-    paddingRight: 9,
     backgroundColor: "#rgba(90, 123, 140, 1)",
     borderRadius: 50,
     display: "flex",
@@ -423,18 +380,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: "#404040",
   },
-  box2: {
-    fontSize: 21,
-    fontWeight: 600,
-    height: 132,
-    borderRadius: 10,
+  boxSm: {
+    height: 80,
   },
   container: {
     backgroundColor: "transparent",
   },
   outerGap: {
     marginHorizontal: 20,
-    marginBottom: 50,
+    marginBottom: 20,
     position: "absolute",
     bottom: 10,
   },

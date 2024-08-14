@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import InsetShadow from 'react-native-inset-shadow'
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 interface CardProps {
@@ -8,7 +8,9 @@ interface CardProps {
 }
 
 const CardComponent: React.FC<CardProps> = ({ children }) => {
-  return <View style={styles.card}>{children}</View>;
+  const windowHeight = Dimensions.get('window').height;
+  const calculatedHeight = windowHeight - 160;
+  return <ScrollView style={[styles.card, {height: calculatedHeight}]}>{children}</ScrollView>;
 };
 
 
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
   card: {
     padding:34,
     backgroundColor:"#fff",
-    height: "85%",
+    // height: "85%",
     minHeight: "80%",
     borderRadius: 16,
     borderBottomRightRadius: 0,
@@ -24,7 +26,6 @@ const styles = StyleSheet.create({
     margin: 20,
     marginBottom: 0,
     overflow: 'hidden',
-    // alignItems: "center", 
     position: "absolute",
     bottom: 0,
     left: 0,

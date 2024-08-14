@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Dimensions } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import CardComponent from "@/components/CardComponent";
@@ -191,8 +191,42 @@ const conversationData = {
       {
         "id": "feedbackDetails",
         "message": "We value your insights! What would you like to provide feedback on?",
-        "inputRequired": true,
-        "nextStep": "followUp"
+        "options": [
+          {
+            "label": "Recent Service",
+            "nextStep": "starRating"
+          },
+          {
+            "label": "Share feedback",
+            "nextStep": "starRating"
+          },
+        ]
+      },
+      {
+        "id": "starRating",
+        "message": "Please rate your recent service experience on a scale of 1 to 5, with 5 being excellent.",
+        "options": [
+          {
+            "label": "5",
+            "nextStep": "followUp"
+          },
+          {
+            "label": "4",
+            "nextStep": "followUp"
+          },
+          {
+            "label": "3",
+            "nextStep": "followUp"
+          },
+          {
+            "label": "2",
+            "nextStep": "followUp"
+          },
+          {
+            "label": "1",
+            "nextStep": "followUp"
+          },
+        ]
       },
       {
         "id": "ideaDetails",
@@ -255,6 +289,9 @@ export default function Chat() {
     const [chatFlow, setChatFlow] = useState({});
     const inputRef = useRef(null);
 
+    const windowHeight = Dimensions.get('window').height;
+    const calculatedHeight = windowHeight - 160;
+
     const currentStepData = conversationData.conversation.find(step => step.id === currentStep);
 
     const addMessageToHistory = (message, isUser = false) => {
@@ -301,7 +338,7 @@ export default function Chat() {
             <GradientBackgroundComponent>
                 <Header />
 
-                <View style={{ flexDirection: "column", height: "85%", backgroundColor: "#F7F7F7", marginHorizontal: 20, borderTopEndRadius: 20, borderTopLeftRadius: 20, padding: 20 }}>
+                <View style={{ position: 'absolute', bottom: 0, flexDirection: "column", height: calculatedHeight, backgroundColor: "#F7F7F7", marginHorizontal: 20, borderTopEndRadius: 20, borderTopLeftRadius: 20, padding: 20 }}>
                     <ScrollView>
                         <View>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>

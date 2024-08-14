@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
@@ -16,14 +17,17 @@ import { Picker } from '@react-native-picker/picker';
 import SvgUserIcon from '@/assets/images/userIcon.svg';
 import { authService } from '@/services/AuthService';
 import Header from "../header/_layout";
-import { GestureHandlerRootView, TextInput } from "react-native-gesture-handler";
+import { GestureHandlerRootView, ScrollView, TextInput } from "react-native-gesture-handler";
 import { communityService } from "@/services/CommunityService";
 import { AuthContext } from "@/contexts/AuthContext";
-import InsetShadow from 'react-native-inset-shadow'
 
 
 export default function Signup() {
   const inputRef = useRef<TextInput>(null);
+
+  const { height } = Dimensions.get('window');
+  const SHORT_HEIGHT_THRESHOLD = 667;
+  const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const [communities, setCommunities] = useState<any[]>([]);
   const [formValues, setFormValues] = useState<any>({});
@@ -85,49 +89,63 @@ export default function Signup() {
     router.push(path)
   }
 
+  const cardView =
+    <View style={[styles.card, keyboardOpen ? styles.cardWithKeyboard : styles.cardWithoutKeyboard, isShortHeight ? { position: 'relative' } : null]}>
+      <Text style={styles.title}>Sign up</Text>
+      <View style={{ flexDirection: "row", justifyContent: 'center' }}>
+        <SvgUserIcon />
+      </View>
+      {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
+      <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 30 }}></View>
+      <View >
+        <InputComponent ref={inputRef} name="fullName" placeholder="Full name" onInput={handleInput} />
+        {/* <DropdownComponent /> */}
+        <View style={styles.pickerContainer}>
+          <Picker
+            style={styles.input}
+            selectedValue={formValues.communityId}
+            onValueChange={(itemValue) =>
+              handleInput({ name: 'communityId', value: itemValue })
+            }>
+            <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
+            {
+              communities.map(c =>
+                <Picker.Item key={c.id} label={c.name} value={c.id} />
+              )
+            }
+          </Picker>
+        </View>
+        <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
+        <InputComponent name="customerNumber" placeholder="Customer number / ID ??" onInput={handleInput} />
+        <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
+        <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
+        <View style={{ marginVertical: 5 }}>
+          <ButtonComponent title="Continue" onPress={handleSignUp} />
+        </View>
+        <Text style={styles.text}>Already have an account?{"\n"}
+          <TouchableOpacity onPress={() => navigate('login')}><Text style={styles.link}>Login</Text></TouchableOpacity>
+        </Text>
+      </View>
+    </View>
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
 
       <GradientBackgroundComponent >
-        <Header />
+        {
+          isShortHeight ?
+            <ScrollView>
+              <Header />
 
-        <View style={[styles.card, keyboardOpen ? styles.cardWithKeyboard : styles.cardWithoutKeyboard]}>
-          <Text style={styles.title}>Sign up</Text>
-          <View style={{ flexDirection: "row", justifyContent: 'center' }}>
-            <SvgUserIcon />
-          </View>
-          {/* <ButtonComponent title="Log in with Facebook" onPress={() => { }} /> */}
-          <View style={{ height: 1, backgroundColor: "#595959", marginVertical: 30 }}></View>
-          <View >
-            <InputComponent ref={inputRef} name="fullName" placeholder="Full name" onInput={handleInput} />
-            {/* <DropdownComponent /> */}
-            <View style={styles.pickerContainer}>
-              <Picker
-                style={styles.input}
-                selectedValue={formValues.communityId}
-                onValueChange={(itemValue) =>
-                  handleInput({ name: 'communityId', value: itemValue })
-                }>
-                <Picker.Item label="Select a community" value="" color={styles.disabledItem.color} />
-                {
-                  communities.map(c =>
-                    <Picker.Item key={c.id} label={c.name} value={c.id} />
-                  )
-                }
-              </Picker>
-            </View>
-            <InputComponent name="houseNo" placeholder="House number" onInput={handleInput} keyboardType="number-pad" />
-            <InputComponent name="customerNumber" placeholder="Customer number / ID ??" onInput={handleInput} />
-            <InputComponent name="phone" placeholder="Phone number" onInput={handleInput} keyboardType="phone-pad" />
-            <InputComponent name="password" placeholder="Password" onInput={handleInput} secureTextEntry={true} />
-            <View style={{ marginVertical: 5 }}>
-              <ButtonComponent title="Continue" onPress={handleSignUp} />
-            </View>
-            <Text style={styles.text}>Already have an account?{"\n"}
-              <TouchableOpacity onPress={() => navigate('login')}><Text style={styles.link}>Login</Text></TouchableOpacity>
-            </Text>
-          </View>
-        </View>
+              {cardView}
+            </ScrollView>
+            :
+            <>
+              <Header />
+
+              {cardView}
+            </>
+        }
       </GradientBackgroundComponent>
     </GestureHandlerRootView>
   );

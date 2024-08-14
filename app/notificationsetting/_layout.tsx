@@ -18,7 +18,6 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
 import BlurViewComponent from "@/components/BlurViewComponent";
-import InsetShadow from 'react-native-inset-shadow'
 import CardComponent from "@/components/CardComponent";
 
 
