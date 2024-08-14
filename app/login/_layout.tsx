@@ -18,7 +18,7 @@ export default function Login() {
 
 
   const { height } = Dimensions.get('window');
-  const SHORT_HEIGHT_THRESHOLD = 667;
+  const SHORT_HEIGHT_THRESHOLD = 767;
   const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const { login } = useContext(AuthContext);

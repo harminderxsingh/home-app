@@ -26,7 +26,7 @@ export default function Signup() {
   const inputRef = useRef<TextInput>(null);
 
   const { height } = Dimensions.get('window');
-  const SHORT_HEIGHT_THRESHOLD = 667;
+  const SHORT_HEIGHT_THRESHOLD = 767;
   const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const [communities, setCommunities] = useState<any[]>([]);

@@ -63,7 +63,7 @@ export default function HomeDocument() {
                         </View>
 
                     </View>
-                    <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
+                    <ScrollView style={{ display: "flex", flexDirection: "column" }}>
                         <Text style={[styles.title, styles.font24, styles.colorWhite,]} >Home data</Text>
                         <Text style={[styles.font14, styles.colorWhite,]}>6 folders</Text>
                         <View style={{ marginTop: 40, }}>
@@ -86,87 +86,8 @@ export default function HomeDocument() {
                                     </TouchableOpacity>
                                 )
                             }
-                            {/* <Link href='/ddcHome' style={[styles.btn]}  >
-                                <View style={styles.flexrow}>
-                                    <View >
-                                        <SvgFolderOrange />
-                                    </View>
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                            Tutorials
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </View>
-                            </Link>
-                            <Link href='/ddcHome' style={[styles.btn,]}  >
-                                <View style={styles.flexrow}>
-                                    <View >
-                                        <SvgFolderSkin />
-                                    </View>
-
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                            Contracts
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </View>
-                            </Link>
-                            <Link href='/ddcHome' style={[styles.btn,]} >
-                                <View style={styles.flexrow}>
-                                    <View >
-                                        <SvgFolderLight />
-                                    </View>
-
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                            Warrenties
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </View>
-                            </Link>
-                            <Link href='/ddcHome' style={[styles.btn,]}>
-                                <View style={styles.flexrow}>
-                                    <View >
-                                        <SvgFolderGreen />
-                                    </View>
-
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                            Miscellaneous
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </View>
-                            </Link>
-                            <Link href='/ddcHome' style={[styles.btn,]}>
-                                <View style={styles.flexrow}>
-                                    <View >
-                                        <SvgFolderTrash />
-                                    </View>
-
-                                    <View style={{ paddingLeft: 20 }}>
-                                        <Text style={styles.heading}>
-                                            Deleted documents
-                                        </Text>
-                                        <Text style={styles.count}>
-                                            12 Items
-                                        </Text>
-                                    </View>
-                                </View>
-                            </Link> */}
                         </View>
-                    </View>
+                    </ScrollView>
                 </View>
             </DocumentBackgroundComponent>
             {/* {

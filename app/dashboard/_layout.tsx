@@ -1,20 +1,15 @@
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
-import BlurViewComponent from "@/components/BlurViewComponent";
-import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import { StyleSheet } from "react-native";
 import Header from "../header/_layout";
 
 import SvgSetting from '@/assets/images/setting.svg';
 import SvgArrow from '@/assets/images/rightArrw.svg';
-import SvgGreenDot from '@/assets/images/greenDot.svg'
 import {
   GestureHandlerRootView,
-  TextInput,
 } from "react-native-gesture-handler";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
-import axios from "axios";
-import InputComponent from "@/components/InputComponent";
 import useDelayedNavigation from "@/components/useDelayedNavigation";
 import DelayedLink from "@/components/DelayedLink";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -25,7 +20,7 @@ export default function RootLayout() {
 
 
   const { height } = Dimensions.get('window');
-  const SHORT_HEIGHT_THRESHOLD = 667;
+  const SHORT_HEIGHT_THRESHOLD = 767;
   const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const { user } = useContext(AuthContext);
@@ -36,9 +31,9 @@ export default function RootLayout() {
 
         <Header />
         <View style={styles.outerGap}>
-          <TextInput style={[styles.font24, styles.fontWight600, styles.hideCursor]} >
+          <Text style={[styles.font24, styles.fontWight600, styles.hideCursor]} >
             Welcome home {user?.fullName}
-          </TextInput>
+          </Text>
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
             Uni t 22, Nara St. BillionBricks Tartac
           </Text>
@@ -176,48 +171,47 @@ export default function RootLayout() {
                     styles.textGray,
                     styles.font21,
                     styles.fontWight600,
-                    { width: 60 },
                   ]}>
-                    Home Data
+                    Home{'\n'}
+                    Data
                   </Text>
                 </View>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => { delayedNavigate('/updates') }}>
                 <View style={[styles.box, styles.upperGap10, ...(isShortHeight ? [styles.boxSm] : [])]}>
-                <Text
-                        style={[
-                          styles.font14,
-                          styles.upperEnd,
-                          styles.textWhite,
-                          styles.fontWight600,
-                          {
-                            marginTop: 9,
-                            marginRight: 8,
-                            height: 25,
-                            width: 25,
-                            paddingTop: 2,
-                            paddingRight: 7,
-                            fontSize: 17,
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            alignItems: "center"
-                          },
-                        ]}
-                      >
-                        7
-                      </Text>
-                    <DelayedLink
-                      href="/updates"
-                      style={[
-                        styles.textGray,
-                        styles.font21,
-                        styles.fontWight600,
-                        { width: 80 },
-                      ]}
-                    >
-                      BB Update{height}
-                    </DelayedLink>
+                  <Text
+                    style={[
+                      styles.font14,
+                      styles.upperEnd,
+                      styles.textWhite,
+                      styles.fontWight600,
+                      {
+                        marginTop: 9,
+                        marginRight: 8,
+                        height: 25,
+                        width: 25,
+                        paddingTop: 2,
+                        paddingRight: 7,
+                        fontSize: 17,
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center"
+                      },
+                    ]}
+                  >
+                    7
+                  </Text>
+                  <Text
+                    style={[
+                      styles.textGray,
+                      styles.font21,
+                      styles.fontWight600,
+                    ]}
+                  >
+                    BB {'\n'}
+                    Updates
+                  </Text>
 
 
 
@@ -235,10 +229,10 @@ export default function RootLayout() {
                       styles.textGray,
                       styles.font21,
                       styles.fontWight600,
-                      { width: 110 },
                     ]}
                   >
-                    Home Documnets
+                    Home{'\n'}
+                    Documnets
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -259,10 +253,9 @@ export default function RootLayout() {
                       styles.textGray,
                       styles.font21,
                       styles.fontWight600,
-                      { width: 110 },
                     ]}
                   >
-                    Home
+                    Home{'\n'}
                     Assistance
                   </Text>
                 </View>

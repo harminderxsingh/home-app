@@ -1,11 +1,7 @@
 // ButtonComponent.tsx
 import React, { useState } from "react";
 import {
-  TouchableOpacity,
-  Text,
   StyleSheet,
-  ViewStyle,
-  TextStyle,
 } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 
