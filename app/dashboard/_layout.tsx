@@ -232,7 +232,7 @@ export default function RootLayout() {
                     ]}
                   >
                     Home{'\n'}
-                    Documnets
+                    Documents
                   </Text>
                 </View>
               </TouchableOpacity>

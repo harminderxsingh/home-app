@@ -8,4 +8,7 @@ export const fileService = {
     filesByFolders: async (id: string): Promise<any> => {
         return axios.get(`/folder/${id}`).then(res => res.data)
     },
+    fileDelete: async (id: string): Promise<any> => {
+        return axios.delete(`/file/${id}`).then(res => res.data)
+    },
 };

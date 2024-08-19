@@ -49,7 +49,7 @@ export default function Contact() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
-                <Header />
+                <Header isBack={true} />
                 <ScrollView style={{ backgroundColor: "#F7F7F7", borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: calculatedHeight, flexDirection: "column" }}>
                     <View>
                         <Text style={styles.title}>Solar panel cleaning time</Text>

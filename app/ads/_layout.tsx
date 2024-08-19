@@ -5,6 +5,7 @@ import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-h
 import { useState } from "react";
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBlackBurger from '@/assets/images/blackBurgur.svg';
+import Header from "../header/_layout";
 
 export default function Ads() {
     const [showNewComponent, setShowNewComponent] = useState(false);
@@ -19,7 +20,8 @@ export default function Ads() {
             <View style={{height:"100%", flexDirection: "column", justifyContent: "space-between", backgroundColor: "#E8E0D4", }}>
                 <View>
 
-                    <View style={[styles.outerGap, styles.flexWithBetween]}>
+                    <Header />
+                    {/* <View style={[styles.outerGap, styles.flexWithBetween]}>
                         <Link href="/updates" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
@@ -31,7 +33,7 @@ export default function Ads() {
                             </TouchableOpacity>
                         </View>
 
-                    </View>
+                    </View> */}
                     <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                         <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
                             <Text style={[styles.title, styles.font24,]} >Ad page sample</Text>

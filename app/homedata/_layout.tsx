@@ -13,7 +13,7 @@ export default function HomeData() {
     return (
         <HomeBackgroundComponent>
             <GestureHandlerRootView style={{ flex: 1 }}>
-                <Header />
+                <Header isBack={true} />
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={{ display: "flex", flexDirection: "column", height: "100%" }}>
 

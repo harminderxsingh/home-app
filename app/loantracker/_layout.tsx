@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { loanService } from "@/services/LoanService";
 import { format } from "date-fns";
+import Header from "../header/_layout";
 
 export default function LoanTrackerForm() {
     const [formValues, setFormValues] = useState<any>({ dateLoanStarted: new Date() });
@@ -57,10 +58,10 @@ export default function LoanTrackerForm() {
     return (
         <GestureHandlerRootView style={{ height: "auto" }}>
             <StatusBar backgroundColor="#D1D1D1"></StatusBar>
-            <View style={{ padding: 25, zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F0F0F0" }}>
-
-                <ScrollView  >
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
+            <ScrollView style={{ zIndex: 1, width: '100%', height: "100%", backgroundColor: "#F0F0F0" }}>
+            <Header isBack={true} />
+                <View style={{ padding: 25 }}>
+                    {/* <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
                         <Link href="/mortgage"   >
                             <View style={styles.circle}>
                                 <SvgLeftArrow />
@@ -71,7 +72,7 @@ export default function LoanTrackerForm() {
                                 <SvgBurgerIcon />
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
                     <Text style={styles.title}>Loan tracker</Text>
                     <Text style={{ color: "#5B6369" }}>
                         Answer a few questions to help us set up your mortgage tracker. This will ensure you get the most accurate and personalized information.
@@ -146,8 +147,8 @@ export default function LoanTrackerForm() {
                     <TouchableOpacity>
                         <ButtonComponent title="Done" onPress={handleSubmit} />
                     </TouchableOpacity>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </GestureHandlerRootView>
 
     );

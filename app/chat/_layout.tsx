@@ -336,7 +336,7 @@ export default function Chat() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
-                <Header />
+                <Header isBack={true} />
 
                 <View style={{ position: 'absolute', bottom: 0, flexDirection: "column", height: calculatedHeight, backgroundColor: "#F7F7F7", marginHorizontal: 20, borderTopEndRadius: 20, borderTopLeftRadius: 20, padding: 20 }}>
                     <ScrollView>

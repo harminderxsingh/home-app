@@ -20,7 +20,7 @@ export default function WaterBill() {
                     </Link>
                     <Text style={styles.title}>Water co</Text>
                     <Link href="/homedata" style={{ fontSize: 19, color: "#595959" }}>
-                        <Text>X</Text>
+                        
                     </Link>
                 </View>
             </View>

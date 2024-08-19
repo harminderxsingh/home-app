@@ -1,9 +1,9 @@
 
-import { Link, router, useLocalSearchParams } from "expo-router";
+import { Link, router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { View, Text } from "react-native";
 import { StyleSheet } from 'react-native';
-import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
-import { useEffect, useState } from "react";
+import { GestureHandlerRootView, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { useCallback, useEffect, useState } from "react";
 import * as DocumentPicker from 'expo-document-picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
@@ -19,6 +19,8 @@ import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { fileService } from "@/services/FileService";
 import { formatDate } from "date-fns";
+import * as Linking from 'expo-linking';
+import Header from "../header/_layout";
 
 const { extra } = Constants.expoConfig || {};
 
@@ -27,9 +29,11 @@ export default function Drawing() {
     const [showNewComponent, setShowNewComponent] = useState(false);
     const [folder, setFolder] = useState<any>({ files: [] });
 
-    useEffect(() => {
-        loadData()
-    }, [folderId])
+    useFocusEffect(
+        useCallback(() => {
+            loadData()
+        }, [folderId])
+    );
 
     const loadData = () => {
         if (folderId) {
@@ -44,12 +48,14 @@ export default function Drawing() {
     };
 
     const openFile = (file: any) => {
+        console.log(file)
         const url = `${extra?.baseUrl}${file.path}`;
         router.push({
             pathname: 'fileviewer',
             params: {
                 mimetype: file.mimetype,
                 url,
+                id: file.id,
             },
         });
     }
@@ -120,10 +126,11 @@ export default function Drawing() {
         <GestureHandlerRootView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#D1D1D1"></StatusBar>
 
-            <View style={{ flexDirection: "column", justifyContent: "space-between", backgroundColor: "rgba(240, 240, 240, 1)", height: "100%" }}>
+            <ScrollView style={{ flexDirection: "column", backgroundColor: "rgba(240, 240, 240, 1)", height: "100%" }}>
+                <Header isBack={true} />
                 <View>
 
-                    <View style={[styles.outerGap, styles.flexWithBetween]}>
+                    {/* <View style={[styles.outerGap, styles.flexWithBetween]}>
                         <Link href="/homedocument" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
@@ -135,7 +142,7 @@ export default function Drawing() {
                             </TouchableOpacity>
                         </View>
 
-                    </View>
+                    </View> */}
                     <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                         <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
                             <Text style={[styles.title, styles.font24,]} >{folder.folderName}</Text>
@@ -224,7 +231,7 @@ export default function Drawing() {
                     </View>
                 </View>
 
-            </View>
+            </ScrollView>
 
         </GestureHandlerRootView>
 

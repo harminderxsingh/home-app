@@ -7,6 +7,7 @@ import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBlackBurger from '@/assets/images/blackBurgur.svg';
 import SvgPinkDot from '@/assets/images/pinkdot.svg';
 import { StatusBar } from "expo-status-bar";
+import Header from "../header/_layout";
 
 
 export default function Updates() {
@@ -22,8 +23,9 @@ export default function Updates() {
 
             <View style={{ flexDirection: "column", justifyContent: "space-between", backgroundColor: "rgba(240, 240, 240, 1)", }}>
                 <View >
+                    <Header isBack={true} />
 
-                    <View style={[styles.outerGap, styles.flexWithBetween]}>
+                    {/* <View style={[styles.outerGap, styles.flexWithBetween]}>
                         <Link href="/dashboard" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
@@ -35,13 +37,16 @@ export default function Updates() {
                                 <SvgBlackBurger />
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
                     <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                         <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
                             <Text style={[styles.title, styles.font24,]} >Updates and news</Text>
-                            <Text style={[styles.font14, { color: "rgba(121, 101, 101, 0.8)", marginTop: 12 }]}>You have 3 unread  updates</Text>
+                            <Text style={[styles.font14, { color: "rgba(121, 101, 101, 0.8)", marginTop: 12 }]}>
+                                {/* You have 3 unread  updates */}
+                                You do not have any update now
+                                </Text>
                             <View style={{ marginTop: 40, }}>
-                                <Link href='/ads' style={[styles.btn,]} >
+                                {/* <Link href='/ads' style={[styles.btn,]} >
                                     <View style={{ flexDirection: "row" }} >
                                         <View style={{ marginTop: 5 }}>
                                             <SvgPinkDot />
@@ -64,7 +69,8 @@ export default function Updates() {
 
                                         <View style={{ paddingLeft: 20 }}>
                                             <Text style={styles.heading}>
-                                                Time to update your app                                            </Text>
+                                                Time to update your app
+                                            </Text>
                                             <Text style={styles.count}>
                                                 12/04/2024
                                             </Text>
@@ -99,7 +105,7 @@ export default function Updates() {
                                             </Text>
                                         </View>
                                     </View>
-                                </Link>
+                                </Link> */}
 
                             </View>
                         </View>

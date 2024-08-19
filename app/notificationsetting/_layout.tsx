@@ -63,7 +63,7 @@ export default function NotificationSetting() {
 
         <GestureHandlerRootView style={{ flex: 1 }}>
             <GradientBackgroundComponent>
-                <Header />
+                <Header isBack={true} />
                 {/* <BlurViewComponent
                     intensity={50} tint='light' blurReductionFactor={1} style={{ borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, height: "89%", flexDirection: "column", justifyContent: "space-evenly", overflow: "hidden" }}> */}
                 <CardComponent>

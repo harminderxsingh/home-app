@@ -4,7 +4,6 @@ import { View, Text } from "react-native";
 import { Image, StyleSheet } from 'react-native';
 import { GestureHandlerRootView, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { useCallback, useEffect, useState } from "react";
-import * as Progress from 'react-native-progress';
 import SvgSunWithEarth from '@/assets/images/sunWithEarth.svg';
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
@@ -13,6 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import { loanService } from "@/services/LoanService";
 import { addMonths, differenceInMonths, format, isAfter } from "date-fns";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
+import Header from "../header/_layout";
 
 export default function MortgageData() {
     const [showNewComponent, setShowNewComponent] = useState(false);
@@ -35,51 +35,54 @@ export default function MortgageData() {
         const monthlyRate = annualRate / 12 / 100;
         return principal * monthlyRate * Math.pow(1 + monthlyRate, periodOfLoanInMonths) / (Math.pow(1 + monthlyRate, periodOfLoanInMonths) - 1);
     };
-
+    
     const padZero = (num: number) => num.toString().padStart(2, '0');
-
+    
     const processData = (loan: any) => {
         const {
             loanAmount,
-            annualRateOfInterest,
+            interestOnLoan,
             dateLoanStarted,
             periodOfLoan
         } = loan;
-
+    
         const currentDate = new Date();
         const dateLoanStart = new Date(dateLoanStarted);
         const periodOfLoanInMonths = Number(periodOfLoan);
-        const dateLoanEnd = addMonths(dateLoanStart, periodOfLoanInMonths);
-        const monthsElapsed = differenceInMonths(currentDate, dateLoanStart);
+        const annualRateOfInterest = parseFloat(interestOnLoan);
+        
+        // Calculate time-related information
+        const monthsElapsed = Math.max(differenceInMonths(currentDate, dateLoanStart), 0);
+        const totalMonthsRemaining = differenceInMonths(addMonths(dateLoanStart, periodOfLoanInMonths), currentDate) + monthsElapsed;
         const nextEmiDate = addMonths(dateLoanStart, monthsElapsed + 1);
-
+    
+        // EMI calculation
         const emi = calculateEmi(loanAmount, annualRateOfInterest, periodOfLoanInMonths);
-
+    
+        // Principal and Interest calculations
         let remainingPrincipal = loanAmount;
         let interestPaid = 0;
         let principalPaid = 0;
-
-        for (let i = 0; i < monthsElapsed; i++) {
+    
+        for (let i = 0; i < monthsElapsed && remainingPrincipal > 0; i++) {
             const interestForMonth = remainingPrincipal * (annualRateOfInterest / 12 / 100);
             interestPaid += interestForMonth;
-            const principalForMonth = emi - interestForMonth;
+            const principalForMonth = Math.min(emi - interestForMonth, remainingPrincipal);
             principalPaid += principalForMonth;
             remainingPrincipal -= principalForMonth;
         }
-
-        const totalMonthsRemaining = differenceInMonths(dateLoanEnd, currentDate);
+    
+        // Remaining time and progress calculation
         const yearsRemaining = Math.floor(totalMonthsRemaining / 12);
         const monthsRemaining = totalMonthsRemaining % 12;
-
-        if (dateLoanStarted && isAfter(dateLoanEnd, currentDate)) {
-            setLoanActive(true)
-        }
-        const progress = Math.min(Math.round((monthsElapsed / periodOfLoanInMonths * 100)), 100)
-        const isCompleted = progress === 100;
+        const progress = parseFloat(((principalPaid / loanAmount) * 100).toFixed(2));
+        const isCompleted = progress === 100.00;
+        const remainingBalance = isCompleted ? 0 : remainingPrincipal.toFixed(2);
+    
         setLoanDetails({
             ...loan,
             dateLoanStarted: format(dateLoanStart, 'yyyy-MM-dd'),
-            dateLoanEnd: format(dateLoanEnd, 'MMMM yyyy'),
+            dateLoanEnd: format(addMonths(dateLoanStart, periodOfLoanInMonths), 'MMMM yyyy'),
             timeRemaining: {
                 years: padZero(isCompleted ? 0 : yearsRemaining),
                 months: padZero(isCompleted ? 0 : monthsRemaining)
@@ -88,10 +91,15 @@ export default function MortgageData() {
             nextEmiDate: format(nextEmiDate, 'MMMM yyyy'),
             principalPaid: principalPaid.toFixed(2),
             interestPaid: interestPaid.toFixed(2),
-            remainingBalance: (isCompleted ? 0 : remainingPrincipal).toFixed(2),
-            progress 
+            remainingBalance,
+            progress
         });
-    }
+    
+        if (monthsElapsed > 0) {
+            setLoanActive(true);
+        }
+    };
+    
 
     const handleButtonClick = () => {
         setShowNewComponent(!showNewComponent);
@@ -103,7 +111,9 @@ export default function MortgageData() {
 
             <ScrollView style={{ backgroundColor: "#F0F0F0" }}>
 
-                <View style={[styles.outerGap, styles.flexWithBetween]}>
+            <Header isBack={true} />
+
+                {/* <View style={[styles.outerGap, styles.flexWithBetween]}>
                     <Link href="/homedata" >
                         <View style={styles.link}>
                             <SvgLeftArrow />
@@ -115,7 +125,7 @@ export default function MortgageData() {
                         </TouchableOpacity>
                     </View>
 
-                </View>
+                </View> */}
                 <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
                     <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", }}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>

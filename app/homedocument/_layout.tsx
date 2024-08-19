@@ -14,6 +14,7 @@ import SvgFolder from '@/assets/images/folder.svg';
 // import SvgFolderGreen from '@/assets/images/folderGreen.svg';
 // import SvgFolderTrash from '@/assets/images/trash.svg';
 import { fileService } from "@/services/FileService";
+import Header from "../header/_layout";
 
 
 export default function HomeDocument() {
@@ -49,8 +50,9 @@ export default function HomeDocument() {
             <DocumentBackgroundComponent>
 
 
-                <View style={{ backgroundColor: "rgba(0,0,0,0)", margin: 20 }}>
-                    <View style={[styles.outerGap, styles.flexWithBetween]}>
+                <ScrollView style={{ backgroundColor: "rgba(0,0,0,0)" }}>
+                    <Header isBack={true} />
+                    {/* <View style={[styles.outerGap, styles.flexWithBetween]}>
                         <Link href="/dashboard" >
                             <View style={styles.link}>
                                 <SvgLeftArrow />
@@ -62,8 +64,8 @@ export default function HomeDocument() {
                             </TouchableOpacity>
                         </View>
 
-                    </View>
-                    <ScrollView style={{ display: "flex", flexDirection: "column" }}>
+                    </View> */}
+                    <View style={{ display: "flex", flexDirection: "column", margin: 20 }}>
                         <Text style={[styles.title, styles.font24, styles.colorWhite,]} >Home data</Text>
                         <Text style={[styles.font14, styles.colorWhite,]}>6 folders</Text>
                         <View style={{ marginTop: 40, }}>
@@ -87,8 +89,8 @@ export default function HomeDocument() {
                                 )
                             }
                         </View>
-                    </ScrollView>
-                </View>
+                    </View>
+                </ScrollView>
             </DocumentBackgroundComponent>
             {/* {
                 showNewComponent && <DdcHome />
