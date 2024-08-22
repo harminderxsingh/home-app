@@ -13,6 +13,8 @@ import { AuthContext } from "@/contexts/AuthContext";
 import useDelayedNavigation from "@/components/useDelayedNavigation";
 import DelayedLink from "@/components/DelayedLink";
 import { LinearGradient } from 'expo-linear-gradient';
+import { addDays, differenceInDays } from "date-fns";
+import { router } from "expo-router";
 
 
 export default function RootLayout() {
@@ -24,6 +26,27 @@ export default function RootLayout() {
   const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const { user } = useContext(AuthContext);
+
+  const openService = (service: string) => {
+    router.push({
+      pathname: 'contact',
+      params: {
+        service,
+      },
+    });
+  }
+
+  const getDaysUntilNextService = (lastServiceDate, interval = 30) => {
+    if (!lastServiceDate) return 0;
+
+    const currentDate = new Date();
+    const nextServiceDate = addDays(new Date(lastServiceDate), interval);
+
+    return Math.max(differenceInDays(nextServiceDate, currentDate), 0);
+  };
+
+  const solarPenalDaysLeft = getDaysUntilNextService(user.solarPanelCleanedDate);
+  const septicTankCleanDaysLeft = getDaysUntilNextService(user.septicTankCleanedDate);
 
   return (
     <GradientBackgroundComponent>
@@ -113,40 +136,49 @@ export default function RootLayout() {
                     <SvgArrow />
                   </TouchableOpacity>
                 </View>
-                <DelayedLink href="/notificationsetting" >
-                  <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex]}>
+                {
+                  (!user.solarPanelCleanedDate || !user.septicTankCleanedDate) &&
+                  <DelayedLink href="/notificationsetting" >
+                    <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex]}>
 
-                    <View style={styles.rightGap}>
-                      <View style={styles.blueDot}></View>
+                      <View style={styles.rightGap}>
+                        <View style={styles.blueDot}></View>
+                      </View>
+                      <Text style={styles.textGray} >
+                        Set Solar and septic tank alerts {">"}
+                      </Text>
                     </View>
-                    <Text style={styles.textGray} >
-                      Set Solar and septic tank alerts {">"}
-                    </Text>
-                  </View>
-                </DelayedLink>
-                <DelayedLink href="/contact" >
-                  <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex, { paddingVertical: 10 }]}>
-                    <View style={styles.rightGap}>
-                      <View style={styles.blueDot}></View>
+                  </DelayedLink>
+                }
+                {
+                  solarPenalDaysLeft <= 14 &&
+                  <TouchableOpacity onPress={() => openService('solar')} >
+                    <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex, { paddingVertical: 10 }]}>
+                      <View style={styles.rightGap}>
+                        <View style={styles.blueDot}></View>
 
+                      </View>
+                      <Text style={styles.textGray} >
+                        Solar panel maintenance {solarPenalDaysLeft > 0 ? `time in ${solarPenalDaysLeft} days` : 'is due now'}. {">"}
+                      </Text>
                     </View>
-                    <Text style={styles.textGray} >
-                      Solar panel maintenance time in 12 days. {">"}
-                    </Text>
-                  </View>
-                </DelayedLink>
-                <Text >
-                  <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex]}>
+                  </TouchableOpacity>
+                }
+                {
+                  septicTankCleanDaysLeft <= 14 &&
+                  <TouchableOpacity onPress={() => openService('septic')} >
+                    <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex]}>
 
-                    <View style={styles.rightGap}>
-                      <View style={styles.blueDot}></View>
+                      <View style={styles.rightGap}>
+                        <View style={styles.blueDot}></View>
 
+                      </View>
+                      <Text style={styles.textGray} >
+                        Septic tank maintenance {septicTankCleanDaysLeft > 0 ? `time in ${septicTankCleanDaysLeft} days` : 'is due now'}. {">"}
+                      </Text>
                     </View>
-                    <Text style={styles.textGray} >
-                      Septic tank maintenance time in 30 days. {">"}
-                    </Text>
-                  </View>
-                </Text>
+                  </TouchableOpacity>
+                }
                 <View>
                   <Text
                     style={[
@@ -155,6 +187,7 @@ export default function RootLayout() {
                       styles.upperGap14,
                       styles.textEnd,
                     ]}
+                    onPress={() => { delayedNavigate('/updates') }}
                   >
                     More alerts...
                   </Text>

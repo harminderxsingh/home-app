@@ -17,7 +17,6 @@ import { router } from "expo-router";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import { format, formatDate } from "date-fns";
 import { AuthContext } from "@/contexts/AuthContext";
-import BlurViewComponent from "@/components/BlurViewComponent";
 import CardComponent from "@/components/CardComponent";
 
 
@@ -73,14 +72,7 @@ export default function NotificationSetting() {
                             <View style={{ flexDirection: "row", justifyContent: "center", borderBottomColor: "#fff", borderBottomWidth: 1, paddingBottom: 52, marginVertical: 20 }}>
                                 <SvgAlert />
                             </View>
-
-
-
                         </View>
-
-
-
-
                         <View style={{ marginBottom: 80 }}>
                             <View>
                                 <Text style={styles.label}>Date of house purchase </Text>

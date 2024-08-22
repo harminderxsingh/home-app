@@ -1,16 +1,14 @@
 
-import { Link, router, useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { View, Text } from "react-native";
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import SvgSunWithEarth from '@/assets/images/sunWithEarth.svg';
-import SvgLeftArrow from '@/assets/images/leftArrow.svg';
-import SvgBurgerIcon from '@/assets/images/blackBurgur.svg';
 import SvgPenIcon from '@/assets/images/pen.svg';
 import { StatusBar } from "expo-status-bar";
 import { loanService } from "@/services/LoanService";
-import { addMonths, differenceInMonths, format, isAfter } from "date-fns";
+import { addMonths, differenceInMonths, format } from "date-fns";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import Header from "../header/_layout";
 
@@ -60,7 +58,7 @@ export default function MortgageData() {
         const emi = calculateEmi(loanAmount, annualRateOfInterest, periodOfLoanInMonths);
     
         // Principal and Interest calculations
-        let remainingPrincipal = loanAmount;
+        let remainingPrincipal = +loanAmount;
         let interestPaid = 0;
         let principalPaid = 0;
     

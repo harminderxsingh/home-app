@@ -9,7 +9,7 @@ import {
 import ButtonComponent from "@/components/ButtonComponent";
 import InputComponent from "@/components/InputComponent";
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import Header from "../header/_layout";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import SvgPhone from '@/assets/images/phone-black.svg';
@@ -22,6 +22,7 @@ import { router } from "expo-router";
 import { AuthContext } from "@/contexts/AuthContext";
 
 export default function Contact() {
+    const { service } = useLocalSearchParams<{ service: string }>();
     const { user, updateNotification } = useContext(AuthContext);
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [value, setValue] = useState('');
@@ -39,8 +40,10 @@ export default function Contact() {
 
     const handleUpdate = async () => {
         try {
-            await updateNotification({ ...user, solarPanelCleanedDate: value })
             router.push('dashboard')
+            if (value) {
+                await updateNotification({ ...user, [service == 'solar' ? 'solarPanelCleanedDate' : 'septicTankCleanedDate']: value })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -52,7 +55,7 @@ export default function Contact() {
                 <Header isBack={true} />
                 <ScrollView style={{ backgroundColor: "#F7F7F7", borderTopLeftRadius: 16, borderTopRightRadius: 16, marginHorizontal: 25, padding: 29, height: calculatedHeight, flexDirection: "column" }}>
                     <View>
-                        <Text style={styles.title}>Solar panel cleaning time</Text>
+                        <Text style={styles.title}>{service == 'solar' ? 'Solar panel' : 'Septic'} cleaning time</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center", paddingHorizontal: 20 }}>
                             <SvgWarning />
                             <Text style={{ color: "#595959", fontSize: 12, marginStart: 5 }}>Keeping your solar panels clean would maximize your annual saving.</Text>
