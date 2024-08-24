@@ -45,8 +45,8 @@ export default function RootLayout() {
     return Math.max(differenceInDays(nextServiceDate, currentDate), 0);
   };
 
-  const solarPenalDaysLeft = getDaysUntilNextService(user.solarPanelCleanedDate);
-  const septicTankCleanDaysLeft = getDaysUntilNextService(user.septicTankCleanedDate);
+  const solarPenalDaysLeft = getDaysUntilNextService(user?.solarPanelCleanedDate);
+  const septicTankCleanDaysLeft = getDaysUntilNextService(user?.septicTankCleanedDate);
 
   return (
     <GradientBackgroundComponent>
@@ -137,7 +137,7 @@ export default function RootLayout() {
                   </TouchableOpacity>
                 </View>
                 {
-                  (!user.solarPanelCleanedDate || !user.septicTankCleanedDate) &&
+                  (!user?.solarPanelCleanedDate || !user?.septicTankCleanedDate) &&
                   <DelayedLink href="/notificationsetting" >
                     <View style={[styles.font13, styles.textGray, styles.upperGap14, styles.flex]}>
 

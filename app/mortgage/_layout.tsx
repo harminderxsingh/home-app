@@ -51,7 +51,7 @@ export default function MortgageData() {
         
         // Calculate time-related information
         const monthsElapsed = Math.max(differenceInMonths(currentDate, dateLoanStart), 0);
-        const totalMonthsRemaining = differenceInMonths(addMonths(dateLoanStart, periodOfLoanInMonths), currentDate) + monthsElapsed;
+        const totalMonthsRemaining = differenceInMonths(addMonths(dateLoanStart, periodOfLoanInMonths), currentDate);
         const nextEmiDate = addMonths(dateLoanStart, monthsElapsed + 1);
     
         // EMI calculation
