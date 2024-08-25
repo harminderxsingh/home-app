@@ -1,6 +1,9 @@
 import GradientBackgroundComponent from "@/components/GradientBackgroundComponent";
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import { StyleSheet } from "react-native";
+import * as Location from 'expo-location';
+import * as Linking from 'expo-linking';
+import * as SecureStore from 'expo-secure-store';
 import Header from "../header/_layout";
 
 import SvgSetting from '@/assets/images/setting.svg';
@@ -8,24 +11,96 @@ import SvgArrow from '@/assets/images/rightArrw.svg';
 import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 import useDelayedNavigation from "@/components/useDelayedNavigation";
 import DelayedLink from "@/components/DelayedLink";
 import { LinearGradient } from 'expo-linear-gradient';
 import { addDays, differenceInDays } from "date-fns";
 import { router } from "expo-router";
+import axios from "axios";
 
 
 export default function RootLayout() {
   const delayedNavigate = useDelayedNavigation();
-
+  const [weather, setWeather] = useState({ temp: SecureStore.getItem('temp'), loading: true });
+  const [city, setCity] = useState(SecureStore.getItem('city'));
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  // const [address, setAddress] = useState('');
 
   const { height } = Dimensions.get('window');
   const SHORT_HEIGHT_THRESHOLD = 767;
   const isShortHeight = height <= SHORT_HEIGHT_THRESHOLD;
 
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchLocationAndWeather = async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setWeather({ ...weather, loading: false });
+          return;
+        }
+
+        const location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
+        // const latitude = 31.5602595
+        // const longitude = 75.5357396
+
+        // Fetch city, state, and country from OpenCage Geocoding API
+        axios.get(`https://api.opencagedata.com/geocode/v1/json`, {
+          params: {
+            q: `${latitude},${longitude}`,
+            key: '07b4360876f34273bca374997a6ed1e0',
+          },
+        }).then((addressResponse) => {
+          const components = addressResponse.data.results[0]?.components || {};
+          setCity(components.town || components.city || components.state_district || 'Unknown City');
+          setState(components.state || 'Unknown State');
+          setCountry(components.country_code || 'Unknown Country');
+        })
+
+        // Fetch weather data from Open-Meteo API
+        const weatherResponse = await axios.get(`https://api.open-meteo.com/v1/forecast`, {
+          params: {
+            latitude: latitude,
+            longitude: longitude,
+            current_weather: true,
+          },
+        });
+
+        const temperature = weatherResponse.data.current_weather.temperature;
+        setWeather({
+          temp: temperature,
+          loading: false,
+        });
+
+      } catch (error) {
+        console.error("Error fetching location, address, or weather data:", error);
+        setWeather({ ...weather, loading: false });
+      }
+    };
+
+    fetchLocationAndWeather();
+  }, []);
+
+
+  useEffect(() => {
+    SecureStore.setItemAsync('city', city)
+    SecureStore.setItemAsync('temp', `${weather.temp}`)
+  }, [city, weather.temp])
+
+  const openWeather = () => {
+    // Format URL for The Weather Network
+    const formattedCity = encodeURIComponent(city.toLowerCase().replace(/\s+/g, '-'));
+    const formattedState = encodeURIComponent(state.toLowerCase().replace(/\s+/g, '-'));
+    const formattedCountry = encodeURIComponent(country.toLowerCase().replace(/\s+/g, '-'));
+    // Construct URL with dynamic city, state, and country
+    const weatherUrl = `https://www.theweathernetwork.com/en/city/${formattedCountry}/${formattedState}/${formattedCity}/current`;
+    Linking.openURL(weatherUrl).catch(err => console.error("Failed to open URL: ", err));
+  };
 
   const openService = (service: string) => {
     router.push({
@@ -58,7 +133,7 @@ export default function RootLayout() {
             Welcome home {user?.fullName}
           </Text>
           <Text style={[styles.font14, styles.fontWight600, styles.textWhite, { marginBottom: 10 }]}>
-            Uni t 22, Nara St. BillionBricks Tartac
+            Unit 22, Nara St. BillionBricks Tartac
           </Text>
           {/* <BlurView
             intensity={10} tint='light' blurReductionFactor={2}
@@ -73,7 +148,7 @@ export default function RootLayout() {
                 style={styles.background1}
 
               /> */}
-            <View style={[
+            <TouchableOpacity onPress={openWeather} style={[
               styles.notification,
               styles.upperGap14,
               { flexDirection: "row", alignItems: "center" },
@@ -83,9 +158,9 @@ export default function RootLayout() {
               </View>
               <Text style={[styles.font14, { color: "#595959" }]}>
                 {" "}
-                Today is 2BC with a high chance of rain
+                Today's Weather: {weather.temp}°C in {city}
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           {/* </BlurView> */}
@@ -233,7 +308,7 @@ export default function RootLayout() {
                       },
                     ]}
                   >
-                    7
+                    0
                   </Text>
                   <Text
                     style={[
