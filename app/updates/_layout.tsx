@@ -2,20 +2,45 @@ import { Link } from "expo-router";
 import { View, Text } from "react-native";
 import { Image, StyleSheet } from 'react-native';
 import { GestureHandlerRootView, TouchableOpacity } from "react-native-gesture-handler";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SvgLeftArrow from '@/assets/images/leftArrow.svg';
 import SvgBlackBurger from '@/assets/images/blackBurgur.svg';
 import SvgPinkDot from '@/assets/images/pinkdot.svg';
 import { StatusBar } from "expo-status-bar";
 import Header from "../header/_layout";
+import { AuthContext } from "@/contexts/AuthContext";
+import { addDays, differenceInDays } from "date-fns";
+import { router } from "expo-router";
 
 
 export default function Updates() {
+    const { user } = useContext(AuthContext);
     const [showNewComponent, setShowNewComponent] = useState(false);
 
     const handleButtonClick = () => {
         setShowNewComponent(!showNewComponent);
     };
+
+    const openService = (service: string) => {
+        router.push({
+            pathname: 'contact',
+            params: {
+                service,
+            },
+        });
+    }
+
+    const getDaysUntilNextService = (lastServiceDate, interval = 30) => {
+        if (!lastServiceDate) return 0;
+
+        const currentDate = new Date();
+        const nextServiceDate = addDays(new Date(lastServiceDate), interval);
+
+        return Math.max(differenceInDays(nextServiceDate, currentDate), 0);
+    };
+
+    const solarPenalDaysLeft = getDaysUntilNextService(user?.solarPanelCleanedDate);
+    const septicTankCleanDaysLeft = getDaysUntilNextService(user?.septicTankCleanedDate);
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -43,41 +68,40 @@ export default function Updates() {
                             <Text style={[styles.title, styles.font24,]} >Updates and news</Text>
                             <Text style={[styles.font14, { color: "rgba(121, 101, 101, 0.8)", marginTop: 12 }]}>
                                 {/* You have 3 unread  updates */}
-                                You do not have any update now
-                                </Text>
+                                {/* You do not have any update now */}
+                            </Text>
                             <View style={{ marginTop: 40, }}>
-                                {/* <Link href='/ads' style={[styles.btn,]} >
-                                    <View style={{ flexDirection: "row" }} >
-                                        <View style={{ marginTop: 5 }}>
-                                            <SvgPinkDot />
-                                        </View>
-                                        <View style={{ paddingLeft: 20 }}>
-                                            <Text style={styles.heading}>
-                                                New Deals with bal dal electronics
-                                            </Text>
-                                            <Text style={styles.count}>
-                                                12/04/2024
-                                            </Text>
-                                        </View>
-                                    </View>
-                                </Link>
-                                <Link href='/ads' style={[styles.btn,]} >
-                                    <View style={{ flexDirection: "row" }} >
-                                        <View style={{ marginTop: 5 }}>
-                                            <SvgPinkDot />
-                                        </View>
+                                {(!user?.solarPanelCleanedDate || !user?.septicTankCleanedDate) &&
+                                    <Link href='/notificationsetting' style={[styles.btn,]} >
+                                        <View style={{ flexDirection: "row" }} >
+                                            <View style={{ marginTop: 5 }}>
+                                                <SvgPinkDot />
+                                            </View>
 
-                                        <View style={{ paddingLeft: 20 }}>
-                                            <Text style={styles.heading}>
-                                                Time to update your app
-                                            </Text>
-                                            <Text style={styles.count}>
-                                                12/04/2024
-                                            </Text>
+                                            <View style={{ paddingLeft: 20 }}>
+                                                <Text style={styles.heading}>
+                                                    Set Solar and septic tank alerts {">"}
+                                                </Text>
+                                            </View>
                                         </View>
-                                    </View>
-                                </Link>
-                                <Link href='/ads' style={[styles.btn,]} >
+                                    </Link>
+                                }
+                                {solarPenalDaysLeft <= 14 &&
+                                    <TouchableOpacity onPress={() => openService('solar')} style={[styles.btn,]} >
+                                        <View style={{ flexDirection: "row" }} >
+                                            <View style={{ marginTop: 5 }}>
+                                                <SvgPinkDot />
+                                            </View>
+                                            <View style={{ paddingLeft: 20 }}>
+                                                <Text style={styles.heading}>
+                                                    Solar panel maintenance {solarPenalDaysLeft > 0 ? `time in ${solarPenalDaysLeft} days` : 'is due now'}. {">"}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                }
+                                { septicTankCleanDaysLeft <= 14 &&
+                                <TouchableOpacity onPress={() => openService('septic')} style={[styles.btn,]} >
                                     <View style={{ flexDirection: "row" }} >
                                         <View style={{ marginTop: 5 }}>
                                             <SvgPinkDot />
@@ -90,8 +114,9 @@ export default function Updates() {
                                             </Text>
                                         </View>
                                     </View>
-                                </Link>
-                                <Link href='/ads' style={[styles.btn,]} >
+                                </TouchableOpacity>
+}
+                                {/* <Link href='/ads' style={[styles.btn,]} >
                                     <View style={{ flexDirection: "row" }} >
                                         <View style={{ marginTop: 5 }}>
                                             <SvgPinkDot />
@@ -106,6 +131,21 @@ export default function Updates() {
                                         </View>
                                     </View>
                                 </Link> */}
+                                <Link href='/dashboard' style={[styles.btn,]} >
+                                    <View style={{ flexDirection: "row" }} >
+                                        <View style={{ marginTop: 5 }}>
+                                            <SvgPinkDot />
+                                        </View>
+                                        <View style={{ paddingLeft: 20 }}>
+                                            <Text style={styles.heading}>
+                                                Great offers are on the way
+                                            </Text>
+                                            <Text style={styles.count}>
+                                                12/04/2024
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </Link>
 
                             </View>
                         </View>
@@ -132,7 +172,7 @@ const styles = StyleSheet.create({
     },
     outerGap: {
         marginTop: 50,
-        marginHorizontal:20
+        marginHorizontal: 20
     },
     logo: {
         width: 40,

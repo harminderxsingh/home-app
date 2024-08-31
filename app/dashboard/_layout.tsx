@@ -123,6 +123,9 @@ export default function RootLayout() {
   const solarPenalDaysLeft = getDaysUntilNextService(user?.solarPanelCleanedDate);
   const septicTankCleanDaysLeft = getDaysUntilNextService(user?.septicTankCleanedDate);
 
+  const updateNumber = 1 + (solarPenalDaysLeft <= 14 ? 1 : 0) + (septicTankCleanDaysLeft <= 14 ? 1 : 0)
+    + ((!user?.solarPanelCleanedDate || !user?.septicTankCleanedDate) ? 1 : 0)
+
   return (
     <GradientBackgroundComponent>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -181,6 +184,7 @@ export default function RootLayout() {
                 >
                   Notifications
                 </Text>
+                { /* 
                 <View
                   style={[
                     styles.bgPink,
@@ -210,7 +214,7 @@ export default function RootLayout() {
                   >
                     <SvgArrow />
                   </TouchableOpacity>
-                </View>
+                </View> */ }
                 {
                   (!user?.solarPanelCleanedDate || !user?.septicTankCleanedDate) &&
                   <DelayedLink href="/notificationsetting" >
@@ -295,20 +299,18 @@ export default function RootLayout() {
                       styles.textWhite,
                       styles.fontWight600,
                       {
-                        marginTop: 9,
-                        marginRight: 8,
+                        padding: 0,
+                        marginTop: 2,
+                        marginRight: 2,
                         height: 25,
                         width: 25,
-                        paddingTop: 2,
-                        paddingRight: 7,
+                        lineHeight: 25,
                         fontSize: 17,
-                        flexDirection: "row",
-                        justifyContent: "center",
-                        alignItems: "center"
+                        textAlign: 'center',
                       },
                     ]}
                   >
-                    0
+                    {updateNumber}
                   </Text>
                   <Text
                     style={[
@@ -346,7 +348,6 @@ export default function RootLayout() {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => { delayedNavigate('/chat') }}
-
               >
                 <View
 
